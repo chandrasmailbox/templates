@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebraska Will for Child Guardianship</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; background: white; }
+            .no-print { display: none !important; }
+            .container { box-shadow: none; padding: 0; }
+            .page { page-break-after: always; padding: 0.75in; }
+            .page:last-child { page-break-after: auto; }
+            input { border-bottom: 1px solid #000 !important; background: white !important; }
+            input::placeholder { color: transparent !important; }
+            input::-webkit-input-placeholder { color: transparent !important; }
+            input::-moz-placeholder { color: transparent !important; }
+            input:-ms-input-placeholder { color: transparent !important; }
+            .field-wrapper { display: inline-block; }
+            .controls { display: none !important; }
+            @page { 
+                size: letter;
+                margin: 0;
+            }
+        }
+        body {
+            font-family: 'Times New Roman', serif;
+            background: #e0e0e0;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        .page {
+            padding: 0.75in;
+            background: white;
+        }
+        h1 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 12px;
+            margin: 3px 0;
+        }
+        h2 {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            text-decoration: underline;
+        }
+        p {
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0 0 8px 0;
+            text-align: justify;
+        }
+        .field-wrapper {
+            display: inline-block;
+            position: relative;
+            vertical-align: baseline;
+        }
+        input[type="text"], input[type="date"] {
+            border: none;
+            border-bottom: 1px solid #333;
+            background: #fffacd;
+            padding: 1px 3px;
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            vertical-align: baseline;
+        }
+        input[type="text"]:focus, input[type="date"]:focus {
+            outline: none;
+            background: #ffffe0;
+            border-bottom: 2px solid #0066cc;
+        }
+        .controls {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .controls input[type="number"] {
+            width: 40px;
+            padding: 2px;
+            margin: 0 3px;
+            border: 1px solid #666;
+            background: white;
+            font-size: 11px;
+        }
+        .controls input[type="checkbox"] {
+            margin: 0 3px;
+        }
+        .controls label {
+            margin-right: 8px;
+            font-size: 11px;
+        }
+        .short { width: 50px; min-width: 50px; max-width: 50px; }
+        .medium { width: 150px; min-width: 150px; max-width: 150px; }
+        .long { width: 250px; min-width: 250px; max-width: 250px; }
+        .xlong { width: 350px; min-width: 350px; max-width: 350px; }
+        .full-width { width: 100%; display: block; margin: 3px 0; max-width: 500px; }
+        ul {
+            margin: 5px 0 8px 30px;
+            padding: 0;
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+        .signature-section {
+            margin-top: 15px;
+        }
+        .sig-line {
+            display: inline-block;
+            width: 250px;
+            border-bottom: 1px solid #000;
+            margin: 0 5px;
+        }
+        .witness-block {
+            margin: 15px 0;
+        }
+        .button-container {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .clear-btn {
+            background: #f44336;
+        }
+        .clear-btn:hover {
+            background: #da190b;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .print-tip {
+            background: #f0f0f0;
+            padding: 10px;
+            border-left: 4px solid #666;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container no-print">
+        <div class="instructions">
+            <strong>Instructions:</strong> Click on any yellow field to show styling controls (font size & bold). Fill in all fields, then click "Print to PDF" to save your completed document.
+            <div class="print-tip">
+                <strong>💡 To remove headers/footers:</strong> In the print dialog, look for "More settings" or "Options" and uncheck "Headers and footers" to remove the file path, date, and page numbers that your browser adds.
+            </div>
+        </div>
+        <div class="instructions" style="background: #fff3cd; border-left-color: #ff9800;">
+            <strong>⚠️ LEGAL DISCLAIMER:</strong> This document is provided as a template for informational purposes only and does not constitute legal advice. Creating a valid will requires compliance with Nebraska state law, including proper execution, witnessing, and notarization requirements. This template may not address your specific circumstances or comply with all legal requirements. We strongly recommend consulting with a qualified attorney licensed in Nebraska to ensure your will is legally valid and properly reflects your wishes. The creators of this template assume no responsibility or liability for any consequences resulting from the use of this document.
+        </div>
+        <button onclick="window.print()">🖨️ Print to PDF</button>
+        <button class="clear-btn" onclick="clearForm()">🗑️ Clear All Fields</button>
+    </div>
+
+    <div class="container">
+        <!-- PAGE 1 -->
+        <div class="page">
+            <h1>LAST WILL AND TESTAMENT</h1>
+            <div class="subtitle">of</div>
+            <div class="subtitle"><span class="field-wrapper"><input type="text" class="long" maxlength="60"></span></div>
+            <div class="subtitle">City of Omaha, Douglas County, Nebraska</div>
+
+            <h2>Declaration</h2>
+            <p>
+                I, <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, residing at
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="xlong full-width" maxlength="60"></span>, being of sound mind, declare this to be my Last Will and Testament, revoking all prior wills and codicils.
+            </p>
+
+            <h2>Family Information</h2>
+            <p>
+                I am married to <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, and we have the following children:
+            </p>
+            <ul>
+                <li><span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, <input type="text" class="medium" placeholder="mm/dd/yyyy"></li>
+                <li><span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, <input type="text" class="medium" placeholder="mm/dd/yyyy"></li>
+            </ul>
+
+            <h2>Appointment of Executor</h2>
+            <p>
+                I appoint <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, residing at
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span> as Executor of this will. If he/she/they is unable or unwilling to serve, I appoint <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, residing at
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span> as alternate Executor. The Executor shall have full authority to settle my estate according to this will, including managing property and distributing assets.
+            </p>
+            
+            <h2>Appointment of Guardian for Minor Children</h2>
+            <p>
+                In the event of my death (and that of my spouse, if applicable), I appoint <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>,
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="xlong full-width" maxlength="60"></span>,
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span> as the Guardian of my minor children. If <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span> is unable or unwilling to serve, I appoint
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>,
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="xlong full-width" maxlength="60"></span>, <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span> as alternate Guardian. The Guardian shall have full legal custody and authority to make all decisions for my children's health, education, residence, and general welfare until they reach the age of majority.
+            </p>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page">
+
+            <h2>Distribution of Property</h2>
+            <p>
+                I direct that all my property, real and personal, be distributed as follows:
+            </p>
+            <ul>
+                <li>To my spouse, <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>, all my estate.</li>
+                <li>If my spouse does not survive me, then to my children in equal shares.</li>
+            </ul>
+            <p>
+                Any property left for my children shall be held in trust by the Executor or Guardian until each child reaches age
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="short"></span>, and may be used for their education, health, and general welfare.
+            </p>
+
+            <h2>Signature</h2>
+            <div class="signature-section">
+                <p>
+                    I sign this will on this <span class="field-wrapper"><input type="text" class="short"></span> day of <span class="field-wrapper"><input type="text" class="medium"></span>, <span class="field-wrapper"><input type="text" class="short"></span>, in Omaha, Nebraska.
+                </p>
+                <p>
+                    Signature of Testator (You): <span class="sig-line"></span>
+                </p>
+                <p>
+                    Printed Name: <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span>
+                </p>
+            </div>
+
+             <h2>Witnesses</h2>
+            <p>
+                We, the undersigned, hereby declare that the above-named testator signed this document as their Last Will and Testament in our presence, that the testator appeared to be of sound mind, and that we signed this will in the testator's presence and in each other's presence.
+            </p>
+
+            <div class="witness-block">
+                <p><strong>Witness #1:</strong></p>
+                <p>Signature: <span class="sig-line"></span></p>
+                <p>Name: <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span></p>
+                <p>Address: <span class="field-wrapper"><input type="text" class="xlong full-width" maxlength="60"></span></p>
+            </div>
+
+            <div class="witness-block">
+                <p><strong>Witness #2:</strong></p>
+                <p>Signature: <span class="sig-line"></span></p>
+                <p>Name: <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span></p>
+                <p>Address: <span class="field-wrapper"><input type="text" class="xlong full-width" maxlength="60"></span></p>
+            </div>
+
+             <h2>Self-Proving Affidavit (Optional – Notary Section)</h2>
+
+            <p>
+                We, <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, and
+            </p>
+            <p>
+                <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, being duly sworn, declare to the undersigned authority that the testator signed this instrument as their Last Will and Testament and that each of us signed as witnesses in the testator's presence.
+            </p>
+            <p>
+                Subscribed and sworn before me this <span class="field-wrapper"><input type="text" class="short"></span> day of <span class="field-wrapper"><input type="text" class="medium"></span>, <span class="field-wrapper"><input type="text" class="short"></span>.
+            </p>
+            <p>
+                Notary Public: <span class="sig-line"></span>
+            </p>
+            <p>
+                My Commission Expires: <input type="text" class="medium" placeholder="mm/dd/yyyy">
+            </p>
+            
+        </div>
+
+    
+
+  
+    </div>
+
+    <script>
+        let currentControls = null;
+
+        // Add controls to each text input field
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            const wrapper = input.closest('.field-wrapper');
+            if (!wrapper) return;
+
+            // Create controls
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+            controls.innerHTML = `
+                <label>Size: <input type="number" class="size-control" value="12" min="8" max="24" step="1"></label>
+                <label><input type="checkbox" class="bold-control"> Bold</label>
+            `;
+            wrapper.appendChild(controls);
+
+            const sizeControl = controls.querySelector('.size-control');
+            const boldControl = controls.querySelector('.bold-control');
+
+            // Show controls on focus
+            input.addEventListener('focus', () => {
+                if (currentControls && currentControls !== controls) {
+                    currentControls.style.display = 'none';
+                }
+                controls.style.display = 'block';
+                currentControls = controls;
+            });
+
+            // Hide controls when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!wrapper.contains(e.target)) {
+                    controls.style.display = 'none';
+                    if (currentControls === controls) {
+                        currentControls = null;
+                    }
+                }
+            });
+
+            // Apply font size
+            sizeControl.addEventListener('input', () => {
+                input.style.fontSize = sizeControl.value + 'px';
+            });
+
+            // Apply bold
+            boldControl.addEventListener('change', () => {
+                input.style.fontWeight = boldControl.checked ? 'bold' : 'normal';
+            });
+        });
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"]').forEach(input => {
+                    input.value = '';
+                    input.style.fontSize = '12px';
+                    input.style.fontWeight = 'normal';
+                    
+                    const wrapper = input.closest('.field-wrapper');
+                    if (wrapper) {
+                        const sizeControl = wrapper.querySelector('.size-control');
+                        const boldControl = wrapper.querySelector('.bold-control');
+                        if (sizeControl) sizeControl.value = 12;
+                        if (boldControl) boldControl.checked = false;
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
