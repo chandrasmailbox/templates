@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residential Rent Agreement - Crove Format</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; background: white; }
+            .no-print { display: none !important; }
+            .container { box-shadow: none; padding: 0; }
+            .page { page-break-after: always; padding: 0.75in; }
+            .page:last-child { page-break-after: auto; }
+            input, select, textarea { border-bottom: 1px solid #000 !important; background: white !important; }
+            input::placeholder, textarea::placeholder { color: transparent !important; }
+            .field-wrapper { display: inline-block; }
+            .controls { display: none !important; }
+            .signature-pad { border: 1px solid #000; }
+            .sig-buttons { display: none !important; }
+            @page { 
+                size: letter;
+                margin: 0;
+            }
+        }
+        body {
+            font-family: 'Times New Roman', serif;
+            background: #e0e0e0;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        .page {
+            padding: 0.75in;
+            background: white;
+        }
+        h1 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            letter-spacing: 1px;
+        }
+        h2 {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+        }
+        h3 {
+            font-size: 12px;
+            font-weight: bold;
+            margin: 15px 0 8px 0;
+        }
+        p {
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+        .field-wrapper {
+            display: inline-block;
+            position: relative;
+            vertical-align: baseline;
+        }
+        input[type="text"], input[type="date"], select, textarea {
+            border: none;
+            border-bottom: 1px solid #333;
+            background: #fffacd;
+            padding: 1px 3px;
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            vertical-align: baseline;
+        }
+        textarea {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            min-height: 40px;
+            resize: vertical;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+            outline: none;
+            background: #ffffe0;
+            border-bottom: 2px solid #0066cc;
+        }
+        input[type="checkbox"] {
+            margin: 0 5px;
+        }
+        .controls {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .controls input[type="number"] {
+            width: 40px;
+            padding: 2px;
+            margin: 0 3px;
+            border: 1px solid #666;
+            background: white;
+            font-size: 11px;
+        }
+        .controls input[type="checkbox"] {
+            margin: 0 3px;
+        }
+        .controls label {
+            margin-right: 8px;
+            font-size: 11px;
+        }
+        .xshort { width: 40px; min-width: 40px; max-width: 40px; }
+        .short { width: 80px; min-width: 80px; max-width: 80px; }
+        .medium { width: 180px; min-width: 180px; max-width: 180px; }
+        .long { width: 280px; min-width: 280px; max-width: 280px; }
+        .xlong { width: 450px; min-width: 450px; max-width: 450px; }
+        ul, ol {
+            margin: 5px 0 10px 30px;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .indent {
+            margin-left: 30px;
+        }
+        .party-section {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #333;
+        }
+        .signature-section {
+            margin-top: 30px;
+        }
+        .signature-pad {
+            border: 2px solid #333;
+            background: white;
+            cursor: crosshair;
+            display: block;
+            margin: 10px 0;
+        }
+        .sig-buttons {
+            margin: 5px 0;
+        }
+        .sig-buttons button {
+            padding: 5px 15px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .button-container {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .clear-btn {
+            background: #f44336;
+        }
+        .clear-btn:hover {
+            background: #da190b;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .print-tip {
+            background: #f0f0f0;
+            padding: 10px;
+            border-left: 4px solid #666;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container no-print">
+        <div class="instructions">
+            <strong>Instructions:</strong> Click on any yellow field to show styling controls (font size & bold). Fill in all fields, then click "Print to PDF" to save your completed document.
+            <div class="print-tip">
+                <strong>💡 To remove headers/footers:</strong> In the print dialog, uncheck "Headers and footers" to remove the file path and date.
+            </div>
+        </div>
+        <div class="instructions" style="background: #fff3cd; border-left-color: #ff9800;">
+            <strong>⚠️ LEGAL DISCLAIMER:</strong> This is a template document for informational purposes only and does not constitute legal advice. Rental agreements must comply with state laws and local regulations. Consult with a qualified attorney to ensure your agreement is legally valid.
+        </div>
+        <button onclick="window.print()">🖨️ Print to PDF</button>
+        <button class="clear-btn" onclick="clearForm()">🗑️ Clear All Fields</button>
+    </div>
+
+    <div class="container">
+        <!-- PAGE 1 -->
+        <div class="page">
+            <h1>RENT AGREEMENT</h1>
+            
+            <p>
+                This rent agreement ("Agreement") is made on <span class="field-wrapper"><input type="text" class="xshort" maxlength="10"></span> day of <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, <span class="field-wrapper"><input type="text" class="xshort" maxlength="10"></span> at <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>
+            </p>
+
+            <h2>BETWEEN:</h2>
+
+            <div class="party-section">
+                <h3>LANDLORD(s)</h3>
+                <p>
+                    <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span> having Aadhaar Number: <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, resident of <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span> (hereinafter referred to as the "LANDLORD") which expression shall, unless repugnant to the context, mean and include his heirs, executors, and permitted assigns.
+                </p>
+            </div>
+
+            <h2>AND:</h2>
+
+            <div class="party-section">
+                <h3>TENANT(s)</h3>
+                <p>
+                    <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span> having Aadhaar Number: <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span>, resident of <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span> (hereinafter referred to as the "TENANT") which expression shall, unless repugnant to the context, mean and include his heirs, executors, and permitted assigns.
+                </p>
+            </div>
+
+            <h2>WHEREAS</h2>
+            <p>
+                The said LANDLORD(s) is sole and absolute (Landlord/Landlady) of the Property: <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span> (hereinafter referred as "PROPERTY"), and the above said TENANT(s) has contacted the LANDLORD(s) to take the property on rent and the LANDLORD(s) has agreed to let out the Property to the above TENANT(s) on the below-given terms and conditions.
+            </p>
+
+            <h2>NOW, THIS DEED FURTHER WITNESSETH AND AGREED BY AND BETWEEN THE SAID PARTIES AS FOLLOWS:</h2>
+
+            <ol>
+                <li>
+                    <strong>Term of Tenancy:</strong> The term of this agreement shall be for <span class="field-wrapper"><input type="text" class="short" maxlength="10"></span> months, commencing from <span class="field-wrapper"><input type="text" class="xshort"></span>/<span class="field-wrapper"><input type="text" class="xshort"></span>/<span class="field-wrapper"><input type="text" class="xshort"></span> and ending on <span class="field-wrapper"><input type="text" class="xshort"></span>/<span class="field-wrapper"><input type="text" class="xshort"></span>/<span class="field-wrapper"><input type="text" class="xshort"></span>.
+                </li>
+
+                <li>
+                    <strong>Rent and Security Deposit:</strong>
+                    <ol type="a">
+                        <li>The monthly rent for the property is ₹ <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span> (<span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span>) per month.</li>
+                        <li>The tenant agrees to pay the monthly rent on or before <span class="field-wrapper"><input type="text" class="xshort" maxlength="10"></span> day of each month.</li>
+                        <li>A security deposit of ₹ <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span> (<span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span>) has been paid by the tenant to the landlord and this amount will carry no interest. The security deposit shall be refunded at the end of the tenancy period, subject to deductions for any damages or outstanding dues.</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page">
+            <ol start="3">
+                <li>
+                    <strong>Utilities and Maintenance:</strong>
+                    <ol type="a">
+                        <li>The tenant will be responsible for paying utility bills including electricity, water, gas, and any other applicable charges.</li>
+                        <li>Society Maintenance charges if any, are excluded in the monthly rent and maintenance will be directly paid by the tenant to the society.</li>
+                        <li>The tenant shall maintain the property in good condition and shall be responsible for any damages caused beyond normal wear and tear.</li>
+                        <li>The landlord shall be responsible for regular maintenance and repairs, including plumbing, electrical, and structural maintenance.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Use of Property:</strong>
+                    <ol type="a">
+                        <li>The property shall be used solely for residential purposes by the tenant.</li>
+                        <li>Subletting, assigning, or transferring the property to any third party, in whole or in part, without the prior written consent of the landlord is strictly prohibited. Any subletting or assignment requires the landlord's explicit written approval.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Termination and Notice:</strong>
+                    <ol type="a">
+                        <li>Either party may terminate this agreement by providing <span class="field-wrapper"><input type="text" class="xshort" maxlength="10"></span> days written notice to the other party through any suitable channel.</li>
+                        <li>Upon termination, the tenant shall return the property in the same condition as at the beginning of the tenancy, minus normal wear and tear.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Repairs and Alterations:</strong>
+                    <ol type="a">
+                        <li>The tenant shall promptly inform the landlord of any necessary repairs or maintenance issues.</li>
+                        <li>The tenant shall not make any structural alterations or modifications to the property without the written consent of the landlord.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Entry and Inspection:</strong>
+                    <ol type="a">
+                        <li>The landlord has the right to enter the property with prior notice to inspect its condition or make repairs.</li>
+                        <li>The landlord shall provide reasonable notice, except in cases of emergencies.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Default and Eviction:</strong>
+                    <ol type="a">
+                        <li>Failure to make regular rent payments or violation of terms can result in eviction.</li>
+                        <li>The landlord will be within their right to evict the Tenant without the issuance of any legal notice.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Use of Premises:</strong>
+                    <ol type="a">
+                        <li>The tenant shall not use the premises for any illegal, immoral, or commercial purposes.</li>
+                        <li>The tenant shall not engage in any activity that might cause a nuisance or disturbance to neighbours.</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="page">
+            <ol start="10">
+                <li>
+                    <strong>Furnishings and Appliances:</strong> The tenant shall be responsible for the reasonable care and maintenance of provided furnishings and appliances. The landlord has provided the property furnished with the following items:
+                    <br>
+                    <textarea class="field-wrapper" placeholder="List items here (e.g., 2 X fans, 1 X refrigerator, etc.)" maxlength="500"></textarea>
+                </li>
+
+                <li>
+                    <strong>Renewal of Agreement:</strong>
+                    <ol type="a">
+                        <li>If both parties agree, this agreement may be renewed for another term subject to updated terms and conditions.</li>
+                        <li>Renewal terms and any rent adjustments should be discussed and agreed upon in writing prior to the renewal date.</li>
+                    </ol>
+                </li>
+
+                <li>
+                    <strong>Maintenance Charges:</strong> The tenant shall be responsible for any increases in maintenance charges applicable during the tenancy period.
+                </li>
+
+                <li>
+                    <strong>Notice of Absence:</strong> The tenant shall provide the landlord with written notice if they plan to be away from the premises for an extended period.
+                </li>
+
+                <li>
+                    <strong>Dispute Resolution:</strong> In case of any disputes or disagreements, both parties shall first attempt to resolve the matter amicably through negotiation. If unresolved, mediation or arbitration can be pursued before pursuing legal action.
+                </li>
+
+                <li>
+                    <strong>Force Majeure:</strong> In the event that either party is unable to fulfil its obligations due to circumstances beyond their control (such as acts of God, natural disasters, government actions), the affected party shall be excused from such obligations during the period of disruption.
+                </li>
+
+                <li>
+                    <strong>Indemnity:</strong> The tenant shall indemnify and hold the landlord harmless from any claims, damages, or liabilities arising from the tenant's use of the premises.
+                </li>
+
+                <li>
+                    <strong>Notices:</strong> All notices and communications shall be in writing and shall be deemed properly delivered if sent via registered post or other medium as per the convenience of both parties.
+                </li>
+            </ol>
+
+            <p style="text-align: center; font-weight: bold; margin-top: 30px;">
+                In Witness Whereof, the Parties hereto have set their hands and signatures on the date and year first above mentioned.
+            </p>
+        </div>
+
+        <!-- PAGE 4 -->
+        <div class="page">
+            <div class="signature-section">
+                <h3>Landlord(s) Signatures</h3>
+                <p>Name: <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span></p>
+                <canvas class="signature-pad no-print" id="landlordSig" width="400" height="100"></canvas>
+                <div class="sig-buttons no-print">
+                    <button onclick="clearSignature('landlordSig')">Clear Signature</button>
+                </div>
+                <p>Date: <span class="field-wrapper"><input type="text" class="medium"></span></p>
+
+                <h3 style="margin-top: 40px;">Tenant(s) Signatures</h3>
+                <p>Name: <span class="field-wrapper"><input type="text" class="long" maxlength="60"></span></p>
+                <canvas class="signature-pad no-print" id="tenantSig" width="400" height="100"></canvas>
+                <div class="sig-buttons no-print">
+                    <button onclick="clearSignature('tenantSig')">Clear Signature</button>
+                </div>
+                <p>Date: <span class="field-wrapper"><input type="text" class="medium"></span></p>
+
+                <h3 style="margin-top: 40px;">Witnesses (Optional)</h3>
+                <p><strong>Witness #1:</strong></p>
+                <p>Name: <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span></p>
+                <canvas class="signature-pad no-print" id="witness1Sig" width="400" height="100"></canvas>
+                <div class="sig-buttons no-print">
+                    <button onclick="clearSignature('witness1Sig')">Clear Signature</button>
+                </div>
+                <p>Address: <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span></p>
+
+                <p style="margin-top: 20px;"><strong>Witness #2:</strong></p>
+                <p>Name: <span class="field-wrapper"><input type="text" class="medium" maxlength="60"></span></p>
+                <canvas class="signature-pad no-print" id="witness2Sig" width="400" height="100"></canvas>
+                <div class="sig-buttons no-print">
+                    <button onclick="clearSignature('witness2Sig')">Clear Signature</button>
+                </div>
+                <p>Address: <span class="field-wrapper"><input type="text" class="xlong" maxlength="60"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentControls = null;
+        const signaturePads = {};
+
+        // Initialize signature pads
+        function initSignaturePad(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                lastX = e.clientX - rect.left;
+                lastY = e.clientY - rect.top;
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                lastX = x;
+                lastY = y;
+            });
+
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                isDrawing = false;
+            });
+
+            // Touch support
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                lastX = touch.clientX - rect.left;
+                lastY = touch.clientY - rect.top;
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                lastX = x;
+                lastY = y;
+            });
+
+            canvas.addEventListener('touchend', () => {
+                isDrawing = false;
+            });
+
+            signaturePads[canvasId] = { canvas, ctx };
+        }
+
+        function clearSignature(canvasId) {
+            const pad = signaturePads[canvasId];
+            if (pad) {
+                pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+            }
+        }
+
+        // Initialize all signature pads
+        document.addEventListener('DOMContentLoaded', () => {
+            initSignaturePad('landlordSig');
+            initSignaturePad('tenantSig');
+            initSignaturePad('witness1Sig');
+            initSignaturePad('witness2Sig');
+        });
+
+        // Add controls to each text input field
+        document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+            const wrapper = input.closest('.field-wrapper');
+            if (!wrapper) return;
+
+            // Create controls
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+            controls.innerHTML = `
+                <label>Size: <input type="number" class="size-control" value="12" min="8" max="24" step="1"></label>
+                <label><input type="checkbox" class="bold-control"> Bold</label>
+            `;
+            wrapper.appendChild(controls);
+
+            const sizeControl = controls.querySelector('.size-control');
+            const boldControl = controls.querySelector('.bold-control');
+
+            // Show controls on focus
+            input.addEventListener('focus', () => {
+                if (currentControls && currentControls !== controls) {
+                    currentControls.style.display = 'none';
+                }
+                controls.style.display = 'block';
+                currentControls = controls;
+            });
+
+            // Hide controls when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!wrapper.contains(e.target)) {
+                    controls.style.display = 'none';
+                    if (currentControls === controls) {
+                        currentControls = null;
+                    }
+                }
+            });
+
+            // Apply font size
+            sizeControl.addEventListener('input', () => {
+                input.style.fontSize = sizeControl.value + 'px';
+            });
+
+            // Apply bold
+            boldControl.addEventListener('change', () => {
+                input.style.fontWeight = boldControl.checked ? 'bold' : 'normal';
+            });
+        });
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all fields including signatures? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+                    input.value = '';
+                    input.style.fontSize = '12px';
+                    input.style.fontWeight = 'normal';
+                    
+                    const wrapper = input.closest('.field-wrapper');
+                    if (wrapper) {
+                        const sizeControl = wrapper.querySelector('.size-control');
+                        const boldControl = wrapper.querySelector('.bold-control');
+                        if (sizeControl) sizeControl.value = 12;
+                        if (boldControl) boldControl.checked = false;
+                    }
+                });
+
+                // Clear all signatures
+                ['landlordSig', 'tenantSig', 'witness1Sig', 'witness2Sig'].forEach(id => {
+                    clearSignature(id);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
