@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduRewards - Learn & Earn Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        html, body { 
+            font-family: 'Inter', sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body { 
+            overflow-y: auto;
+        }
+        
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 1rem;
+            padding-top: 5vh;
+        }
+        
+        @media (min-height: 800px) {
+            .modal.active {
+                align-items: center;
+                padding-top: 1rem;
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .credit-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chip {
+            background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-method-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .payment-method-card:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .payment-method-card.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .student-card-select {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .student-card-select:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .student-card-select.selected {
+            border-color: #10b981;
+            background-color: #ecfdf5;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        
+        .course-card {
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .wallet-balance {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .step-indicator.completed {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Prevent focus outline from causing scroll */
+        *:focus {
+            outline: none;
+        }
+        
+        *:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Dashboard container fixes */
+        .dashboard-container {
+            min-height: 0;
+            height: auto;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="min-h-screen gradient-bg flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
+            <div class="absolute top-40 right-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 2s"></div>
+            <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-float" style="animation-delay: 4s"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center text-white mb-12">
+                <h1 class="text-6xl font-bold mb-6 tracking-tight">EduRewards</h1>
+                <p class="text-2xl mb-4 opacity-90">Where Education Pays You Back</p>
+                <p class="text-lg opacity-75 max-w-2xl mx-auto">Parents invest in courses, students earn 0-100% refunds based on performance. High achievers get full refunds plus scholarships.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div onclick="showLogin('parent')" class="glass-effect rounded-2xl p-8 cursor-pointer card-hover text-center group">
+                    <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-user-tie text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Parent Portal</h3>
+                    <p class="text-gray-600 text-sm">Monitor progress, manage payments, approve rewards</p>
+                </div>
+                
+                <div onclick="showLogin('student')" class="glass-effect rounded-2xl p-8 cursor-pointer card-hover text-center group">
+                    <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-graduation-cap text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Student Dashboard</h3>
+                    <p class="text-gray-600 text-sm">Learn, earn points, track rewards, redeem prizes</p>
+                </div>
+                
+                <div onclick="showLogin('instructor')" class="glass-effect rounded-2xl p-8 cursor-pointer card-hover text-center group">
+                    <div class="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chalkboard-teacher text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Instructor Studio</h3>
+                    <p class="text-gray-600 text-sm">Create courses, grade work, track analytics</p>
+                </div>
+                
+                <div onclick="showLogin('admin')" class="glass-effect rounded-2xl p-8 cursor-pointer card-hover text-center group">
+                    <div class="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Admin Control</h3>
+                    <p class="text-gray-600 text-sm">Approve courses, review high rewards, manage platform</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl slide-in my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="loginTitle" class="text-2xl font-bold text-gray-800">Login</h2>
+                <button onclick="closeLogin()" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="user@example.com" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center text-sm text-gray-600">
+                <p>Demo Accounts:</p>
+                <p class="mt-1 text-xs text-gray-500">parent@demo.com | student@demo.com | instructor@demo.com | admin@demo.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="appContainer" class="hidden h-screen flex flex-col overflow-hidden">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg z-40 flex-shrink-0">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">EduRewards</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="showNotifications()" class="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notifBadge" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                        <div class="flex items-center space-x-2">
+                            <img id="userAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-8 h-8 rounded-full">
+                            <span id="userName" class="text-sm font-medium text-gray-700">User</span>
+                        </div>
+                        <button onclick="logout()" class="text-gray-600 hover:text-gray-900 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Parent Dashboard -->
+        <div id="parentDashboard" class="hidden dashboard-container flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Parent Dashboard</h1>
+                        <p class="text-gray-600">Manage wallet, purchase courses, and monitor your children's progress</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button onclick="openAddMoneyModal()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-700 shadow-lg flex items-center space-x-2 transform hover:scale-105 transition-all">
+                            <i class="fas fa-wallet"></i>
+                            <span>Add Money</span>
+                        </button>
+                        <button onclick="openCourseCatalog()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 shadow-lg flex items-center space-x-2 transform hover:scale-105 transition-all">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Browse Courses</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wallet & Quick Stats -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="wallet-balance rounded-2xl shadow-lg p-6 text-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10"></div>
+                        <div class="relative z-10">
+                            <p class="text-green-100 text-sm font-medium mb-1">Wallet Balance</p>
+                            <p class="text-3xl font-bold" id="walletBalance">$1,250.00</p>
+                            <p class="text-green-100 text-xs mt-2">Available for course purchases</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-blue-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Total Invested</p>
+                                <p class="text-2xl font-bold text-gray-800" id="totalInvested">$2,450.00</p>
+                            </div>
+                            <i class="fas fa-wallet text-3xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-green-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Earned Back</p>
+                                <p class="text-2xl font-bold text-green-600" id="totalEarned">$1,837.50</p>
+                            </div>
+                            <i class="fas fa-piggy-bank text-3xl text-green-500"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Active Courses</p>
+                                <p class="text-2xl font-bold text-purple-600" id="activeCourseCount">4</p>
+                            </div>
+                            <i class="fas fa-book-open text-3xl text-purple-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linked Students Section -->
+                <div class="bg-white rounded-2xl shadow-md p-6 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">Linked Students</h2>
+                            <p class="text-sm text-gray-600 mt-1">Manage your children's accounts and course assignments</p>
+                        </div>
+                        <button onclick="openLinkStudentModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-plus"></i>
+                            <span>Link New Student</span>
+                        </button>
+                    </div>
+                    
+                    <div id="linkedStudentsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Course Assignments & Progress -->
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white rounded-2xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold text-gray-800">Active Course Assignments</h2>
+                                <button onclick="openCourseCatalog()" class="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
+                                    + Assign New Course
+                                </button>
+                            </div>
+                            <div id="courseAssignmentsList" class="space-y-4">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-md p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Recent Transactions</h2>
+                            <div id="transactionHistory" class="space-y-3">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-md p-6 text-white">
+                            <h3 class="font-bold text-lg mb-4">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button onclick="openAddMoneyModal()" class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-3 rounded-xl text-left px-4 flex items-center space-x-3 transition-all">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Add Funds to Wallet</span>
+                                </button>
+                                <button onclick="openCourseCatalog()" class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-3 rounded-xl text-left px-4 flex items-center space-x-3 transition-all">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Purchase Course</span>
+                                </button>
+                                <button onclick="viewSpendingReport()" class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-3 rounded-xl text-left px-4 flex items-center space-x-3 transition-all">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <span>Spending Report</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-md p-6">
+                            <h3 class="font-bold text-gray-800 mb-4">Spending by Child</h3>
+                            <!-- Fixed height container for chart -->
+                            <div class="relative h-64">
+                                <canvas id="spendingChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="studentDashboard" class="hidden dashboard-container flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="mb-8 flex justify-between items-end">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">My Learning Hub</h1>
+                        <p class="text-gray-600">Track your progress and maximize your earnings</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-600">Total Earned</p>
+                        <p class="text-4xl font-bold text-green-600">$1,837.50</p>
+                    </div>
+                </div>
+
+                <!-- Performance Score Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">Current Performance Score</h2>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Homework & Quality (25%)</span>
+                                    <div class="w-48 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                    <span class="font-semibold">85%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Test/Quiz Scores (40%)</span>
+                                    <div class="w-48 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 78%"></div>
+                                    </div>
+                                    <span class="font-semibold">78%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Course Completion (15%)</span>
+                                    <div class="w-48 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                    <span class="font-semibold">60%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Engagement (10%)</span>
+                                    <div class="w-48 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                    <span class="font-semibold">90%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Improvement (10%)</span>
+                                    <div class="w-48 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                    <span class="font-semibold">75%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center">
+                            <div class="relative w-64 h-64">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="128" cy="128" r="120" stroke="#e5e7eb" stroke-width="12" fill="none"></circle>
+                                    <circle cx="128" cy="128" r="120" stroke="url(#gradient)" stroke-width="12" fill="none" 
+                                            stroke-dasharray="754" stroke-dashoffset="188" stroke-linecap="round"></circle>
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#667eea" />
+                                            <stop offset="100%" stop-color="#764ba2" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-6xl font-bold text-gray-800">75</span>
+                                    <span class="text-gray-500 font-medium">Current Score</span>
+                                    <span class="text-green-600 font-semibold mt-1">$337.50 earned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold text-blue-900">Reward Tier: Silver (51-80)</p>
+                                <p class="text-sm text-blue-700">You're earning 67.5% of your course fee back!</p>
+                            </div>
+                            <button onclick="showRewardCalculator()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Calculate Potential
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Active Courses -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <h2 class="text-xl font-bold text-gray-800">My Courses</h2>
+                        <div id="studentCourses" class="space-y-4">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Rewards & Redemption -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">Redeem Rewards</h3>
+                            <div class="space-y-3">
+                                <button onclick="redeemReward('amazon')" class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                            <i class="fab fa-amazon text-orange-600"></i>
+                                        </div>
+                                        <span class="font-medium">Amazon Gift Card</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button onclick="redeemReward('target')" class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-red-500 hover:bg-red-50 transition-all">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-bullseye text-red-600"></i>
+                                        </div>
+                                        <span class="font-medium">Target Gift Card</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button onclick="redeemReward('visa')" class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                            <i class="fab fa-cc-visa text-blue-600"></i>
+                                        </div>
+                                        <span class="font-medium">Visa Prepaid Card</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button onclick="redeemReward('credit')" class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-graduation-cap text-purple-600"></i>
+                                        </div>
+                                        <span class="font-medium">Course Credits</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl shadow-md p-6 text-white">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-lg">Achievement Streak</h3>
+                                <i class="fas fa-fire text-2xl"></i>
+                            </div>
+                            <p class="text-3xl font-bold mb-1">12 Days</p>
+                            <p class="text-sm opacity-90">Keep it up! 3 more days for bonus credits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructor Dashboard -->
+        <div id="instructorDashboard" class="hidden dashboard-container flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="mb-8 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Instructor Studio</h1>
+                        <p class="text-gray-600">Create courses and track student performance</p>
+                    </div>
+                    <button onclick="createNewCourse()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 shadow-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Create New Course
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Active Courses</p>
+                                <p class="text-3xl font-bold text-gray-800">5</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-book text-purple-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Total Students</p>
+                                <p class="text-3xl font-bold text-gray-800">248</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-users text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Avg. Performance</p>
+                                <p class="text-3xl font-bold text-gray-800">72%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h2 class="text-xl font-bold text-gray-800">My Courses</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">All</button>
+                            <button class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Active</button>
+                            <button class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Pending</button>
+                        </div>
+                    </div>
+                    <div id="instructorCourses" class="divide-y divide-gray-200">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="hidden dashboard-container flex-1 overflow-y-auto">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Admin Control Center</h1>
+                    <p class="text-gray-600">Monitor platform operations and high-value rewards</p>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-red-500">
+                        <p class="text-sm text-gray-600 mb-1">Pending Approvals</p>
+                        <p class="text-3xl font-bold text-gray-800">12</p>
+                        <p class="text-xs text-red-600 mt-1">High-value rewards (90%+)</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-yellow-500">
+                        <p class="text-sm text-gray-600 mb-1">Courses Pending</p>
+                        <p class="text-3xl font-bold text-gray-800">8</p>
+                        <p class="text-xs text-yellow-600 mt-1">Awaiting review</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-blue-500">
+                        <p class="text-sm text-gray-600 mb-1">Platform Revenue</p>
+                        <p class="text-3xl font-bold text-gray-800">$45.2K</p>
+                        <p class="text-xs text-blue-600 mt-1">This month</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-green-500">
+                        <p class="text-sm text-gray-600 mb-1">Total Students</p>
+                        <p class="text-3xl font-bold text-gray-800">1,248</p>
+                        <p class="text-xs text-green-600 mt-1">+124 this week</p>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">High-Value Reward Approvals (96-100%)</h2>
+                        <div id="pendingApprovals" class="space-y-4">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Course Approvals</h2>
+                        <div id="courseApprovals" class="space-y-4">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Platform Analytics</h2>
+                    <!-- Fixed height container for chart -->
+                    <div class="relative h-64">
+                        <canvas id="adminChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PARENT MODALS ==================== -->
+
+    <!-- Add Money to Wallet Modal -->
+    <div id="addMoneyModal" class="modal">
+        <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 slide-in my-8">
+            <div class="sticky top-0 bg-white px-8 py-6 border-b border-gray-200 flex justify-between items-center z-10 rounded-t-2xl">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Add Money to Wallet</h2>
+                    <p class="text-sm text-gray-600 mt-1">Securely fund your account for course purchases</p>
+                </div>
+                <button onclick="closeModal('addMoneyModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-8 space-y-6">
+                <!-- Current Balance Display -->
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-sm text-green-700 font-medium">Current Balance</p>
+                            <p class="text-3xl font-bold text-green-800" id="modalCurrentBalance">$1,250.00</p>
+                        </div>
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-wallet text-3xl text-green-600"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amount Selection -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Select Amount</label>
+                    <div class="grid grid-cols-3 gap-3 mb-4">
+                        <button onclick="selectAmount(100)" class="amount-btn py-3 border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:bg-blue-50 transition-all" data-amount="100">$100</button>
+                        <button onclick="selectAmount(250)" class="amount-btn py-3 border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:bg-blue-50 transition-all" data-amount="250">$250</button>
+                        <button onclick="selectAmount(500)" class="amount-btn py-3 border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:bg-blue-50 transition-all" data-amount="500">$500</button>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg font-semibold">$</span>
+                        <input type="number" id="customAmount" placeholder="Enter custom amount" class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-0 text-lg font-semibold transition-colors" oninput="handleCustomAmount(this.value)">
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Payment Method</label>
+                    <div class="space-y-3">
+                        <div class="payment-method-card border-2 border-gray-200 rounded-xl p-4 flex items-center space-x-4" onclick="selectPaymentMethod('card')">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-credit-card text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Credit/Debit Card</p>
+                                <p class="text-sm text-gray-500">Visa, Mastercard, Amex</p>
+                            </div>
+                            <input type="radio" name="paymentMethod" value="card" class="w-5 h-5 text-blue-600 pointer-events-none">
+                        </div>
+
+                        <div class="payment-method-card border-2 border-gray-200 rounded-xl p-4 flex items-center space-x-4" onclick="selectPaymentMethod('bank')">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-university text-green-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">Bank Transfer</p>
+                                <p class="text-sm text-gray-500">ACH, Wire transfer</p>
+                            </div>
+                            <input type="radio" name="paymentMethod" value="bank" class="w-5 h-5 text-blue-600 pointer-events-none">
+                        </div>
+
+                        <div class="payment-method-card border-2 border-gray-200 rounded-xl p-4 flex items-center space-x-4" onclick="selectPaymentMethod('paypal')">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-paypal text-blue-800 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800">PayPal</p>
+                                <p class="text-sm text-gray-500">Fast and secure</p>
+                            </div>
+                            <input type="radio" name="paymentMethod" value="paypal" class="w-5 h-5 text-blue-600 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Details Form (shown when card selected) -->
+                <div id="cardDetailsForm" class="hidden space-y-4 p-4 bg-gray-50 rounded-xl">
+                    <div class="credit-card rounded-xl p-6 text-white mb-4 h-48 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div class="chip w-12 h-9 rounded-md"></div>
+                            <i class="fab fa-cc-visa text-3xl opacity-80"></i>
+                        </div>
+                        <div>
+                            <p class="text-lg tracking-widest font-mono mb-2">•••• •••• •••• 4242</p>
+                            <div class="flex justify-between text-sm opacity-90">
+                                <span>CARD HOLDER</span>
+                                <span>EXPIRES</span>
+                            </div>
+                            <div class="flex justify-between font-semibold">
+                                <span id="cardDisplayName">YOUR NAME</span>
+                                <span id="cardDisplayExpiry">12/25</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                            <input type="text" placeholder="1234 5678 9012 3456" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 font-mono transition-colors" maxlength="19">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 font-mono transition-colors" maxlength="5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                            <input type="text" placeholder="123" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 font-mono transition-colors" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="bg-blue-50 rounded-xl p-4 space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Amount to Add</span>
+                        <span class="font-semibold text-gray-800" id="summaryAmount">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Processing Fee</span>
+                        <span class="font-semibold text-gray-800">$0.00</span>
+                    </div>
+                    <div class="border-t border-blue-200 pt-2 flex justify-between">
+                        <span class="font-semibold text-gray-800">Total</span>
+                        <span class="font-bold text-xl text-blue-800" id="summaryTotal">$0.00</span>
+                    </div>
+                </div>
+
+                <button onclick="processAddMoney()" id="addMoneyBtn" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
+                    <i class="fas fa-lock mr-2"></i>Add Funds Securely
+                </button>
+                
+                <p class="text-xs text-gray-500 text-center">
+                    <i class="fas fa-shield-alt mr-1"></i>Secured by 256-bit SSL encryption. Funds available immediately.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Catalog & Assignment Modal -->
+    <div id="courseCatalogModal" class="modal">
+        <div class="bg-white rounded-2xl max-w-5xl w-full mx-4 slide-in my-8">
+            <div class="sticky top-0 bg-white px-8 py-6 border-b border-gray-200 flex justify-between items-center z-10 rounded-t-2xl">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Course Catalog</h2>
+                    <p class="text-sm text-gray-600 mt-1">Purchase and assign courses to your linked students</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500">Wallet Balance</p>
+                        <p class="font-bold text-green-600" id="catalogWalletBalance">$1,250.00</p>
+                    </div>
+                    <button onclick="closeModal('courseCatalogModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="p-8">
+                <!-- Step Indicator -->
+                <div class="flex items-center justify-center mb-8">
+                    <div class="flex items-center space-x-2">
+                        <div class="step-indicator active w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" id="step1">1</div>
+                        <div class="w-16 h-1 bg-gray-300 rounded-full" id="line1"></div>
+                        <div class="step-indicator w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-sm text-gray-600" id="step2">2</div>
+                        <div class="w-16 h-1 bg-gray-300 rounded-full" id="line2"></div>
+                        <div class="step-indicator w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-sm text-gray-600" id="step3">3</div>
+                    </div>
+                </div>
+                <div class="flex justify-center text-sm text-gray-600 mb-6 space-x-12">
+                    <span>Select Course</span>
+                    <span>Choose Student</span>
+                    <span>Confirm</span>
+                </div>
+
+                <!-- Step 1: Course Selection -->
+                <div id="step1Content" class="space-y-6">
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors">All Courses</button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Mathematics</button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Science</button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Languages</button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Programming</button>
+                    </div>
+
+                    <!-- Course Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="courseGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Student Selection -->
+                <div id="step2Content" class="hidden space-y-6">
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-info-circle text-blue-600"></i>
+                            <p class="text-sm text-blue-800">Select which student to assign "<span id="selectedCourseName" class="font-bold"></span>" to</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4" id="studentSelectionGrid">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="goToStep(1)" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i>Back
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div id="step3Content" class="hidden space-y-6">
+                    <div class="bg-gray-50 rounded-2xl p-8">
+                        <div class="text-center mb-6">
+                            <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check text-4xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Review & Confirm</h3>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-6 space-y-4 mb-6">
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-book text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800" id="confirmCourseName">Advanced Mathematics</p>
+                                        <p class="text-sm text-gray-600" id="confirmInstructor">Dr. Sarah Smith</p>
+                                    </div>
+                                </div>
+                                <p class="text-xl font-bold text-gray-800" id="confirmPrice">$500.00</p>
+                            </div>
+
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-user-graduate text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">Assigned to</p>
+                                        <p class="text-sm text-gray-600" id="confirmStudentName">Sarah Johnson</p>
+                                    </div>
+                                </div>
+                                <button onclick="goToStep(2)" class="text-blue-600 text-sm hover:underline">Change</button>
+                            </div>
+
+                            <div class="space-y-2 pt-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Course Fee</span>
+                                    <span class="font-medium" id="confirmCourseFee">$500.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Platform Fee (10%)</span>
+                                    <span class="font-medium text-red-600" id="confirmPlatformFee">-$50.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Potential Reward Pool</span>
+                                    <span class="font-medium text-green-600" id="confirmRewardPool">$450.00</span>
+                                </div>
+                                <div class="border-t border-gray-200 pt-3 flex justify-between items-center">
+                                    <span class="font-bold text-gray-800">Total Charge</span>
+                                    <span class="text-2xl font-bold text-gray-800" id="confirmTotal">$500.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-lightbulb text-yellow-600 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold text-yellow-800 text-sm">Reward Potential</p>
+                                    <p class="text-sm text-yellow-700 mt-1">If your child scores 90% or higher, they can earn back up to $450 (90% of course fee) plus scholarship credits!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4">
+                            <button onclick="goToStep(2)" class="flex-1 px-6 py-4 border-2 border-gray-300 rounded-xl text-gray-700 font-bold hover:bg-gray-50 transition-colors">
+                                Back
+                            </button>
+                            <button onclick="confirmPurchase()" class="flex-1 px-6 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-colors">
+                                <i class="fas fa-lock mr-2"></i>Confirm Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link New Student Modal -->
+    <div id="linkStudentModal" class="modal">
+        <div class="bg-white rounded-2xl max-w-lg w-full mx-4 slide-in my-auto">
+            <div class="px-8 py-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-800">Link New Student</h2>
+                <button onclick="closeModal('linkStudentModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-8 space-y-6">
+                <div class="bg-blue-50 rounded-xl p-4">
+                    <p class="text-sm text-blue-800">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Enter your child's existing EduRewards student email, or create a new account for them.
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Student's Email Address</label>
+                    <input type="email" id="linkStudentEmail" placeholder="student@example.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Relationship</label>
+                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <option>Son</option>
+                        <option>Daughter</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center space-x-3 p-4 bg-gray-50 rounded-xl">
+                    <input type="checkbox" id="allowPurchases" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                    <label for="allowPurchases" class="text-sm text-gray-700">
+                        Allow this student to request course purchases (requires my approval)
+                    </label>
+                </div>
+
+                <button onclick="processLinkStudent()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition-colors">
+                    Send Link Invitation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="successNotification" class="fixed top-24 right-6 bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex items-center space-x-3 pointer-events-none">
+        <i class="fas fa-check-circle text-2xl"></i>
+        <div>
+            <p class="font-bold" id="successTitle">Success!</p>
+            <p class="text-sm opacity-90" id="successMessage">Operation completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Other Modals -->
+    <div id="rewardCalculatorModal" class="modal">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full mx-4 slide-in my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Reward Calculator</h2>
+                <button onclick="closeModal('rewardCalculatorModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Course Fee ($)</label>
+                    <input type="number" id="calcCourseFee" value="500" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors" oninput="calculateReward()">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Target Score (0-100)</label>
+                    <input type="range" id="calcScore" min="0" max="100" value="75" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="calculateReward()">
+                    <div class="flex justify-between text-sm text-gray-600 mt-1">
+                        <span>0</span>
+                        <span id="calcScoreDisplay" class="font-bold text-blue-600">75</span>
+                        <span>100</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 mt-4">
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Platform Fee (10%):</span>
+                            <span class="font-semibold text-red-600" id="calcPlatformFee">-$50.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Reward Pool (90%):</span>
+                            <span class="font-semibold text-blue-600" id="calcRewardPool">$450.00</span>
+                        </div>
+                        <div class="border-t pt-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-800 font-semibold">Your Earnings:</span>
+                                <span class="text-2xl font-bold text-green-600" id="calcEarnings">$337.50</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1" id="calcTier">Tier: Silver (50-80% refund)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="redeemModal" class="modal">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 slide-in my-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Redeem Rewards</h2>
+                <button onclick="closeModal('redeemModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="text-center mb-6">
+                <p class="text-gray-600 mb-2">Available Balance</p>
+                <p class="text-4xl font-bold text-green-600">$1,837.50</p>
+            </div>
+            <form onsubmit="processRedemption(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Redemption Method</label>
+                    <select id="redeemMethod" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <option value="amazon">Amazon Gift Card</option>
+                        <option value="target">Target Gift Card</option>
+                        <option value="visa">Visa Prepaid Card</option>
+                        <option value="credit">Course Credits</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+                    <input type="number" id="redeemAmount" max="1837.50" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Enter amount" required>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                    Request Redemption
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="createCourseModal" class="modal">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 slide-in my-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Create New Course</h2>
+                <button onclick="closeModal('createCourseModal')" class="text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form onsubmit="submitCourse(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Course Title</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 transition-colors" placeholder="e.g., Advanced Mathematics" required>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                        <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 transition-colors" placeholder="500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Duration (weeks)</label>
+                        <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 transition-colors" placeholder="8" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 transition-colors" placeholder="Course description..." required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">Submit for Approval</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentUser = null;
+        let userRole = null;
+        let walletBalance = 1250.00;
+        let selectedAmount = 0;
+        let selectedPaymentMethod = null;
+        let selectedCourse = null;
+        let selectedStudent = null;
+        let currentStep = 1;
+        let scrollPosition = 0;
+
+        // Sample Data
+        let linkedStudents = [
+            { id: 1, name: 'Sarah Johnson', email: 'sarah@student.com', grade: '10th', avatar: 'SJ', activeCourses: 2, totalEarned: 837.50 },
+            { id: 2, name: 'Mike Chen', email: 'mike@student.com', grade: '12th', avatar: 'MC', activeCourses: 1, totalEarned: 450.00 }
+        ];
+
+        let availableCourses = [
+            { id: 1, title: 'Advanced Mathematics', instructor: 'Dr. Sarah Smith', price: 500, duration: '8 weeks', category: 'Mathematics', rating: 4.8, students: 124, image: 'math', description: 'Master calculus, linear algebra, and differential equations.' },
+            { id: 2, title: 'Physics: Mechanics & Thermodynamics', instructor: 'Prof. James Wilson', price: 600, duration: '10 weeks', category: 'Science', rating: 4.9, students: 89, image: 'physics', description: 'Comprehensive physics course covering mechanics and thermodynamics.' },
+            { id: 3, title: 'Introduction to Programming', instructor: 'Dr. Emily Chen', price: 450, duration: '6 weeks', category: 'Programming', rating: 4.7, students: 256, image: 'coding', description: 'Learn Python programming from scratch. No prior experience needed.' },
+            { id: 4, title: 'Spanish Language Mastery', instructor: 'Prof. Maria Garcia', price: 400, duration: '12 weeks', category: 'Languages', rating: 4.6, students: 167, image: 'language', description: 'Complete Spanish course from beginner to intermediate level.' },
+            { id: 5, title: 'Chemistry: Organic & Inorganic', instructor: 'Dr. Robert Brown', price: 550, duration: '9 weeks', category: 'Science', rating: 4.8, students: 98, image: 'chemistry', description: 'Deep dive into chemical reactions, bonding, and molecular structures.' },
+            { id: 6, title: 'Web Development Bootcamp', instructor: 'Prof. Alex Turner', price: 700, duration: '8 weeks', category: 'Programming', rating: 4.9, students: 312, image: 'web', description: 'Full-stack web development with HTML, CSS, JavaScript, and React.' }
+        ];
+
+        let courseAssignments = [
+            { id: 1, studentId: 1, courseId: 1, courseName: 'Advanced Mathematics', studentName: 'Sarah Johnson', price: 500, progress: 75, score: 82, earned: 337.50, status: 'active', purchaseDate: '2024-01-15' },
+            { id: 2, studentId: 2, courseId: 2, courseName: 'Physics: Mechanics', studentName: 'Mike Chen', price: 600, progress: 60, score: 78, earned: 280.00, status: 'active', purchaseDate: '2024-01-10' },
+            { id: 3, studentId: 1, courseId: 3, courseName: 'Introduction to Programming', studentName: 'Sarah Johnson', price: 450, progress: 30, score: 85, earned: 120.00, status: 'active', purchaseDate: '2024-02-01' }
+        ];
+
+        let transactions = [
+            { id: 1, type: 'purchase', description: 'Advanced Mathematics - Sarah Johnson', amount: -500.00, date: '2024-01-15', status: 'completed' },
+            { id: 2, type: 'purchase', description: 'Physics: Mechanics - Mike Chen', amount: -600.00, date: '2024-01-10', status: 'completed' },
+            { id: 3, type: 'purchase', description: 'Introduction to Programming - Sarah Johnson', amount: -450.00, date: '2024-02-01', status: 'completed' },
+            { id: 4, type: 'deposit', description: 'Wallet Funding (Card ending 4242)', amount: 2000.00, date: '2024-01-01', status: 'completed' },
+            { id: 5, type: 'refund', description: 'Reward Payout - Sarah Johnson', amount: 337.50, date: '2024-01-20', status: 'completed' }
+        ];
+
+        const pendingApprovals = [
+            { student: 'Emma Wilson', course: 'Advanced Calculus', score: 98, amount: 600, bonus: 150, date: '2024-01-15' },
+            { student: 'James Lee', course: 'Computer Science', score: 96, amount: 550, bonus: 100, date: '2024-01-14' }
+        ];
+
+        // Navigation Functions
+        function showLogin(role) {
+            userRole = role;
+            openModal('loginModal');
+            document.getElementById('loginTitle').textContent = role.charAt(0).toUpperCase() + role.slice(1) + ' Login';
+            
+            const emails = {
+                parent: 'parent@demo.com',
+                student: 'student@demo.com',
+                instructor: 'instructor@demo.com',
+                admin: 'admin@demo.com'
+            };
+            document.getElementById('loginEmail').value = emails[role] || '';
+        }
+
+        function closeLogin() {
+            closeModal('loginModal');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            closeLogin();
+            currentUser = { email: document.getElementById('loginEmail').value, role: userRole };
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('appContainer').classList.remove('hidden');
+            
+            document.getElementById('userName').textContent = currentUser.email.split('@')[0];
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${currentUser.email}&background=random`;
+            
+            showDashboard(userRole);
+        }
+
+        function showDashboard(role) {
+            document.getElementById('parentDashboard').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.add('hidden');
+            document.getElementById('instructorDashboard').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.add('hidden');
+            
+            if (role === 'parent') {
+                document.getElementById('parentDashboard').classList.remove('hidden');
+                renderParentData();
+            } else if (role === 'student') {
+                document.getElementById('studentDashboard').classList.remove('hidden');
+                renderStudentData();
+            } else if (role === 'instructor') {
+                document.getElementById('instructorDashboard').classList.remove('hidden');
+                renderInstructorData();
+            } else if (role === 'admin') {
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                renderAdminData();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            userRole = null;
+            document.getElementById('appContainer').classList.add('hidden');
+            document.getElementById('landingPage').classList.remove('hidden');
+        }
+
+        // Modal Management - FIXED
+        function openModal(modalId) {
+            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            document.body.classList.add('modal-open');
+            document.body.style.top = `-${scrollPosition}px`;
+            
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            
+            const inputs = modal.querySelectorAll('input, select, textarea, button');
+            inputs.forEach(input => {
+                input.addEventListener('focus', preventScrollOnFocus);
+            });
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            
+            document.body.classList.remove('modal-open');
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPosition);
+            
+            const inputs = modal.querySelectorAll('input, select, textarea, button');
+            inputs.forEach(input => {
+                input.removeEventListener('focus', preventScrollOnFocus);
+            });
+        }
+
+        function preventScrollOnFocus(e) {
+            e.preventDefault();
+            this.focus({ preventScroll: true });
+        }
+
+        // ==================== PARENT FUNCTIONS ====================
+
+        function renderParentData() {
+            document.getElementById('walletBalance').textContent = `$${walletBalance.toFixed(2)}`;
+            document.getElementById('modalCurrentBalance').textContent = `$${walletBalance.toFixed(2)}`;
+            document.getElementById('catalogWalletBalance').textContent = `$${walletBalance.toFixed(2)}`;
+            
+            const totalInvested = courseAssignments.reduce((sum, ca) => sum + ca.price, 0);
+            const totalEarned = courseAssignments.reduce((sum, ca) => sum + ca.earned, 0);
+            
+            document.getElementById('totalInvested').textContent = `$${totalInvested.toFixed(2)}`;
+            document.getElementById('totalEarned').textContent = `$${totalEarned.toFixed(2)}`;
+            document.getElementById('activeCourseCount').textContent = courseAssignments.length;
+
+            const studentsContainer = document.getElementById('linkedStudentsList');
+            studentsContainer.innerHTML = linkedStudents.map(student => `
+                <div class="bg-gray-50 rounded-xl p-4 border-2 border-gray-200 hover:border-blue-300 transition-all cursor-pointer" onclick="viewStudentDetail(${student.id})">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                            ${student.avatar}
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">${student.name}</h3>
+                            <p class="text-xs text-gray-500">Grade ${student.grade} • ${student.email}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="bg-white rounded-lg p-2 text-center">
+                            <p class="text-gray-500 text-xs">Active Courses</p>
+                            <p class="font-bold text-blue-600">${student.activeCourses}</p>
+                        </div>
+                        <div class="bg-white rounded-lg p-2 text-center">
+                            <p class="text-gray-500 text-xs">Total Earned</p>
+                            <p class="font-bold text-green-600">$${student.totalEarned.toFixed(2)}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const assignmentsContainer = document.getElementById('courseAssignmentsList');
+            assignmentsContainer.innerHTML = courseAssignments.map(ca => {
+                const student = linkedStudents.find(s => s.id === ca.studentId);
+                return `
+                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h4 class="font-bold text-gray-800">${ca.courseName}</h4>
+                                <p class="text-sm text-gray-600">Assigned to: ${ca.studentName}</p>
+                            </div>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">Active</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">Progress</span>
+                                <span class="font-semibold">${ca.progress}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${ca.progress}%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <div>
+                                <span class="text-gray-600">Current Score: </span>
+                                <span class="font-bold ${ca.score >= 80 ? 'text-green-600' : ca.score >= 50 ? 'text-yellow-600' : 'text-red-600'}">${ca.score}%</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-600">Earned: </span>
+                                <span class="font-bold text-green-600">$${ca.earned.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const transactionsContainer = document.getElementById('transactionHistory');
+            transactionsContainer.innerHTML = transactions.slice(0, 5).map(t => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 ${t.type === 'deposit' ? 'bg-green-100 text-green-600' : t.type === 'refund' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'} rounded-full flex items-center justify-center">
+                            <i class="fas ${t.type === 'deposit' ? 'fa-arrow-down' : t.type === 'refund' ? 'fa-undo' : 'fa-shopping-cart'}"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800 text-sm">${t.description}</p>
+                            <p class="text-xs text-gray-500">${t.date}</p>
+                        </div>
+                    </div>
+                    <span class="font-bold ${t.amount > 0 ? 'text-green-600' : 'text-gray-800'}">${t.amount > 0 ? '+' : ''}$${Math.abs(t.amount).toFixed(2)}</span>
+                </div>
+            `).join('');
+
+            setTimeout(() => {
+                renderSpendingChart();
+            }, 100);
+        }
+
+        function renderSpendingChart() {
+            const ctx = document.getElementById('spendingChart');
+            if (!ctx) return;
+            
+            // Destroy existing chart if it exists
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) {
+                existingChart.destroy();
+            }
+            
+            const spendingData = linkedStudents.map(student => {
+                const spent = courseAssignments
+                    .filter(ca => ca.studentId === student.id)
+                    .reduce((sum, ca) => sum + ca.price, 0);
+                return spent;
+            });
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: linkedStudents.map(s => s.name.split(' ')[0]),
+                    datasets: [{
+                        data: spendingData,
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 11 },
+                                padding: 15
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: 10
+                    }
+                }
+            });
+        }
+
+        // ==================== ADD MONEY WORKFLOW ====================
+
+        function openAddMoneyModal() {
+            openModal('addMoneyModal');
+            selectedAmount = 0;
+            selectedPaymentMethod = null;
+            updateAddMoneyUI();
+        }
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            document.getElementById('customAmount').value = '';
+            
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                const btnAmount = parseInt(btn.dataset.amount);
+                if (btnAmount === amount) {
+                    btn.classList.add('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                    btn.classList.remove('border-gray-200');
+                } else {
+                    btn.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                    btn.classList.add('border-gray-200');
+                }
+            });
+            
+            updateAddMoneyUI();
+        }
+
+        function handleCustomAmount(value) {
+            if (value) {
+                selectedAmount = parseFloat(value);
+                document.querySelectorAll('.amount-btn').forEach(btn => {
+                    btn.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                    btn.classList.add('border-gray-200');
+                });
+            } else {
+                selectedAmount = 0;
+            }
+            updateAddMoneyUI();
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            document.querySelectorAll('.payment-method-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            const cardForm = document.getElementById('cardDetailsForm');
+            if (method === 'card') {
+                cardForm.classList.remove('hidden');
+            } else {
+                cardForm.classList.add('hidden');
+            }
+            
+            updateAddMoneyUI();
+        }
+
+        function updateAddMoneyUI() {
+            document.getElementById('summaryAmount').textContent = `$${selectedAmount.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${selectedAmount.toFixed(2)}`;
+            
+            const btn = document.getElementById('addMoneyBtn');
+            if (selectedAmount > 0 && selectedPaymentMethod) {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-lock mr-2"></i>Add $${selectedAmount.toFixed(2)} Securely`;
+            } else {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fas fa-lock mr-2"></i>Add Funds Securely`;
+            }
+        }
+
+        function processAddMoney() {
+            const btn = document.getElementById('addMoneyBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                walletBalance += selectedAmount;
+                
+                transactions.unshift({
+                    id: Date.now(),
+                    type: 'deposit',
+                    description: `Wallet Funding (${selectedPaymentMethod === 'card' ? 'Card' : selectedPaymentMethod === 'paypal' ? 'PayPal' : 'Bank'})`,
+                    amount: selectedAmount,
+                    date: new Date().toISOString().split('T')[0],
+                    status: 'completed'
+                });
+                
+                closeModal('addMoneyModal');
+                renderParentData();
+                showSuccess('Funds Added!', `$${selectedAmount.toFixed(2)} has been added to your wallet successfully.`);
+            }, 1500);
+        }
+
+        // ==================== COURSE CATALOG & ASSIGNMENT WORKFLOW ====================
+
+        function openCourseCatalog() {
+            openModal('courseCatalogModal');
+            currentStep = 1;
+            selectedCourse = null;
+            selectedStudent = null;
+            updateStepIndicator();
+            renderCourseGrid();
+        }
+
+        function renderCourseGrid() {
+            const grid = document.getElementById('courseGrid');
+            grid.innerHTML = availableCourses.map(course => `
+                <div class="course-card bg-white rounded-xl border-2 ${selectedCourse?.id === course.id ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200'} overflow-hidden cursor-pointer" onclick="selectCourse(${course.id})">
+                    <div class="h-32 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                        <i class="fas fa-${course.image === 'math' ? 'calculator' : course.image === 'physics' ? 'atom' : course.image === 'coding' ? 'code' : course.image === 'language' ? 'language' : course.image === 'chemistry' ? 'flask' : 'laptop-code'} text-5xl text-white opacity-80"></i>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">${course.category}</span>
+                            <div class="flex items-center text-yellow-500 text-xs">
+                                <i class="fas fa-star mr-1"></i>${course.rating}
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-1 line-clamp-2">${course.title}</h3>
+                        <p class="text-sm text-gray-600 mb-3">${course.instructor}</p>
+                        <p class="text-xs text-gray-500 mb-3 line-clamp-2">${course.description}</p>
+                        <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                            <div>
+                                <p class="text-xs text-gray-500">${course.duration}</p>
+                                <p class="text-xs text-gray-500">${course.students} students</p>
+                            </div>
+                            <p class="text-xl font-bold text-blue-600">$${course.price}</p>
+                        </div>
+                        ${selectedCourse?.id === course.id ? `
+                            <div class="mt-3 p-2 bg-blue-50 text-blue-700 text-center rounded-lg text-sm font-semibold">
+                                <i class="fas fa-check mr-1"></i>Selected
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectCourse(courseId) {
+            selectedCourse = availableCourses.find(c => c.id === courseId);
+            renderCourseGrid();
+            
+            setTimeout(() => {
+                goToStep(2);
+            }, 500);
+        }
+
+        function goToStep(step) {
+            currentStep = step;
+            
+            document.getElementById('step1Content').classList.add('hidden');
+            document.getElementById('step2Content').classList.add('hidden');
+            document.getElementById('step3Content').classList.add('hidden');
+            
+            document.getElementById(`step${step}Content`).classList.remove('hidden');
+            
+            updateStepIndicator();
+            
+            if (step === 2) {
+                renderStudentSelection();
+            } else if (step === 3) {
+                renderConfirmation();
+            }
+        }
+
+        function updateStepIndicator() {
+            [1, 2, 3].forEach(i => {
+                const el = document.getElementById(`step${i}`);
+                const line = document.getElementById(`line${i}`);
+                
+                el.classList.remove('active', 'completed');
+                el.classList.add('bg-gray-200', 'text-gray-600');
+                
+                if (i < currentStep) {
+                    el.classList.add('completed');
+                    el.classList.remove('bg-gray-200', 'text-gray-600');
+                    el.innerHTML = '<i class="fas fa-check"></i>';
+                    if (line) line.classList.add('bg-green-500');
+                } else if (i === currentStep) {
+                    el.classList.add('active');
+                    el.classList.remove('bg-gray-200', 'text-gray-600');
+                    el.textContent = i;
+                    if (line) line.classList.remove('bg-green-500');
+                } else {
+                    el.textContent = i;
+                    if (line) line.classList.remove('bg-green-500');
+                }
+            });
+        }
+
+        function renderStudentSelection() {
+            document.getElementById('selectedCourseName').textContent = selectedCourse.title;
+            
+            const grid = document.getElementById('studentSelectionGrid');
+            grid.innerHTML = linkedStudents.map(student => `
+                <div class="student-card-select bg-white rounded-xl p-4 border-2 ${selectedStudent?.id === student.id ? 'border-green-500 bg-green-50' : 'border-gray-200'} flex items-center space-x-4" onclick="selectStudentForCourse(${student.id})">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        ${student.avatar}
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-800 text-lg">${student.name}</h4>
+                        <p class="text-sm text-gray-600">Grade ${student.grade}</p>
+                        <p class="text-xs text-gray-500">${student.activeCourses} active courses</p>
+                    </div>
+                    ${selectedStudent?.id === student.id ? '<i class="fas fa-check-circle text-green-500 text-2xl"></i>' : '<div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>'}
+                </div>
+            `).join('');
+        }
+
+        function selectStudentForCourse(studentId) {
+            selectedStudent = linkedStudents.find(s => s.id === studentId);
+            renderStudentSelection();
+            
+            setTimeout(() => {
+                goToStep(3);
+            }, 500);
+        }
+
+        function renderConfirmation() {
+            const platformFee = selectedCourse.price * 0.10;
+            const rewardPool = selectedCourse.price * 0.90;
+            
+            document.getElementById('confirmCourseName').textContent = selectedCourse.title;
+            document.getElementById('confirmInstructor').textContent = selectedCourse.instructor;
+            document.getElementById('confirmPrice').textContent = `$${selectedCourse.price.toFixed(2)}`;
+            document.getElementById('confirmStudentName').textContent = selectedStudent.name;
+            document.getElementById('confirmCourseFee').textContent = `$${selectedCourse.price.toFixed(2)}`;
+            document.getElementById('confirmPlatformFee').textContent = `-$${platformFee.toFixed(2)}`;
+            document.getElementById('confirmRewardPool').textContent = `$${rewardPool.toFixed(2)}`;
+            document.getElementById('confirmTotal').textContent = `$${selectedCourse.price.toFixed(2)}`;
+        }
+
+        function confirmPurchase() {
+            if (walletBalance < selectedCourse.price) {
+                alert('Insufficient wallet balance! Please add funds first.');
+                closeModal('courseCatalogModal');
+                openAddMoneyModal();
+                return;
+            }
+            
+            walletBalance -= selectedCourse.price;
+            
+            const newAssignment = {
+                id: Date.now(),
+                studentId: selectedStudent.id,
+                courseId: selectedCourse.id,
+                courseName: selectedCourse.title,
+                studentName: selectedStudent.name,
+                price: selectedCourse.price,
+                progress: 0,
+                score: 0,
+                earned: 0,
+                status: 'active',
+                purchaseDate: new Date().toISOString().split('T')[0]
+            };
+            
+            courseAssignments.push(newAssignment);
+            selectedStudent.activeCourses++;
+            
+            transactions.unshift({
+                id: Date.now(),
+                type: 'purchase',
+                description: `${selectedCourse.title} - ${selectedStudent.name}`,
+                amount: -selectedCourse.price,
+                date: new Date().toISOString().split('T')[0],
+                status: 'completed'
+            });
+            
+            closeModal('courseCatalogModal');
+            renderParentData();
+            showSuccess('Course Assigned!', `${selectedCourse.title} has been assigned to ${selectedStudent.name}.`);
+        }
+
+        // ==================== LINK STUDENT ====================
+
+        function openLinkStudentModal() {
+            openModal('linkStudentModal');
+        }
+
+        function processLinkStudent() {
+            const email = document.getElementById('linkStudentEmail').value;
+            if (!email) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            const newStudent = {
+                id: Date.now(),
+                name: email.split('@')[0].replace('.', ' ').replace(/(?:^|\s)\S/g, a => a.toUpperCase()),
+                email: email,
+                grade: '9th',
+                avatar: email.substring(0, 2).toUpperCase(),
+                activeCourses: 0,
+                totalEarned: 0
+            };
+            
+            linkedStudents.push(newStudent);
+            closeModal('linkStudentModal');
+            renderParentData();
+            showSuccess('Student Linked!', `Invitation sent to ${email}. Once accepted, they'll appear in your dashboard.`);
+        }
+
+        function viewStudentDetail(studentId) {
+            console.log('Viewing student:', studentId);
+        }
+
+        function viewSpendingReport() {
+            alert('Spending report feature - would generate PDF/Excel report of all investments by child, ROI analysis, and projected earnings.');
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+
+        function showSuccess(title, message) {
+            const notif = document.getElementById('successNotification');
+            document.getElementById('successTitle').textContent = title;
+            document.getElementById('successMessage').textContent = message;
+            
+            notif.classList.remove('translate-x-full');
+            setTimeout(() => {
+                notif.classList.add('translate-x-full');
+            }, 4000);
+        }
+
+        function showNotifications() {
+            alert('Notifications:\n\n• Sarah earned $50 from Math quiz (95% score)\n• Mike needs approval for $200 withdrawal\n• New course recommendation: Advanced Physics\n• Your wallet balance is low ($1250 remaining)');
+        }
+
+        // ==================== OTHER DASHBOARD FUNCTIONS ====================
+
+        function renderStudentData() {
+            const container = document.getElementById('studentCourses');
+            container.innerHTML = courseAssignments.filter(ca => ca.studentId === 1).map(ca => `
+                <div class="bg-white rounded-xl shadow-md p-6 border border-gray-200 card-hover">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-1">${ca.courseName}</h3>
+                            <p class="text-sm text-gray-600">Purchased by: Parent</p>
+                        </div>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">In Progress</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Course Progress</span>
+                            <span class="font-semibold">${ca.progress}%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" style="width: ${ca.progress}%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+                        <div>
+                            <p class="text-xs text-gray-500">Current Earnings</p>
+                            <p class="text-xl font-bold text-green-600">$${ca.earned.toFixed(2)}</p>
+                        </div>
+                        <button onclick="continueCourse(${ca.courseId})" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors">
+                            Continue Learning
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showRewardCalculator() {
+            openModal('rewardCalculatorModal');
+            calculateReward();
+        }
+
+        function calculateReward() {
+            const fee = parseFloat(document.getElementById('calcCourseFee').value) || 0;
+            const score = parseInt(document.getElementById('calcScore').value) || 0;
+            document.getElementById('calcScoreDisplay').textContent = score;
+            
+            const platformFee = fee * 0.10;
+            const rewardPool = fee * 0.90;
+            let earnings = 0;
+            let tier = '';
+            
+            if (score <= 50) {
+                earnings = rewardPool * (score / 100);
+                tier = 'Bronze (0-50% refund)';
+            } else if (score <= 80) {
+                earnings = rewardPool * (0.50 + ((score - 50) / 30) * 0.30);
+                tier = 'Silver (50-80% refund)';
+            } else if (score <= 95) {
+                earnings = rewardPool * (0.80 + ((score - 80) / 15) * 0.20);
+                tier = 'Gold (80-100% refund)';
+            } else {
+                earnings = rewardPool;
+                tier = 'Platinum (100% + Scholarship)';
+            }
+            
+            document.getElementById('calcPlatformFee').textContent = `-$${platformFee.toFixed(2)}`;
+            document.getElementById('calcRewardPool').textContent = `$${rewardPool.toFixed(2)}`;
+            document.getElementById('calcEarnings').textContent = `$${earnings.toFixed(2)}`;
+            document.getElementById('calcTier').textContent = `Tier: ${tier}`;
+        }
+
+        function redeemReward(type) {
+            openModal('redeemModal');
+            document.getElementById('redeemMethod').value = type;
+        }
+
+        function processRedemption(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('redeemAmount').value);
+            if (amount > 500) {
+                alert('Parent approval required for amounts over $500. Request sent!');
+            } else {
+                alert(`Redemption request for $${amount} submitted!`);
+            }
+            closeModal('redeemModal');
+        }
+
+        function continueCourse(id) {
+            alert(`Opening course ${id} learning interface...`);
+        }
+
+        function createNewCourse() {
+            openModal('createCourseModal');
+        }
+
+        function submitCourse(e) {
+            e.preventDefault();
+            alert('Course submitted for admin approval!');
+            closeModal('createCourseModal');
+        }
+
+        function renderInstructorData() {
+            const container = document.getElementById('instructorCourses');
+            container.innerHTML = availableCourses.map(course => `
+                <div class="p-6 hover:bg-gray-50 transition-colors">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <h3 class="text-lg font-bold text-gray-800">${course.title}</h3>
+                                <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Active</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">$${course.price} • ${course.students} students enrolled</p>
+                            <div class="flex items-center space-x-6 text-sm">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-chart-line text-blue-500"></i>
+                                    <span>Avg Score: ${Math.floor(Math.random() * 30) + 70}%</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-dollar-sign text-green-500"></i>
+                                    <span>Revenue: $${course.price * course.students}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                <i class="fas fa-chart-bar"></i>
+                            </button>
+                            <button class="p-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors">
+                                <i class="fas fa-clipboard-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAdminData() {
+            const approvalsContainer = document.getElementById('pendingApprovals');
+            approvalsContainer.innerHTML = pendingApprovals.map((approval, idx) => `
+                <div class="border border-gray-200 rounded-xl p-4 bg-gradient-to-r from-yellow-50 to-orange-50">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h4 class="font-bold text-gray-800">${approval.student}</h4>
+                            <p class="text-sm text-gray-600">${approval.course}</p>
+                        </div>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Score: ${approval.score}%</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+                        <div>
+                            <span class="text-gray-600">Refund:</span>
+                            <span class="font-semibold text-green-600">$${approval.amount}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">Scholarship:</span>
+                            <span class="font-semibold text-purple-600">$${approval.bonus}</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="approveReward(${idx})" class="flex-1 bg-green-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors">
+                            <i class="fas fa-check mr-2"></i>Approve
+                        </button>
+                        <button class="flex-1 bg-red-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors">
+                            <i class="fas fa-times mr-2"></i>Review
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            const ctx = document.getElementById('adminChart');
+            if (ctx) {
+                // Destroy existing chart if it exists
+                const existingChart = Chart.getChart(ctx);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Platform Revenue',
+                            data: [32000, 35000, 38000, 42000, 45000, 45200],
+                            borderColor: 'rgb(99, 102, 241)',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }, {
+                            label: 'Rewards Paid',
+                            data: [24000, 26000, 29000, 31000, 33000, 33750],
+                            borderColor: 'rgb(34, 197, 94)',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value / 1000 + 'k';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function approveReward(idx) {
+            alert(`Approved reward for ${pendingApprovals[idx].student}!`);
+            pendingApprovals.splice(idx, 1);
+            renderAdminData();
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                closeModal(modalId);
+            }
+        }
+    </script>
+</body>
+</html>
