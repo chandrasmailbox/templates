@@ -1,0 +1,71 @@
+{
+  "title": "Introduction to Addition",
+  "sections": [
+    {
+      "id": "theory-1",
+      "type": "theory",
+      "title": "What is Addition?",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Understanding Addition</h2><p class=\"text-gray-700 mb-4 leading-relaxed\">Addition is one of the most fundamental operations in mathematics. It's the process of <strong>combining two or more numbers</strong> to find their total or sum.</p><div class=\"bg-blue-50 border-l-4 border-blue-500 p-4 mb-4\"><p class=\"text-blue-900 font-medium\">💡 Key Concept</p><p class=\"text-blue-800 mt-2\">When we add numbers, we're answering the question: \"How many do we have altogether?\"</p></div><p class=\"text-gray-700 mb-4\">The plus sign <span class=\"text-2xl font-bold text-blue-600\">+</span> is used to show addition, and the equals sign <span class=\"text-2xl font-bold text-green-600\">=</span> shows the result.</p><div class=\"bg-gray-100 p-6 rounded-lg text-center mb-4\"><span class=\"text-4xl font-bold text-gray-800\">2 + 3 = 5</span></div><p class=\"text-gray-600 text-sm italic\">In this example, 2 and 3 are called \"addends\" and 5 is the \"sum\".</p>"
+    },
+    {
+      "id": "example-1",
+      "type": "example",
+      "title": "Counting Apples",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Let's Add Apples! 🍎</h2><p class=\"text-gray-700 mb-6\">Watch as we combine groups of apples to see addition in action.</p><div class=\"space-y-8\"><div><p class=\"text-lg font-semibold mb-3\">First group: <span class=\"text-blue-600\">3 apples</span></p><div id=\"apples1\" class=\"border-2 border-blue-300 rounded-lg p-4 bg-blue-50 min-h-20\"></div></div><div class=\"text-center\"><span class=\"text-3xl font-bold text-green-600\">+</span></div><div><p class=\"text-lg font-semibold mb-3\">Second group: <span class=\"text-purple-600\">2 apples</span></p><div id=\"apples2\" class=\"border-2 border-purple-300 rounded-lg p-4 bg-purple-50 min-h-20\"></div></div><div class=\"text-center\"><span class=\"text-3xl font-bold text-orange-600\">=</span></div><div><p class=\"text-lg font-semibold mb-3\">Total: <span class=\"text-green-600\">5 apples</span></p><div id=\"applesTotal\" class=\"border-2 border-green-300 rounded-lg p-4 bg-green-50 min-h-20\"></div></div></div><div class=\"mt-8 bg-yellow-50 border-l-4 border-yellow-400 p-4\"><p class=\"text-yellow-900 font-medium\">✨ Notice:</p><p class=\"text-yellow-800 mt-2\">When we combine 3 apples and 2 apples, we get 5 apples total!</p></div>"
+    },
+    {
+      "id": "interactive-1",
+      "type": "interactive",
+      "title": "Number Line Explorer",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Explore Addition on a Number Line</h2><p class=\"text-gray-700 mb-6\">Try adding 4 + 3 by moving along the number line!</p><div class=\"mb-8\"><div class=\"flex justify-between text-sm text-gray-600 mb-2\"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class=\"number-line\" id=\"numberLine\"><div class=\"number-marker\" id=\"numberMarker\">0</div></div><input type=\"range\" id=\"numberSlider\" min=\"0\" max=\"10\" value=\"0\" class=\"w-full mt-4 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer\"></div><div class=\"bg-blue-50 p-6 rounded-lg mb-6\"><p class=\"text-blue-900 font-medium mb-3\">📍 Instructions:</p><ol class=\"list-decimal list-inside text-blue-800 space-y-2\"><li>Start at position <strong>4</strong> on the number line</li><li>Move <strong>3 steps forward</strong> (to the right)</li><li>Where do you land? That's your answer!</li></ol></div><div class=\"text-center\"><p class=\"text-lg mb-3\">What is <span class=\"text-2xl font-bold text-blue-600\">4 + 3</span>?</p><input type=\"number\" id=\"numberLineAnswer\" min=\"0\" max=\"10\" class=\"w-32 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold\" placeholder=\"?\"><button onclick=\"checkNumberLine()\" class=\"ml-4 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition font-medium\">Check Answer</button></div><div id=\"numberLineFeedback\" class=\"mt-4 text-center\"></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 7,
+        "successMessage": "Perfect! 4 + 3 = 7. You moved 3 steps from 4 and landed on 7!",
+        "hint": "Try starting at 4 on the slider and moving 3 positions to the right."
+      }
+    },
+    {
+      "id": "quiz-1",
+      "type": "quiz",
+      "title": "Quick Quiz",
+      "question": "What is 5 + 4?",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Quick Quiz</h2><p class=\"text-gray-700 mb-6\">Test your understanding of addition!</p><div class=\"bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl mb-6 text-center\"><p class=\"text-3xl font-bold text-gray-800\">5 + 4 = ?</p></div><div class=\"space-y-3\" id=\"quizOptions\"><!-- Options will be inserted here --></div><div id=\"quizFeedback\" class=\"mt-6\"></div>",
+      "options": [
+        {
+          "id": "a",
+          "text": "7",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "8",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "9",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "10",
+          "correct": false
+        }
+      ],
+      "explanation": "5 + 4 = 9. Think of it as: if you have 5 items and add 4 more, you'll have 9 items total!"
+    },
+    {
+      "id": "challenge-1",
+      "type": "challenge",
+      "title": "Word Problem",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">🎯 Challenge: Real World Addition</h2><div class=\"bg-gradient-to-r from-orange-50 to-yellow-50 p-6 rounded-xl mb-6 border-2 border-orange-200\"><p class=\"text-lg text-gray-800 leading-relaxed\">Sarah has <strong class=\"text-orange-600\">7 stickers</strong> in her collection. Her friend gives her <strong class=\"text-orange-600\">5 more stickers</strong>. How many stickers does Sarah have now?</p></div><div class=\"bg-blue-50 p-4 rounded-lg mb-6\"><p class=\"text-blue-900 font-medium mb-2\">💭 Think about it:</p><ul class=\"list-disc list-inside text-blue-800 space-y-1\"><li>What numbers do we need to add?</li><li>Are we combining two groups?</li></ul></div><div class=\"text-center\"><label class=\"block text-lg font-semibold mb-3 text-gray-700\">Sarah has <input type=\"number\" id=\"challengeAnswer\" min=\"0\" class=\"w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold mx-2\" placeholder=\"?\"> stickers now.</label><button onclick=\"checkChallenge()\" class=\"mt-4 bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg transition font-medium\">Submit Answer</button></div><div id=\"challengeFeedback\" class=\"mt-6\"></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 12,
+        "successMessage": "Excellent! Sarah now has 12 stickers (7 + 5 = 12). You solved the word problem!",
+        "hint": "Remember: Sarah started with 7 stickers and received 5 more. Try adding these two numbers."
+      }
+    }
+  ]
+}

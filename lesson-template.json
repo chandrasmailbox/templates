@@ -1,0 +1,66 @@
+{
+  "title": "Your Lesson Title Here",
+  "sections": [
+    {
+      "id": "unique-section-id-1",
+      "type": "theory",
+      "title": "Section Title",
+      "content": "<h2>Your HTML content here</h2><p>Can include any HTML with Tailwind classes</p>"
+    },
+    {
+      "id": "unique-section-id-2",
+      "type": "example",
+      "title": "Example Section",
+      "content": "<h2>Example Title</h2><p>Use divs with IDs like 'apples1' for animations</p><div id='apples1'></div>"
+    },
+    {
+      "id": "unique-section-id-3",
+      "type": "interactive",
+      "title": "Interactive Exercise",
+      "content": "<h2>Interactive Section</h2><input type='number' id='numberLineAnswer'><button onclick='checkNumberLine()'>Check</button><div id='numberLineFeedback'></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 7,
+        "successMessage": "Correct! Well done!",
+        "hint": "Try thinking about it step by step."
+      }
+    },
+    {
+      "id": "unique-section-id-4",
+      "type": "quiz",
+      "title": "Quiz Section",
+      "question": "What is 5 + 4?",
+      "content": "<h2>Quiz Title</h2><div id='quizOptions'></div><div id='quizFeedback'></div>",
+      "options": [
+        {
+          "id": "a",
+          "text": "Option A text",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Option B text",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Option C text",
+          "correct": false
+        }
+      ],
+      "explanation": "Explanation of the correct answer"
+    },
+    {
+      "id": "unique-section-id-5",
+      "type": "challenge",
+      "title": "Challenge Section",
+      "content": "<h2>Word Problem</h2><p>Your word problem here</p><input type='number' id='challengeAnswer'><button onclick='checkChallenge()'>Submit</button><div id='challengeFeedback'></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 12,
+        "successMessage": "Excellent work!",
+        "hint": "Break the problem into smaller parts."
+      }
+    }
+  ]
+}

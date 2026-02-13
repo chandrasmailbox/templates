@@ -1,0 +1,113 @@
+{
+  "title": "How Food Gets Digested",
+  "sections": [
+    {
+      "id": "theory-digestion-1",
+      "type": "theory",
+      "title": "What is Digestion?",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Understanding the Digestive System</h2><p class=\"text-gray-700 mb-4 leading-relaxed\">Digestion is the amazing process your body uses to <strong>break down food into nutrients</strong> that can be absorbed and used for energy, growth, and repair.</p><div class=\"bg-blue-50 border-l-4 border-blue-500 p-4 mb-4\"><p class=\"text-blue-900 font-medium\">💡 Key Concept</p><p class=\"text-blue-800 mt-2\">Your digestive system is like a food processing factory that turns a pizza into the building blocks your body needs!</p></div><p class=\"text-gray-700 mb-4\">The digestive system consists of a long tube called the <strong class=\"text-purple-600\">digestive tract</strong> (also called the alimentary canal) and several organs that help break down food.</p><div class=\"bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg mb-4\"><h3 class=\"text-xl font-bold text-gray-800 mb-3\">Main Parts of the Digestive System:</h3><ul class=\"list-disc list-inside text-gray-700 space-y-2\"><li><strong>Mouth</strong> - Where digestion begins</li><li><strong>Esophagus</strong> - Food tube to stomach</li><li><strong>Stomach</strong> - Churns and mixes food</li><li><strong>Small Intestine</strong> - Absorbs nutrients</li><li><strong>Large Intestine</strong> - Absorbs water</li></ul></div><p class=\"text-gray-600 text-sm italic\">Fun fact: If you stretched out your entire digestive system, it would be about 30 feet (9 meters) long!</p>"
+    },
+    {
+      "id": "theory-digestion-2",
+      "type": "theory",
+      "title": "The Journey Begins: Mouth & Esophagus",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Step 1: Mouth (0-30 seconds)</h2><p class=\"text-gray-700 mb-4 leading-relaxed\">Digestion starts the moment you take a bite!</p><div class=\"grid md:grid-cols-2 gap-4 mb-6\"><div class=\"bg-yellow-50 p-5 rounded-lg border-2 border-yellow-300\"><h3 class=\"font-bold text-yellow-900 mb-2 text-lg\">🦷 Mechanical Digestion</h3><p class=\"text-yellow-800\">Your <strong>teeth</strong> chew and grind food into smaller pieces. This increases the surface area for enzymes to work!</p></div><div class=\"bg-pink-50 p-5 rounded-lg border-2 border-pink-300\"><h3 class=\"font-bold text-pink-900 mb-2 text-lg\">💧 Chemical Digestion</h3><p class=\"text-pink-800\"><strong>Saliva</strong> contains enzymes (like amylase) that start breaking down carbohydrates into sugars.</p></div></div><h2 class=\"text-2xl font-bold text-gray-800 mb-4 mt-6\">Step 2: Esophagus (2-3 seconds)</h2><p class=\"text-gray-700 mb-4\">When you swallow, food travels down a muscular tube called the <strong>esophagus</strong>.</p><div class=\"bg-purple-50 border-l-4 border-purple-500 p-4 mb-4\"><p class=\"text-purple-900 font-medium\">✨ Amazing Process: Peristalsis</p><p class=\"text-purple-800 mt-2\">Wave-like muscle contractions push food down - this is why astronauts can swallow in zero gravity!</p></div><p class=\"text-gray-700\">A ring of muscle called the <strong>lower esophageal sphincter</strong> opens to let food into your stomach, then closes to prevent stomach acid from coming back up.</p>"
+    },
+    {
+      "id": "example-digestion-1",
+      "type": "example",
+      "title": "Journey Through the Stomach",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Step 3: Stomach (2-4 hours) 🔄</h2><p class=\"text-gray-700 mb-6\">Watch how food transforms in the stomach!</p><div class=\"space-y-8\"><div><p class=\"text-lg font-semibold mb-3\">🍕 Food enters the stomach</p><div id=\"apples1\" class=\"border-2 border-orange-300 rounded-lg p-6 bg-orange-50 min-h-24 text-center\"><div class=\"text-6xl\">🍕</div><p class=\"text-orange-800 font-medium mt-2\">Solid food chunks</p></div></div><div class=\"text-center\"><span class=\"text-3xl font-bold text-red-600\">↓</span><p class=\"text-gray-600 mt-2\">Stomach churns + Adds gastric acid + Enzymes (pepsin)</p></div><div><p class=\"text-lg font-semibold mb-3\">🥣 Becomes \"chyme\" (soupy mixture)</p><div id=\"apples2\" class=\"border-2 border-green-300 rounded-lg p-6 bg-green-50 min-h-24 text-center\"><div class=\"text-6xl\">🥣</div><p class=\"text-green-800 font-medium mt-2\">Partially digested food</p></div></div><div class=\"text-center\"><span class=\"text-3xl font-bold text-blue-600\">↓</span><p class=\"text-gray-600 mt-2\">Released slowly into small intestine</p></div><div><p class=\"text-lg font-semibold mb-3\">🎯 Ready for nutrient absorption!</p><div id=\"applesTotal\" class=\"border-2 border-blue-300 rounded-lg p-6 bg-blue-50 min-h-24 text-center\"><div class=\"text-6xl\">✨</div><p class=\"text-blue-800 font-medium mt-2\">Fully broken down nutrients</p></div></div></div><div class=\"mt-8 bg-red-50 border-l-4 border-red-400 p-4\"><p class=\"text-red-900 font-medium\">⚡ Important Facts:</p><ul class=\"text-red-800 mt-2 space-y-1 list-disc list-inside\"><li>Stomach acid is strong enough to dissolve metal!</li><li>Mucus lining protects stomach walls from acid</li><li>Stomach can hold about 1-2 liters of food</li></ul></div>"
+    },
+    {
+      "id": "interactive-digestion-1",
+      "type": "interactive",
+      "title": "Small Intestine - Nutrient Powerhouse",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Step 4: Small Intestine (3-5 hours)</h2><p class=\"text-gray-700 mb-6\">The small intestine is where most nutrient absorption happens! It's about 20 feet long and has a huge surface area thanks to tiny finger-like projections called <strong>villi</strong>.</p><div class=\"mb-8\"><div class=\"bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-xl mb-4\"><h3 class=\"text-xl font-bold text-purple-900 mb-3\">Three Sections of Small Intestine:</h3><div class=\"space-y-3\"><div class=\"bg-white p-4 rounded-lg\"><p class=\"font-bold text-purple-700\">1. Duodenum (10-12 inches)</p><p class=\"text-gray-700 text-sm mt-1\">Receives bile from liver and enzymes from pancreas. Continues breaking down food.</p></div><div class=\"bg-white p-4 rounded-lg\"><p class=\"font-bold text-pink-700\">2. Jejunum (8 feet)</p><p class=\"text-gray-700 text-sm mt-1\">Main site for absorbing carbohydrates and proteins.</p></div><div class=\"bg-white p-4 rounded-lg\"><p class=\"font-bold text-red-700\">3. Ileum (12 feet)</p><p class=\"text-gray-700 text-sm mt-1\">Absorbs vitamin B12, bile salts, and remaining nutrients.</p></div></div></div><div class=\"number-line mb-4\" id=\"numberLine\"><div class=\"number-marker\" id=\"numberMarker\">0</div></div><input type=\"range\" id=\"numberSlider\" min=\"0\" max=\"10\" value=\"0\" class=\"w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer\"><div class=\"flex justify-between text-xs text-gray-600 mt-2\"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div><p class=\"text-center text-sm text-gray-600 mt-2\">Slide to see nutrient absorption rate through the small intestine!</p></div><div class=\"bg-blue-50 p-6 rounded-lg mb-6\"><p class=\"text-blue-900 font-medium mb-3\">❓ Test Your Knowledge:</p><p class=\"text-blue-800 mb-3\">Approximately what percentage of nutrients are absorbed in the small intestine?</p></div><div class=\"text-center\"><input type=\"number\" id=\"numberLineAnswer\" min=\"0\" max=\"100\" class=\"w-32 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold\" placeholder=\"%\"><button onclick=\"checkNumberLine()\" class=\"ml-4 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition font-medium\">Check Answer</button></div><div id=\"numberLineFeedback\" class=\"mt-4 text-center\"></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 90,
+        "successMessage": "Excellent! About 90% of nutrients are absorbed in the small intestine. This is why it's so important for our nutrition!",
+        "hint": "Think about it - the small intestine is the main absorption site. It's a very high percentage, between 80-100%."
+      }
+    },
+    {
+      "id": "quiz-digestion-1",
+      "type": "quiz",
+      "title": "Quick Digestion Quiz",
+      "question": "How long does food typically stay in the stomach?",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Quick Digestion Quiz</h2><p class=\"text-gray-700 mb-6\">Test your understanding of the digestive process!</p><div class=\"bg-gradient-to-r from-orange-50 to-red-50 p-8 rounded-xl mb-6 text-center\"><p class=\"text-2xl font-bold text-gray-800 mb-2\">⏱️ Timing Challenge</p><p class=\"text-lg text-gray-700\">How long does food typically stay in the stomach?</p></div><div class=\"space-y-3\" id=\"quizOptions\"></div><div id=\"quizFeedback\" class=\"mt-6\"></div>",
+      "options": [
+        {
+          "id": "a",
+          "text": "30 minutes to 1 hour",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "2 to 4 hours",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "6 to 8 hours",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "12 to 24 hours",
+          "correct": false
+        }
+      ],
+      "explanation": "Food typically stays in the stomach for 2-4 hours. The stomach churns food and mixes it with gastric acid and enzymes, turning it into a soupy mixture called chyme before releasing it into the small intestine."
+    },
+    {
+      "id": "theory-digestion-3",
+      "type": "theory",
+      "title": "Large Intestine & Completion",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Step 5: Large Intestine (12-24 hours)</h2><p class=\"text-gray-700 mb-4 leading-relaxed\">After the small intestine absorbs most nutrients, what's left moves to the <strong>large intestine</strong> (also called the colon).</p><div class=\"bg-green-50 border-l-4 border-green-500 p-4 mb-4\"><p class=\"text-green-900 font-medium\">🌊 Main Function: Water Absorption</p><p class=\"text-green-800 mt-2\">The large intestine absorbs water and electrolytes from the remaining indigestible food matter, turning liquid waste into solid stool.</p></div><div class=\"grid md:grid-cols-2 gap-4 mb-6\"><div class=\"bg-blue-50 p-5 rounded-lg\"><h3 class=\"font-bold text-blue-900 mb-2\">🦠 Gut Bacteria</h3><p class=\"text-blue-800 text-sm\">Trillions of helpful bacteria live in your large intestine! They break down fiber, produce vitamins (like K and some B vitamins), and protect against harmful bacteria.</p></div><div class=\"bg-purple-50 p-5 rounded-lg\"><h3 class=\"font-bold text-purple-900 mb-2\">📦 Sections</h3><p class=\"text-purple-800 text-sm\">The large intestine has several parts: cecum, ascending colon, transverse colon, descending colon, sigmoid colon, and rectum.</p></div></div><h2 class=\"text-2xl font-bold text-gray-800 mb-4 mt-6\">Step 6: Elimination</h2><p class=\"text-gray-700 mb-4\">Waste products are stored in the <strong>rectum</strong> until they're eliminated through the <strong>anus</strong>.</p><div class=\"bg-yellow-50 p-6 rounded-lg\"><p class=\"text-yellow-900 font-medium mb-2\">⏰ Total Digestion Time:</p><p class=\"text-yellow-800\">From eating to elimination, the entire process typically takes <strong>24-72 hours</strong>, depending on the food and your individual digestive system!</p></div>"
+    },
+    {
+      "id": "quiz-digestion-2",
+      "type": "quiz",
+      "title": "Helper Organs Quiz",
+      "question": "Which organ produces bile to help digest fats?",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">Helper Organs Quiz</h2><p class=\"text-gray-700 mb-6\">Some organs help with digestion but aren't part of the digestive tract!</p><div class=\"bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl mb-6\"><p class=\"text-lg text-gray-800 mb-4\">Important digestive helper organs include:</p><ul class=\"list-disc list-inside text-gray-700 space-y-2\"><li><strong>Liver</strong> - Produces bile, processes nutrients</li><li><strong>Gallbladder</strong> - Stores and concentrates bile</li><li><strong>Pancreas</strong> - Produces digestive enzymes and hormones</li></ul></div><div class=\"bg-blue-50 p-6 rounded-lg mb-6 text-center\"><p class=\"text-xl font-bold text-gray-800\">Which organ produces bile to help digest fats?</p></div><div class=\"space-y-3\" id=\"quizOptions\"></div><div id=\"quizFeedback\" class=\"mt-6\"></div>",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pancreas",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Liver",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Gallbladder",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Stomach",
+          "correct": false
+        }
+      ],
+      "explanation": "The liver produces bile, which is a greenish-yellow fluid that helps break down fats. The gallbladder stores bile, and the pancreas produces digestive enzymes, but it's the liver that actually produces bile!"
+    },
+    {
+      "id": "challenge-digestion-1",
+      "type": "challenge",
+      "title": "Real-World Digestion Challenge",
+      "content": "<h2 class=\"text-2xl font-bold text-gray-800 mb-4\">🎯 Challenge: Timeline Problem</h2><div class=\"bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl mb-6 border-2 border-blue-200\"><p class=\"text-lg text-gray-800 leading-relaxed\">Emma ate breakfast at <strong class=\"text-blue-600\">8:00 AM</strong>. The food stayed in her stomach for <strong class=\"text-blue-600\">3 hours</strong>, then spent <strong class=\"text-blue-600\">4 hours</strong> in the small intestine, and <strong class=\"text-blue-600\">18 hours</strong> in the large intestine. At what time was the food eliminated from her body?</p><p class=\"text-sm text-gray-600 mt-3 italic\">(Use 24-hour format: e.g., 13 for 1:00 PM, 23 for 11:00 PM)</p></div><div class=\"bg-yellow-50 p-4 rounded-lg mb-6\"><p class=\"text-yellow-900 font-medium mb-2\">💭 Think about it:</p><ul class=\"list-disc list-inside text-yellow-800 space-y-1\"><li>Start time: 8:00 AM (hour 8)</li><li>Total time in digestive system: 3 + 4 + 18 = ?</li><li>Add the total hours to the start time</li><li>If you go past 24 hours, subtract 24 (next day)</li></ul></div><div class=\"text-center\"><label class=\"block text-lg font-semibold mb-3 text-gray-700\">The food was eliminated at hour: <input type=\"number\" id=\"challengeAnswer\" min=\"0\" max=\"24\" class=\"w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold mx-2\" placeholder=\"?\"> (24-hour format)</label><p class=\"text-sm text-gray-500 mb-4\">Example: Enter 11 for 11:00 AM next day</p><button onclick=\"checkChallenge()\" class=\"mt-4 bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg transition font-medium\">Submit Answer</button></div><div id=\"challengeFeedback\" class=\"mt-6\"></div>",
+      "validation": {
+        "type": "exact",
+        "answer": 9,
+        "successMessage": "Excellent! Total digestion time: 3 + 4 + 18 = 25 hours. Starting at 8 AM, adding 25 hours brings us to 9 AM the next day (8 + 25 = 33, and 33 - 24 = 9). Great math skills!",
+        "hint": "Add up all the hours: 3 + 4 + 18 = 25 total hours. Starting at 8 AM (hour 8), add 25 hours. Since this goes past midnight (24 hours), subtract 24 to find the next day's time."
+      }
+    }
+  ]
+}
