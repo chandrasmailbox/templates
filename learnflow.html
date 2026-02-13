@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnFlow - Interactive Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
+        @keyframes pulse-success {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes slide-in {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .shake { animation: shake 0.5s; }
+        .pulse-success { animation: pulse-success 0.5s; }
+        .slide-in { animation: slide-in 0.3s ease-out; }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease-out;
+        }
+        
+        .section-item {
+            transition: all 0.2s;
+        }
+        
+        .section-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .section-item.completed {
+            background-color: rgba(34, 197, 94, 0.1);
+        }
+        
+        .section-item.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .apple {
+            display: inline-block;
+            font-size: 2rem;
+            margin: 0.25rem;
+            animation: slide-in 0.3s ease-out;
+        }
+        
+        .number-line {
+            position: relative;
+            height: 60px;
+            background: linear-gradient(to right, #e5e7eb 0%, #e5e7eb 100%);
+            border-radius: 9999px;
+        }
+        
+        .number-marker {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .number-marker:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                transition: left 0.3s;
+                z-index: 50;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                    <button id="menuBtn" class="md:hidden p-2 hover:bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-blue-600">LearnFlow</h1>
+                </div>
+                <div class="flex gap-2">
+                    <button id="readBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition text-sm">
+                        🔊 Read it
+                    </button>
+                    <label class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition text-sm">
+                        <input type="file" id="fileInput" accept=".json" class="hidden">
+                        📁 Load Lesson
+                    </label>
+                    <button id="resetBtn" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg transition text-sm">
+                        🔄 Reset Progress
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="relative">
+                <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between mt-1 text-xs text-gray-600">
+                    <span id="progressText">0% Complete</span>
+                    <span id="lessonTitle">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex max-w-7xl mx-auto">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar bg-white w-64 md:w-72 min-h-screen shadow-lg md:sticky md:top-20 md:self-start">
+            <div class="p-4">
+                <h2 class="font-bold text-lg mb-4 text-gray-800">Sections</h2>
+                <nav id="sectionNav" class="space-y-2">
+                    <!-- Dynamic sections -->
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 md:p-8">
+            <div id="contentArea" class="bg-white rounded-xl shadow-lg p-6 md:p-8 min-h-96">
+                <!-- Dynamic content -->
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex items-center justify-between mt-6 gap-4">
+                <button id="prevBtn" class="bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-lg transition font-medium disabled:opacity-50 disabled:cursor-not-allowed">
+                    ← Previous
+                </button>
+                <div id="pageIndicator" class="text-sm text-gray-600 font-medium">
+                    Section 1 of 1
+                </div>
+                <button id="nextBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition font-medium disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next →
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative z-10 slide-in">
+            <div class="text-center">
+                <div class="text-6xl mb-4">🎉</div>
+                <h3 class="text-2xl font-bold text-green-600 mb-2">Excellent Work!</h3>
+                <p id="modalMessage" class="text-gray-600 mb-6">You've completed this section!</p>
+                <button onclick="closeModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition font-medium w-full">
+                    Continue →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default lesson data
+        const defaultLesson = {
+            "title": "How Food Gets Digested",
+            "sections": [
+                {
+                    "id": "theory-digestion-1",
+                    "type": "theory",
+                    "title": "What is Digestion?",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Understanding the Digestive System</h2>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            Digestion is the amazing process your body uses to <strong>break down food into nutrients</strong> that can be absorbed and used for energy, growth, and repair.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                            <p class="text-blue-900 font-medium">💡 Key Concept</p>
+                            <p class="text-blue-800 mt-2">Your digestive system is like a food processing factory that turns a pizza into the building blocks your body needs!</p>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            The digestive system consists of a long tube called the <strong class="text-purple-600">digestive tract</strong> (also called the alimentary canal) and several organs that help break down food.
+                        </p>
+                        <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg mb-4">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Main Parts of the Digestive System:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Mouth</strong> - Where digestion begins</li>
+                                <li><strong>Esophagus</strong> - Food tube to stomach</li>
+                                <li><strong>Stomach</strong> - Churns and mixes food</li>
+                                <li><strong>Small Intestine</strong> - Absorbs nutrients</li>
+                                <li><strong>Large Intestine</strong> - Absorbs water</li>
+                            </ul>
+                        </div>
+                        <p class="text-gray-600 text-sm italic">Fun fact: If you stretched out your entire digestive system, it would be about 30 feet (9 meters) long!</p>
+                    `
+                },
+                {
+                    "id": "theory-digestion-2",
+                    "type": "theory",
+                    "title": "The Journey Begins: Mouth & Esophagus",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Step 1: Mouth (0-30 seconds)</h2>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            Digestion starts the moment you take a bite!
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-yellow-50 p-5 rounded-lg border-2 border-yellow-300">
+                                <h3 class="font-bold text-yellow-900 mb-2 text-lg">🦷 Mechanical Digestion</h3>
+                                <p class="text-yellow-800">Your <strong>teeth</strong> chew and grind food into smaller pieces. This increases the surface area for enzymes to work!</p>
+                            </div>
+                            <div class="bg-pink-50 p-5 rounded-lg border-2 border-pink-300">
+                                <h3 class="font-bold text-pink-900 mb-2 text-lg">💧 Chemical Digestion</h3>
+                                <p class="text-pink-800"><strong>Saliva</strong> contains enzymes (like amylase) that start breaking down carbohydrates into sugars.</p>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4 mt-6">Step 2: Esophagus (2-3 seconds)</h2>
+                        <p class="text-gray-700 mb-4">
+                            When you swallow, food travels down a muscular tube called the <strong>esophagus</strong>.
+                        </p>
+                        <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4">
+                            <p class="text-purple-900 font-medium">✨ Amazing Process: Peristalsis</p>
+                            <p class="text-purple-800 mt-2">Wave-like muscle contractions push food down - this is why astronauts can swallow in zero gravity!</p>
+                        </div>
+                        <p class="text-gray-700">
+                            A ring of muscle called the <strong>lower esophageal sphincter</strong> opens to let food into your stomach, then closes to prevent stomach acid from coming back up.
+                        </p>
+                    `
+                },
+                {
+                    "id": "example-digestion-1",
+                    "type": "example",
+                    "title": "Journey Through the Stomach",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Step 3: Stomach (2-4 hours) 🔄</h2>
+                        <p class="text-gray-700 mb-6">Watch how food transforms in the stomach!</p>
+                        
+                        <div class="space-y-8">
+                            <div>
+                                <p class="text-lg font-semibold mb-3">🍕 Food enters the stomach</p>
+                                <div id="apples1" class="border-2 border-orange-300 rounded-lg p-6 bg-orange-50 min-h-24 text-center">
+                                    <div class="text-6xl">🍕</div>
+                                    <p class="text-orange-800 font-medium mt-2">Solid food chunks</p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center">
+                                <span class="text-3xl font-bold text-red-600">↓</span>
+                                <p class="text-gray-600 mt-2">Stomach churns + Adds gastric acid + Enzymes (pepsin)</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-lg font-semibold mb-3">🥣 Becomes "chyme" (soupy mixture)</p>
+                                <div id="apples2" class="border-2 border-green-300 rounded-lg p-6 bg-green-50 min-h-24 text-center">
+                                    <div class="text-6xl">🥣</div>
+                                    <p class="text-green-800 font-medium mt-2">Partially digested food</p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center">
+                                <span class="text-3xl font-bold text-blue-600">↓</span>
+                                <p class="text-gray-600 mt-2">Released slowly into small intestine</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-lg font-semibold mb-3">🎯 Ready for nutrient absorption!</p>
+                                <div id="applesTotal" class="border-2 border-blue-300 rounded-lg p-6 bg-blue-50 min-h-24 text-center">
+                                    <div class="text-6xl">✨</div>
+                                    <p class="text-blue-800 font-medium mt-2">Fully broken down nutrients</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 bg-red-50 border-l-4 border-red-400 p-4">
+                            <p class="text-red-900 font-medium">⚡ Important Facts:</p>
+                            <ul class="text-red-800 mt-2 space-y-1 list-disc list-inside">
+                                <li>Stomach acid is strong enough to dissolve metal!</li>
+                                <li>Mucus lining protects stomach walls from acid</li>
+                                <li>Stomach can hold about 1-2 liters of food</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                {
+                    "id": "interactive-digestion-1",
+                    "type": "interactive",
+                    "title": "Small Intestine - Nutrient Powerhouse",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Step 4: Small Intestine (3-5 hours)</h2>
+                        <p class="text-gray-700 mb-6">
+                            The small intestine is where most nutrient absorption happens! It's about 20 feet long and has a huge surface area thanks to tiny finger-like projections called <strong>villi</strong>.
+                        </p>
+                        
+                        <div class="mb-8">
+                            <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-xl mb-4">
+                                <h3 class="text-xl font-bold text-purple-900 mb-3">Three Sections of Small Intestine:</h3>
+                                <div class="space-y-3">
+                                    <div class="bg-white p-4 rounded-lg">
+                                        <p class="font-bold text-purple-700">1. Duodenum (10-12 inches)</p>
+                                        <p class="text-gray-700 text-sm mt-1">Receives bile from liver and enzymes from pancreas. Continues breaking down food.</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg">
+                                        <p class="font-bold text-pink-700">2. Jejunum (8 feet)</p>
+                                        <p class="text-gray-700 text-sm mt-1">Main site for absorbing carbohydrates and proteins.</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg">
+                                        <p class="font-bold text-red-700">3. Ileum (12 feet)</p>
+                                        <p class="text-gray-700 text-sm mt-1">Absorbs vitamin B12, bile salts, and remaining nutrients.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="number-line mb-4" id="numberLine">
+                                <div class="number-marker" id="numberMarker">0</div>
+                            </div>
+                            <input type="range" id="numberSlider" min="0" max="10" value="0" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-gray-600 mt-2">
+                                <span>0%</span>
+                                <span>25%</span>
+                                <span>50%</span>
+                                <span>75%</span>
+                                <span>100%</span>
+                            </div>
+                            <p class="text-center text-sm text-gray-600 mt-2">Slide to see nutrient absorption rate through the small intestine!</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                            <p class="text-blue-900 font-medium mb-3">❓ Test Your Knowledge:</p>
+                            <p class="text-blue-800 mb-3">Approximately what percentage of nutrients are absorbed in the small intestine?</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <input type="number" id="numberLineAnswer" min="0" max="100" 
+                                   class="w-32 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold"
+                                   placeholder="%">
+                            <button onclick="checkNumberLine()" 
+                                    class="ml-4 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition font-medium">
+                                Check Answer
+                            </button>
+                        </div>
+                        <div id="numberLineFeedback" class="mt-4 text-center"></div>
+                    `,
+                    "validation": {
+                        "type": "exact",
+                        "answer": 90,
+                        "successMessage": "Excellent! About 90% of nutrients are absorbed in the small intestine. This is why it's so important for our nutrition!",
+                        "hint": "Think about it - the small intestine is the main absorption site. It's a very high percentage, between 80-100%."
+                    }
+                },
+                {
+                    "id": "quiz-digestion-1",
+                    "type": "quiz",
+                    "title": "Quick Digestion Quiz",
+                    "question": "How long does food typically stay in the stomach?",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Quick Digestion Quiz</h2>
+                        <p class="text-gray-700 mb-6">Test your understanding of the digestive process!</p>
+                        
+                        <div class="bg-gradient-to-r from-orange-50 to-red-50 p-8 rounded-xl mb-6 text-center">
+                            <p class="text-2xl font-bold text-gray-800 mb-2">⏱️ Timing Challenge</p>
+                            <p class="text-lg text-gray-700">How long does food typically stay in the stomach?</p>
+                        </div>
+                        
+                        <div class="space-y-3" id="quizOptions"></div>
+                        <div id="quizFeedback" class="mt-6"></div>
+                    `,
+                    "options": [
+                        {"id": "a", "text": "30 minutes to 1 hour", "correct": false},
+                        {"id": "b", "text": "2 to 4 hours", "correct": true},
+                        {"id": "c", "text": "6 to 8 hours", "correct": false},
+                        {"id": "d", "text": "12 to 24 hours", "correct": false}
+                    ],
+                    "explanation": "Food typically stays in the stomach for 2-4 hours. The stomach churns food and mixes it with gastric acid and enzymes, turning it into a soupy mixture called chyme before releasing it into the small intestine."
+                },
+                {
+                    "id": "theory-digestion-3",
+                    "type": "theory",
+                    "title": "Large Intestine & Completion",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Step 5: Large Intestine (12-24 hours)</h2>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            After the small intestine absorbs most nutrients, what's left moves to the <strong>large intestine</strong> (also called the colon).
+                        </p>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
+                            <p class="text-green-900 font-medium">🌊 Main Function: Water Absorption</p>
+                            <p class="text-green-800 mt-2">The large intestine absorbs water and electrolytes from the remaining indigestible food matter, turning liquid waste into solid stool.</p>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-blue-50 p-5 rounded-lg">
+                                <h3 class="font-bold text-blue-900 mb-2">🦠 Gut Bacteria</h3>
+                                <p class="text-blue-800 text-sm">Trillions of helpful bacteria live in your large intestine! They break down fiber, produce vitamins (like K and some B vitamins), and protect against harmful bacteria.</p>
+                            </div>
+                            <div class="bg-purple-50 p-5 rounded-lg">
+                                <h3 class="font-bold text-purple-900 mb-2">📦 Sections</h3>
+                                <p class="text-purple-800 text-sm">The large intestine has several parts: cecum, ascending colon, transverse colon, descending colon, sigmoid colon, and rectum.</p>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4 mt-6">Step 6: Elimination</h2>
+                        <p class="text-gray-700 mb-4">
+                            Waste products are stored in the <strong>rectum</strong> until they're eliminated through the <strong>anus</strong>.
+                        </p>
+                        <div class="bg-yellow-50 p-6 rounded-lg">
+                            <p class="text-yellow-900 font-medium mb-2">⏰ Total Digestion Time:</p>
+                            <p class="text-yellow-800">From eating to elimination, the entire process typically takes <strong>24-72 hours</strong>, depending on the food and your individual digestive system!</p>
+                        </div>
+                    `
+                },
+                {
+                    "id": "quiz-digestion-2",
+                    "type": "quiz",
+                    "title": "Helper Organs Quiz",
+                    "question": "Which organ produces bile to help digest fats?",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Helper Organs Quiz</h2>
+                        <p class="text-gray-700 mb-6">Some organs help with digestion but aren't part of the digestive tract!</p>
+                        
+                        <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl mb-6">
+                            <p class="text-lg text-gray-800 mb-4">Important digestive helper organs include:</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Liver</strong> - Produces bile, processes nutrients</li>
+                                <li><strong>Gallbladder</strong> - Stores and concentrates bile</li>
+                                <li><strong>Pancreas</strong> - Produces digestive enzymes and hormones</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-6 rounded-lg mb-6 text-center">
+                            <p class="text-xl font-bold text-gray-800">Which organ produces bile to help digest fats?</p>
+                        </div>
+                        
+                        <div class="space-y-3" id="quizOptions"></div>
+                        <div id="quizFeedback" class="mt-6"></div>
+                    `,
+                    "options": [
+                        {"id": "a", "text": "Pancreas", "correct": false},
+                        {"id": "b", "text": "Liver", "correct": true},
+                        {"id": "c", "text": "Gallbladder", "correct": false},
+                        {"id": "d", "text": "Stomach", "correct": false}
+                    ],
+                    "explanation": "The liver produces bile, which is a greenish-yellow fluid that helps break down fats. The gallbladder stores bile, and the pancreas produces digestive enzymes, but it's the liver that actually produces bile!"
+                },
+                {
+                    "id": "challenge-digestion-1",
+                    "type": "challenge",
+                    "title": "Real-World Digestion Challenge",
+                    "content": `
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">🎯 Challenge: Timeline Problem</h2>
+                        
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl mb-6 border-2 border-blue-200">
+                            <p class="text-lg text-gray-800 leading-relaxed">
+                                Emma ate breakfast at <strong class="text-blue-600">8:00 AM</strong>. 
+                                The food stayed in her stomach for <strong class="text-blue-600">3 hours</strong>, 
+                                then spent <strong class="text-blue-600">4 hours</strong> in the small intestine, 
+                                and <strong class="text-blue-600">18 hours</strong> in the large intestine. 
+                                At what time was the food eliminated from her body?
+                            </p>
+                            <p class="text-sm text-gray-600 mt-3 italic">(Use 24-hour format: e.g., 13 for 1:00 PM, 23 for 11:00 PM)</p>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                            <p class="text-yellow-900 font-medium mb-2">💭 Think about it:</p>
+                            <ul class="list-disc list-inside text-yellow-800 space-y-1">
+                                <li>Start time: 8:00 AM (hour 8)</li>
+                                <li>Total time in digestive system: 3 + 4 + 18 = ?</li>
+                                <li>Add the total hours to the start time</li>
+                                <li>If you go past 24 hours, subtract 24 (next day)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-center">
+                            <label class="block text-lg font-semibold mb-3 text-gray-700">
+                                The food was eliminated at hour: 
+                                <input type="number" id="challengeAnswer" min="0" max="24" 
+                                       class="w-24 px-4 py-2 border-2 border-gray-300 rounded-lg text-center text-xl font-bold mx-2"
+                                       placeholder="?">
+                                (24-hour format)
+                            </label>
+                            <p class="text-sm text-gray-500 mb-4">Example: Enter 11 for 11:00 AM next day</p>
+                            <button onclick="checkChallenge()" 
+                                    class="mt-4 bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg transition font-medium">
+                                Submit Answer
+                            </button>
+                        </div>
+                        <div id="challengeFeedback" class="mt-6"></div>
+                    `,
+                    "validation": {
+                        "type": "exact",
+                        "answer": 9,
+                        "successMessage": "Excellent! Total digestion time: 3 + 4 + 18 = 25 hours. Starting at 8 AM, adding 25 hours brings us to 9 AM the next day (8 + 25 = 33, and 33 - 24 = 9). Great math skills!",
+                        "hint": "Add up all the hours: 3 + 4 + 18 = 25 total hours. Starting at 8 AM (hour 8), add 25 hours. Since this goes past midnight (24 hours), subtract 24 to find the next day's time."
+                    }
+                }
+            ]
+        };
+
+        // App state
+        let currentLesson = null;
+        let currentSectionIndex = 0;
+        let completedSections = new Set();
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isReading = false;
+
+        // Initialize app
+        function init() {
+            loadProgress();
+            loadLesson(defaultLesson);
+            setupEventListeners();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+            document.getElementById('resetBtn').addEventListener('click', resetProgress);
+            document.getElementById('readBtn').addEventListener('click', toggleRead);
+            document.getElementById('prevBtn').addEventListener('click', () => navigateSection(-1));
+            document.getElementById('nextBtn').addEventListener('click', () => navigateSection(1));
+            document.getElementById('menuBtn')?.addEventListener('click', toggleSidebar);
+        }
+
+        // File upload handler
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const lesson = JSON.parse(e.target.result);
+                    resetProgress();
+                    loadLesson(lesson);
+                } catch (error) {
+                    alert('Invalid lesson file. Please upload a valid JSON file.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Load lesson
+        function loadLesson(lesson) {
+            currentLesson = lesson;
+            currentSectionIndex = 0;
+            document.getElementById('lessonTitle').textContent = lesson.title;
+            renderSidebar();
+            renderSection();
+            updateProgress();
+        }
+
+        // Render sidebar
+        function renderSidebar() {
+            const nav = document.getElementById('sectionNav');
+            nav.innerHTML = currentLesson.sections.map((section, index) => {
+                const icons = {
+                    theory: '📖',
+                    example: '🎨',
+                    interactive: '🎮',
+                    quiz: '❓',
+                    challenge: '🎯'
+                };
+                
+                const completed = completedSections.has(section.id);
+                const active = index === currentSectionIndex;
+                
+                return `
+                    <div class="section-item ${completed ? 'completed' : ''} ${active ? 'active' : ''} 
+                                px-4 py-3 rounded-lg cursor-pointer"
+                         onclick="goToSection(${index})">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">${icons[section.type] || '📄'}</span>
+                                <span class="font-medium text-gray-800">${section.title}</span>
+                            </div>
+                            ${completed ? '<span class="text-green-500">✓</span>' : ''}
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 ml-7 capitalize">${section.type}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render current section
+        function renderSection() {
+            // Stop any ongoing speech when changing sections
+            if (isReading) {
+                stopReading();
+            }
+            
+            const section = currentLesson.sections[currentSectionIndex];
+            const contentArea = document.getElementById('contentArea');
+            
+            contentArea.innerHTML = section.content;
+            
+            // Special rendering for different types
+            if (section.type === 'example') {
+                setTimeout(() => animateApples(), 300);
+            } else if (section.type === 'interactive') {
+                setTimeout(() => setupNumberLine(), 300);
+            } else if (section.type === 'quiz') {
+                setTimeout(() => renderQuizOptions(section), 300);
+            }
+            
+            updateNavigation();
+            updateProgress();
+            renderSidebar();
+            
+            // Close sidebar on mobile after navigation
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        // Animate apples example
+        function animateApples() {
+            const apples1 = document.getElementById('apples1');
+            const apples2 = document.getElementById('apples2');
+            const applesTotal = document.getElementById('applesTotal');
+            
+            if (!apples1) return;
+            
+            // First group
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const apple = document.createElement('span');
+                    apple.className = 'apple';
+                    apple.textContent = '🍎';
+                    apples1.appendChild(apple);
+                }, i * 200);
+            }
+            
+            // Second group
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+                    const apple = document.createElement('span');
+                    apple.className = 'apple';
+                    apple.textContent = '🍏';
+                    apples2.appendChild(apple);
+                }, (i + 3) * 200);
+            }
+            
+            // Total
+            setTimeout(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const apple = document.createElement('span');
+                        apple.className = 'apple';
+                        apple.textContent = i < 3 ? '🍎' : '🍏';
+                        applesTotal.appendChild(apple);
+                    }, i * 150);
+                }
+            }, 1200);
+        }
+
+        // Setup number line
+        function setupNumberLine() {
+            const slider = document.getElementById('numberSlider');
+            const marker = document.getElementById('numberMarker');
+            
+            if (!slider || !marker) return;
+            
+            slider.addEventListener('input', (e) => {
+                const value = e.target.value;
+                marker.textContent = value;
+                const percent = (value / 10) * 100;
+                marker.style.left = `${percent}%`;
+            });
+        }
+
+        // Check number line answer
+        window.checkNumberLine = function() {
+            const section = currentLesson.sections[currentSectionIndex];
+            const input = document.getElementById('numberLineAnswer');
+            const feedback = document.getElementById('numberLineFeedback');
+            const answer = parseInt(input.value);
+            
+            if (isNaN(answer)) {
+                feedback.innerHTML = `<p class="text-orange-600">Please enter a number!</p>`;
+                return;
+            }
+            
+            if (answer === section.validation.answer) {
+                feedback.innerHTML = `<div class="pulse-success bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-lg">
+                    <p class="font-bold">✅ ${section.validation.successMessage}</p>
+                </div>`;
+                setTimeout(() => {
+                    markSectionComplete();
+                    showSuccessModal(section.validation.successMessage);
+                }, 1000);
+            } else {
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 500);
+                feedback.innerHTML = `<div class="bg-red-100 border-2 border-red-500 text-red-800 p-4 rounded-lg">
+                    <p class="font-bold">❌ Not quite right.</p>
+                    <p class="mt-2">${section.validation.hint}</p>
+                </div>`;
+            }
+        };
+
+        // Render quiz options
+        function renderQuizOptions(section) {
+            const container = document.getElementById('quizOptions');
+            if (!container) return;
+            
+            container.innerHTML = section.options.map(option => `
+                <button onclick="checkQuiz('${option.id}', ${option.correct})"
+                        class="quiz-option w-full text-left p-4 border-2 border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition">
+                    <span class="font-bold text-blue-600">${option.id.toUpperCase()}.</span>
+                    <span class="ml-3 text-gray-800">${option.text}</span>
+                </button>
+            `).join('');
+        }
+
+        // Check quiz answer
+        window.checkQuiz = function(optionId, isCorrect) {
+            const section = currentLesson.sections[currentSectionIndex];
+            const feedback = document.getElementById('quizFeedback');
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => opt.disabled = true);
+            
+            if (isCorrect) {
+                feedback.innerHTML = `<div class="pulse-success bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-lg">
+                    <p class="font-bold">✅ Correct!</p>
+                    <p class="mt-2">${section.explanation}</p>
+                </div>`;
+                setTimeout(() => {
+                    markSectionComplete();
+                    showSuccessModal("Great job! You got it right!");
+                }, 1500);
+            } else {
+                const clickedOption = Array.from(options).find(opt => 
+                    opt.textContent.includes(optionId.toUpperCase())
+                );
+                clickedOption.classList.add('shake');
+                setTimeout(() => clickedOption.classList.remove('shake'), 500);
+                
+                feedback.innerHTML = `<div class="bg-red-100 border-2 border-red-500 text-red-800 p-4 rounded-lg">
+                    <p class="font-bold">❌ Not quite. Try again!</p>
+                </div>`;
+                
+                setTimeout(() => {
+                    options.forEach(opt => opt.disabled = false);
+                    feedback.innerHTML = '';
+                }, 2000);
+            }
+        };
+
+        // Check challenge answer
+        window.checkChallenge = function() {
+            const section = currentLesson.sections[currentSectionIndex];
+            const input = document.getElementById('challengeAnswer');
+            const feedback = document.getElementById('challengeFeedback');
+            const answer = parseInt(input.value);
+            
+            if (isNaN(answer)) {
+                feedback.innerHTML = `<p class="text-orange-600 text-center">Please enter your answer!</p>`;
+                return;
+            }
+            
+            if (answer === section.validation.answer) {
+                feedback.innerHTML = `<div class="pulse-success bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-lg">
+                    <p class="font-bold">✅ ${section.validation.successMessage}</p>
+                </div>`;
+                createConfetti();
+                setTimeout(() => {
+                    markSectionComplete();
+                    showSuccessModal(section.validation.successMessage);
+                }, 2000);
+            } else {
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 500);
+                feedback.innerHTML = `<div class="bg-red-100 border-2 border-red-500 text-red-800 p-4 rounded-lg">
+                    <p class="font-bold">❌ Not quite right.</p>
+                    <p class="mt-2">${section.validation.hint}</p>
+                </div>`;
+            }
+        };
+
+        // Mark section as complete
+        function markSectionComplete() {
+            const section = currentLesson.sections[currentSectionIndex];
+            completedSections.add(section.id);
+            saveProgress();
+            updateProgress();
+            renderSidebar();
+        }
+
+        // Show success modal
+        function showSuccessModal(message) {
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        // Close modal
+        window.closeModal = function() {
+            document.getElementById('successModal').classList.add('hidden');
+        };
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animation = `confetti-fall ${2 + Math.random() * 2}s linear`;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+
+        // Navigation
+        function navigateSection(direction) {
+            const newIndex = currentSectionIndex + direction;
+            if (newIndex >= 0 && newIndex < currentLesson.sections.length) {
+                currentSectionIndex = newIndex;
+                renderSection();
+            }
+        }
+
+        function goToSection(index) {
+            currentSectionIndex = index;
+            renderSection();
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicator = document.getElementById('pageIndicator');
+            
+            prevBtn.disabled = currentSectionIndex === 0;
+            nextBtn.disabled = currentSectionIndex === currentLesson.sections.length - 1;
+            
+            indicator.textContent = `Section ${currentSectionIndex + 1} of ${currentLesson.sections.length}`;
+        }
+
+        // Progress
+        function updateProgress() {
+            const total = currentLesson.sections.length;
+            const completed = completedSections.size;
+            const percent = (completed / total) * 100;
+            
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressText').textContent = `${Math.round(percent)}% Complete`;
+        }
+
+        // Local storage
+        function saveProgress() {
+            const progress = {
+                completedSections: Array.from(completedSections),
+                lessonTitle: currentLesson.title
+            };
+            localStorage.setItem('learnflow_progress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('learnflow_progress');
+            if (saved) {
+                try {
+                    const progress = JSON.parse(saved);
+                    completedSections = new Set(progress.completedSections);
+                } catch (e) {
+                    console.error('Error loading progress:', e);
+                }
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                completedSections.clear();
+                localStorage.removeItem('learnflow_progress');
+                currentSectionIndex = 0;
+                renderSection();
+                updateProgress();
+            }
+        }
+
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Text-to-speech functionality
+        function toggleRead() {
+            if (isReading) {
+                stopReading();
+            } else {
+                startReading();
+            }
+        }
+
+        function startReading() {
+            // Stop any ongoing speech
+            speechSynthesis.cancel();
+            
+            // Get the current section content
+            const contentArea = document.getElementById('contentArea');
+            const section = currentLesson.sections[currentSectionIndex];
+            
+            // Extract text content (remove HTML tags)
+            let textToRead = `${section.title}. `;
+            
+            // Create a temporary div to parse HTML and extract text
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = section.content;
+            
+            // Get text content and clean it up
+            let content = tempDiv.textContent || tempDiv.innerText;
+            content = content.replace(/\s+/g, ' ').trim();
+            textToRead += content;
+            
+            // Add question if it exists
+            if (section.question) {
+                textToRead += `. ${section.question}`;
+            }
+            
+            // Create utterance
+            currentUtterance = new SpeechSynthesisUtterance(textToRead);
+            currentUtterance.rate = 0.9;
+            currentUtterance.pitch = 1;
+            currentUtterance.volume = 1;
+            
+            // Update button state
+            const readBtn = document.getElementById('readBtn');
+            readBtn.innerHTML = '⏸️ Stop';
+            readBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+            readBtn.classList.add('bg-red-500', 'hover:bg-red-600');
+            isReading = true;
+            
+            // Handle completion
+            currentUtterance.onend = () => {
+                stopReading();
+            };
+            
+            // Start speaking
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        function stopReading() {
+            speechSynthesis.cancel();
+            isReading = false;
+            
+            const readBtn = document.getElementById('readBtn');
+            readBtn.innerHTML = '🔊 Read it';
+            readBtn.classList.remove('bg-red-500', 'hover:bg-red-600');
+            readBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
