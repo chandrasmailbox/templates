@@ -871,13 +871,13 @@
                         <strong>1. </strong><span class="field-value" id="prev_principal1Name">___________</span><br>
                         <span id="prev_principal1Relation">___________</span> <span class="field-value"
                             id="prev_principal1Father">___________</span><br>
-                        Aged: <span class="field-value" id="prev_principal1Age">___________</span> years<br>
+                        <!-- Aged: <span class="field-value" id="prev_principal1Age">___________</span> years<br> -->
                         Passport No. <span class="field-value" id="prev_principal1Passport">___________</span><br>
                         Date of Birth: <span class="field-value" id="prev_principal1DOB">___________</span><br>
                         Residing at: <span class="field-value" id="prev_principal1Address">___________</span><br>
                         Country: <span class="field-value" id="prev_principal1Country">___________</span><br>
-                        PAN: <span class="field-value" id="prev_principal1PAN">___________</span><br>
-                        Aadhaar: <span class="field-value" id="prev_principal1Aadhaar">___________</span>
+                        <!-- PAN: <span class="field-value" id="prev_principal1PAN">___________</span><br>
+                        Aadhaar: <span class="field-value" id="prev_principal1Aadhaar">___________</span> -->
                     </p>
                     <p style="margin-top: 20px;">
                         <strong>AND</strong>
@@ -886,13 +886,13 @@
                         <strong>2. </strong><span class="field-value" id="prev_principal2Name">___________</span><br>
                         <span id="prev_principal2Relation">___________</span> <span class="field-value"
                             id="prev_principal2Father">___________</span><br>
-                        Aged: <span class="field-value" id="prev_principal2Age">___________</span> years<br>
+                        <!-- Aged: <span class="field-value" id="prev_principal2Age">___________</span> years<br> -->
                         Passport No. <span class="field-value" id="prev_principal2Passport">___________</span><br>
                         Date of Birth: <span class="field-value" id="prev_principal2DOB">___________</span><br>
                         Residing at: <span class="field-value" id="prev_principal2Address">___________</span><br>
                         Country: <span class="field-value" id="prev_principal2Country">___________</span><br>
-                        PAN: <span class="field-value" id="prev_principal2PAN">___________</span><br>
-                        Aadhaar: <span class="field-value" id="prev_principal2Aadhaar">___________</span>
+                        <!-- PAN: <span class="field-value" id="prev_principal2PAN">___________</span><br>
+                        Aadhaar: <span class="field-value" id="prev_principal2Aadhaar">___________</span> -->
                     </p>
                     <p style="margin-top: 15px; font-style: italic;">
                         (Hereinafter jointly referred to as the "EXECUTANTS")
@@ -910,10 +910,10 @@
                         City: <span class="field-value" id="prev_attorneyCity">___________</span>, State: <span
                             class="field-value" id="prev_attorneyState">___________</span><br>
                         PIN Code: <span class="field-value" id="prev_attorneyPIN">___________</span><br>
-                        PAN: <span class="field-value" id="prev_attorneyPAN">___________</span><br>
+                        <!-- PAN: <span class="field-value" id="prev_attorneyPAN">___________</span><br>
                         Aadhaar: <span class="field-value" id="prev_attorneyAadhaar">___________</span><br>
                         Mobile: <span class="field-value" id="prev_attorneyMobile">___________</span><br>
-                        Email: <span class="field-value" id="prev_attorneyEmail">___________</span>
+                        Email: <span class="field-value" id="prev_attorneyEmail">___________</span> -->
                     </p>
                     <p style="margin-top: 15px; font-style: italic;">
                         (Hereinafter referred to as the "ATTORNEY")
@@ -1145,6 +1145,8 @@
             const dobInput = document.getElementById(`${principal}DOB`);
             const ageInput = document.getElementById(`${principal}Age`);
 
+            if (!ageInput) return;
+
             if (dobInput.value) {
                 const dob = new Date(dobInput.value);
                 const today = new Date();
@@ -1195,8 +1197,8 @@
             document.getElementById('principal1Passport').value = 'A1234567';
             document.getElementById('principal1DOB').value = '1980-05-15';
             calculateAge('principal1');
-            document.getElementById('principal1PAN').value = 'ABCDE1234F';
-            document.getElementById('principal1Aadhaar').value = '1234 5678 9012';
+            // document.getElementById('principal1PAN').value = 'ABCDE1234F';
+            // document.getElementById('principal1Aadhaar').value = '1234 5678 9012';
             document.getElementById('principal1Address').value = '123 Main Street, Apartment 4B, Manhattan, New York 10001';
             document.getElementById('principal1Country').value = 'United States of America';
 
@@ -1206,8 +1208,8 @@
             document.getElementById('principal2Passport').value = 'B7654321';
             document.getElementById('principal2DOB').value = '1985-08-20';
             calculateAge('principal2');
-            document.getElementById('principal2PAN').value = 'FGHIJ5678K';
-            document.getElementById('principal2Aadhaar').value = '9876 5432 1098';
+            // document.getElementById('principal2PAN').value = 'FGHIJ5678K';
+            // document.getElementById('principal2Aadhaar').value = '9876 5432 1098';
             document.getElementById('principal2Address').value = '123 Main Street, Apartment 4B, Manhattan, New York 10001';
             document.getElementById('principal2Country').value = 'United States of America';
 
@@ -1218,10 +1220,10 @@
             document.getElementById('attorneyCity').value = 'Hyderabad';
             document.getElementById('attorneyState').value = 'Telangana';
             document.getElementById('attorneyPIN').value = '500034';
-            document.getElementById('attorneyPAN').value = 'KLMNO9012P';
-            document.getElementById('attorneyAadhaar').value = '5555 6666 7777';
-            document.getElementById('attorneyMobile').value = '+91 98765 43210';
-            document.getElementById('attorneyEmail').value = 'suresh.reddy@email.com';
+            // document.getElementById('attorneyPAN').value = 'KLMNO9012P';
+            // document.getElementById('attorneyAadhaar').value = '5555 6666 7777';
+            // document.getElementById('attorneyMobile').value = '+91 98765 43210';
+            // document.getElementById('attorneyEmail').value = 'suresh.reddy@email.com';
 
             document.getElementById('propertyAddress').value = 'Plot No. 123, Road No. 45, Jubilee Hills';
             document.getElementById('propertyCity').value = 'Jubilee Hills';
