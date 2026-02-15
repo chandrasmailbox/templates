@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Special Power of Attorney (Joint) - NRI Property Registration Hyderabad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #1a472a;
@@ -162,6 +165,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -419,6 +423,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="progress-bar">
@@ -449,7 +454,8 @@
                         </div>
                         <div class="form-group">
                             <label>Execution Place</label>
-                            <input type="text" id="executionPlace" placeholder="e.g., New York, USA" oninput="updatePreview()">
+                            <input type="text" id="executionPlace" placeholder="e.g., New York, USA"
+                                oninput="updatePreview()">
                         </div>
                     </div>
                 </div>
@@ -460,7 +466,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" id="principal1Name" placeholder="Full legal name" oninput="updatePreview()">
+                            <input type="text" id="principal1Name" placeholder="Full legal name"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Relation</label>
@@ -481,16 +488,17 @@
                             <label>Date of Birth</label>
                             <input type="date" id="principal1DOB" oninput="updatePreview(); calculateAge('principal1')">
                         </div>
-                        <div class="form-group">
+                        <!--     <div class="form-group">
                             <label>Age (Years)</label>
                             <input type="text" id="principal1Age" placeholder="Calculated automatically" readonly style="background: #f5f5f5;">
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label>Passport Number</label>
-                            <input type="text" id="principal1Passport" placeholder="e.g., A1234567" oninput="updatePreview()">
+                            <input type="text" id="principal1Passport" placeholder="e.g., A1234567"
+                                oninput="updatePreview()">
                         </div>
                     </div>
-                    <div class="form-row">
+                    <!--    <div class="form-row">
                         <div class="form-group">
                             <label>PAN Number</label>
                             <input type="text" id="principal1PAN" placeholder="e.g., ABCDE1234F" oninput="updatePreview()">
@@ -499,14 +507,16 @@
                             <label>Aadhaar Number</label>
                             <input type="text" id="principal1Aadhaar" placeholder="e.g., 1234 5678 9012" oninput="updatePreview()">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>Complete Address Abroad</label>
-                        <textarea id="principal1Address" placeholder="Full residential address with country" oninput="updatePreview()"></textarea>
+                        <textarea id="principal1Address" placeholder="Full residential address with country"
+                            oninput="updatePreview()"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Country of Residence</label>
-                        <input type="text" id="principal1Country" placeholder="e.g., United States" oninput="updatePreview()">
+                        <input type="text" id="principal1Country" placeholder="e.g., United States"
+                            oninput="updatePreview()">
                     </div>
                 </div>
 
@@ -516,7 +526,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" id="principal2Name" placeholder="Full legal name" oninput="updatePreview()">
+                            <input type="text" id="principal2Name" placeholder="Full legal name"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Relation</label>
@@ -535,34 +546,37 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Passport Number</label>
-                            <input type="text" id="principal2Passport" placeholder="e.g., B7654321" oninput="updatePreview()">
+                            <input type="text" id="principal2Passport" placeholder="e.g., B7654321"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Date of Birth</label>
                             <input type="date" id="principal2DOB" oninput="updatePreview(); calculateAge('principal2')">
                         </div>
-                        <div class="form-group">
+                        <!--   <div class="form-group">
                             <label>Age (Years)</label>
                             <input type="text" id="principal2Age" placeholder="Calculated automatically" readonly style="background: #f5f5f5;">
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
+                    <!--   <div class="form-row">
+                       <div class="form-group">
                             <label>PAN Number</label>
                             <input type="text" id="principal2PAN" placeholder="e.g., FGHIJ5678K" oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Aadhaar Number</label>
                             <input type="text" id="principal2Aadhaar" placeholder="e.g., 9876 5432 1098" oninput="updatePreview()">
-                        </div>
-                    </div>
+                        </div> 
+                    </div> -->
                     <div class="form-group">
                         <label>Complete Address Abroad</label>
-                        <textarea id="principal2Address" placeholder="Full residential address with country" oninput="updatePreview()"></textarea>
+                        <textarea id="principal2Address" placeholder="Full residential address with country"
+                            oninput="updatePreview()"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Country of Residence</label>
-                        <input type="text" id="principal2Country" placeholder="e.g., United States" oninput="updatePreview()">
+                        <input type="text" id="principal2Country" placeholder="e.g., United States"
+                            oninput="updatePreview()">
                     </div>
                 </div>
 
@@ -572,7 +586,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Attorney Name</label>
-                            <input type="text" id="attorneyName" placeholder="Full legal name" oninput="updatePreview()">
+                            <input type="text" id="attorneyName" placeholder="Full legal name"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Relation</label>
@@ -590,7 +605,8 @@
                     </div>
                     <div class="form-group">
                         <label>Complete Address in India</label>
-                        <textarea id="attorneyAddress" placeholder="Full residential address in India" oninput="updatePreview()"></textarea>
+                        <textarea id="attorneyAddress" placeholder="Full residential address in India"
+                            oninput="updatePreview()"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -606,7 +622,7 @@
                             <input type="text" id="attorneyPIN" placeholder="e.g., 560001" oninput="updatePreview()">
                         </div>
                     </div>
-                    <div class="form-row">
+                    <!--    <div class="form-row">
                         <div class="form-group">
                             <label>PAN Number</label>
                             <input type="text" id="attorneyPAN" placeholder="e.g., KLMNO9012P" oninput="updatePreview()">
@@ -625,7 +641,7 @@
                             <label>Email Address</label>
                             <input type="email" id="attorneyEmail" placeholder="email@example.com" oninput="updatePreview()">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Property Details -->
@@ -633,26 +649,31 @@
                     <h2 class="section-title">Property Details</h2>
                     <div class="form-group">
                         <label>Complete Property Address</label>
-                        <textarea id="propertyAddress" placeholder="Full address of the property" oninput="updatePreview()"></textarea>
+                        <textarea id="propertyAddress" placeholder="Full address of the property"
+                            oninput="updatePreview()"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Village/Colony</label>
-                            <input type="text" id="propertyCity" placeholder="e.g., Gachibowli / Madhapur" oninput="updatePreview()">
+                            <input type="text" id="propertyCity" placeholder="e.g., Gachibowli / Madhapur"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Mandal</label>
-                            <input type="text" id="mandal" placeholder="e.g., Serilingampally" oninput="updatePreview()">
+                            <input type="text" id="mandal" placeholder="e.g., Serilingampally"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>District</label>
-                            <input type="text" id="propertyDistrict" placeholder="e.g., Hyderabad / Rangareddy" oninput="updatePreview()">
+                            <input type="text" id="propertyDistrict" placeholder="e.g., Hyderabad / Rangareddy"
+                                oninput="updatePreview()">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Revenue Division</label>
-                            <input type="text" id="revenueDivision" placeholder="e.g., L.B. Nagar" oninput="updatePreview()">
+                            <input type="text" id="revenueDivision" placeholder="e.g., L.B. Nagar"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>State</label>
@@ -666,7 +687,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Survey No./Plot No.</label>
-                            <input type="text" id="plotNumber" placeholder="e.g., Sy. No. 123/4/A" oninput="updatePreview()">
+                            <input type="text" id="plotNumber" placeholder="e.g., Sy. No. 123/4/A"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Khata Number (Pattadar Passbook)</label>
@@ -674,17 +696,20 @@
                         </div>
                         <div class="form-group">
                             <label>Total Area</label>
-                            <input type="text" id="propertyArea" placeholder="e.g., 200 Sq. Yds. / 1200 Sq. Ft." oninput="updatePreview()">
+                            <input type="text" id="propertyArea" placeholder="e.g., 200 Sq. Yds. / 1200 Sq. Ft."
+                                oninput="updatePreview()">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>North Boundary</label>
-                            <input type="text" id="boundaryNorth" placeholder="North boundary" oninput="updatePreview()">
+                            <input type="text" id="boundaryNorth" placeholder="North boundary"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>South Boundary</label>
-                            <input type="text" id="boundarySouth" placeholder="South boundary" oninput="updatePreview()">
+                            <input type="text" id="boundarySouth" placeholder="South boundary"
+                                oninput="updatePreview()">
                         </div>
                     </div>
                     <div class="form-row">
@@ -709,11 +734,13 @@
                         </div>
                         <div class="form-group">
                             <label>Property Tax/House Number</label>
-                            <input type="text" id="propertyTaxNumber" placeholder="e.g., 12-34-567/8" oninput="updatePreview()">
+                            <input type="text" id="propertyTaxNumber" placeholder="e.g., 12-34-567/8"
+                                oninput="updatePreview()">
                         </div>
                         <div class="form-group">
                             <label>Layout/Project Name (if any)</label>
-                            <input type="text" id="layoutName" placeholder="e.g., Cyber Towers Phase 2" oninput="updatePreview()">
+                            <input type="text" id="layoutName" placeholder="e.g., Cyber Towers Phase 2"
+                                oninput="updatePreview()">
                         </div>
                     </div>
                 </div>
@@ -723,11 +750,13 @@
                     <h2 class="section-title">Additional Details</h2>
                     <div class="form-group">
                         <label>Validity Duration</label>
-                        <input type="text" id="validityDuration" placeholder="e.g., One year / Until registration completed" oninput="updatePreview()">
+                        <input type="text" id="validityDuration"
+                            placeholder="e.g., One year / Until registration completed" oninput="updatePreview()">
                     </div>
                     <div class="form-group">
                         <label>Special Instructions/Conditions (Optional)</label>
-                        <textarea id="specialProvisions" placeholder="Any special instructions or conditions" oninput="updatePreview()"></textarea>
+                        <textarea id="specialProvisions" placeholder="Any special instructions or conditions"
+                            oninput="updatePreview()"></textarea>
                     </div>
                 </div>
 
@@ -741,12 +770,14 @@
                         </div>
                         <div class="form-group">
                             <label>Witness 1 ID Proof</label>
-                            <input type="text" id="witness1ID" placeholder="e.g., Passport No. / Aadhaar No." oninput="updatePreview()">
+                            <input type="text" id="witness1ID" placeholder="e.g., Passport No. / Aadhaar No."
+                                oninput="updatePreview()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Witness 1 Address</label>
-                        <textarea id="witness1Address" placeholder="Complete address" oninput="updatePreview()"></textarea>
+                        <textarea id="witness1Address" placeholder="Complete address"
+                            oninput="updatePreview()"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -755,12 +786,14 @@
                         </div>
                         <div class="form-group">
                             <label>Witness 2 ID Proof</label>
-                            <input type="text" id="witness2ID" placeholder="e.g., Passport No. / Aadhaar No." oninput="updatePreview()">
+                            <input type="text" id="witness2ID" placeholder="e.g., Passport No. / Aadhaar No."
+                                oninput="updatePreview()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Witness 2 Address</label>
-                        <textarea id="witness2Address" placeholder="Complete address" oninput="updatePreview()"></textarea>
+                        <textarea id="witness2Address" placeholder="Complete address"
+                            oninput="updatePreview()"></textarea>
                     </div>
                 </div>
 
@@ -794,7 +827,9 @@
                         <li><strong>SRO Serilingampally</strong> - For Gachibowli, Madhapur, Hi-Tech City areas</li>
                         <li><strong>SRO Rajendranagar</strong> - For Rajendranagar, Attapur, Shaikpet areas</li>
                     </ul>
-                    <p style="margin-top: 10px;"><strong>Note:</strong> Registration must be done at the SRO having jurisdiction over the property location. Online slot booking is available on the Telangana Registration Department website.</p>
+                    <p style="margin-top: 10px;"><strong>Note:</strong> Registration must be done at the SRO having
+                        jurisdiction over the property location. Online slot booking is available on the Telangana
+                        Registration Department website.</p>
                 </div>
 
                 <div class="info-box">
@@ -802,9 +837,12 @@
                     <ul>
                         <li>This document must be executed before a Notary Public in the country of residence</li>
                         <li>The document must be apostilled or attested by Indian Embassy/Consulate</li>
-                        <li>Original Power of Attorney must be presented at the Sub-Registrar Office in Hyderabad/Telangana</li>
-                        <li>Stamp duty in Telangana: 4% for men, 3% for women (as per latest rates, verify current rates)</li>
-                        <li>Registration fee: 0.5% of property value (maximum capped as per Telangana Registration Act)</li>
+                        <li>Original Power of Attorney must be presented at the Sub-Registrar Office in
+                            Hyderabad/Telangana</li>
+                        <li>Stamp duty in Telangana: 4% for men, 3% for women (as per latest rates, verify current
+                            rates)</li>
+                        <li>Registration fee: 0.5% of property value (maximum capped as per Telangana Registration Act)
+                        </li>
                         <li>Both principals must sign in presence of two witnesses</li>
                         <li>Attorney must accept the appointment by signing the acceptance clause</li>
                         <li>For GHMC properties: Ensure property tax is paid up to date before registration</li>
@@ -821,7 +859,8 @@
                     <div class="doc-title">SPECIAL POWER OF ATTORNEY (JOINT)</div>
                     <div class="doc-subtitle">KNOW ALL MEN BY THESE PRESENTS THAT WE:</div>
                     <p style="margin-top: 30px; text-align: left;">
-                        <strong>Executed at:</strong> <span class="field-value" id="prev_executionPlace">___________</span><br>
+                        <strong>Executed at:</strong> <span class="field-value"
+                            id="prev_executionPlace">___________</span><br>
                         <strong>Dated:</strong> <span class="field-value" id="prev_executionDate">___________</span>
                     </p>
                 </div>
@@ -830,7 +869,8 @@
                     <div class="doc-section-title">The Executants</div>
                     <p>
                         <strong>1. </strong><span class="field-value" id="prev_principal1Name">___________</span><br>
-                        <span id="prev_principal1Relation">___________</span> <span class="field-value" id="prev_principal1Father">___________</span><br>
+                        <span id="prev_principal1Relation">___________</span> <span class="field-value"
+                            id="prev_principal1Father">___________</span><br>
                         Aged: <span class="field-value" id="prev_principal1Age">___________</span> years<br>
                         Passport No. <span class="field-value" id="prev_principal1Passport">___________</span><br>
                         Date of Birth: <span class="field-value" id="prev_principal1DOB">___________</span><br>
@@ -844,7 +884,8 @@
                     </p>
                     <p>
                         <strong>2. </strong><span class="field-value" id="prev_principal2Name">___________</span><br>
-                        <span id="prev_principal2Relation">___________</span> <span class="field-value" id="prev_principal2Father">___________</span><br>
+                        <span id="prev_principal2Relation">___________</span> <span class="field-value"
+                            id="prev_principal2Father">___________</span><br>
                         Aged: <span class="field-value" id="prev_principal2Age">___________</span> years<br>
                         Passport No. <span class="field-value" id="prev_principal2Passport">___________</span><br>
                         Date of Birth: <span class="field-value" id="prev_principal2DOB">___________</span><br>
@@ -863,9 +904,11 @@
                     <p>
                         <strong>DO HEREBY NOMINATE, CONSTITUTE AND APPOINT:</strong><br><br>
                         Mr./Ms. <span class="field-value" id="prev_attorneyName">___________</span><br>
-                        <span id="prev_attorneyRelation">___________</span> <span class="field-value" id="prev_attorneyFather">___________</span><br>
+                        <span id="prev_attorneyRelation">___________</span> <span class="field-value"
+                            id="prev_attorneyFather">___________</span><br>
                         Residing at: <span class="field-value" id="prev_attorneyAddress">___________</span><br>
-                        City: <span class="field-value" id="prev_attorneyCity">___________</span>, State: <span class="field-value" id="prev_attorneyState">___________</span><br>
+                        City: <span class="field-value" id="prev_attorneyCity">___________</span>, State: <span
+                            class="field-value" id="prev_attorneyState">___________</span><br>
                         PIN Code: <span class="field-value" id="prev_attorneyPIN">___________</span><br>
                         PAN: <span class="field-value" id="prev_attorneyPAN">___________</span><br>
                         Aadhaar: <span class="field-value" id="prev_attorneyAadhaar">___________</span><br>
@@ -877,7 +920,8 @@
                     </p>
                 </div>
 
-                <p><strong>TO BE our true and lawful Attorney</strong> in our name and on our behalf to do and perform all or any of the following acts, deeds and things in relation to the property described herein:</p>
+                <p><strong>TO BE our true and lawful Attorney</strong> in our name and on our behalf to do and perform
+                    all or any of the following acts, deeds and things in relation to the property described herein:</p>
 
                 <div class="doc-section">
                     <div class="doc-section-title">Property Details</div>
@@ -894,7 +938,8 @@
                         Khata Number: <span class="field-value" id="prev_khataNumber">___________</span><br>
                         Area: <span class="field-value" id="prev_propertyArea">___________</span><br>
                         Municipal Corporation: <span class="field-value" id="prev_municipality">___________</span><br>
-                        Property Tax/House No.: <span class="field-value" id="prev_propertyTaxNumber">___________</span><br>
+                        Property Tax/House No.: <span class="field-value"
+                            id="prev_propertyTaxNumber">___________</span><br>
                         Layout/Project Name: <span class="field-value" id="prev_layoutName">___________</span><br><br>
                         <strong>Boundaries:</strong><br>
                         North: <span class="field-value" id="prev_boundaryNorth">___________</span><br>
@@ -906,16 +951,21 @@
 
                 <div class="doc-section">
                     <div class="doc-section-title">Special Powers Granted</div>
-                    
+
                     <p><strong>1. REGISTRATION & DOCUMENTATION:</strong></p>
                     <ul style="margin-left: 25px; margin-bottom: 15px;">
                         <li>To represent us before the Registration Department, Telangana</li>
-                        <li>To attend before the concerned Sub-Registrar of Assurances or any other Registration Office in India</li>
-                        <li>To execute, sign, verify and register the Sale Deed/Conveyance Deed/Transfer Deed and all other documents relating to the purchase and registration of the above-mentioned property</li>
+                        <li>To attend before the concerned Sub-Registrar of Assurances or any other Registration Office
+                            in India</li>
+                        <li>To execute, sign, verify and register the Sale Deed/Conveyance Deed/Transfer Deed and all
+                            other documents relating to the purchase and registration of the above-mentioned property
+                        </li>
                         <li>To submit applications, affidavits, declarations, and other documents</li>
-                        <li>To verify, admit execution and get registered all documents relating to the said property</li>
+                        <li>To verify, admit execution and get registered all documents relating to the said property
+                        </li>
                         <li>To obtain certified copies, ESCs, receipts, and other documents</li>
-                        <li>To pay stamp duty, registration fees, and all other charges, taxes, and dues payable to the Government or any authority</li>
+                        <li>To pay stamp duty, registration fees, and all other charges, taxes, and dues payable to the
+                            Government or any authority</li>
                     </ul>
 
                     <p><strong>2. FINANCIAL TRANSACTIONS:</strong></p>
@@ -954,53 +1004,62 @@
 
                     <p><strong>6. REPRESENTATION:</strong></p>
                     <ul style="margin-left: 25px; margin-bottom: 15px;">
-                        <li>To appear before any Government Department, Municipal Corporation, Gram Panchayat, Revenue authorities, or any other authority</li>
+                        <li>To appear before any Government Department, Municipal Corporation, Gram Panchayat, Revenue
+                            authorities, or any other authority</li>
                         <li>To sign all applications, affidavits, undertakings, and declarations</li>
                         <li>To engage advocates, surveyors, valuers and other professionals</li>
                         <li>To do all acts which we could have done if personally present</li>
                         <li>To answer interrogatories and give such replies as may be called upon to be given</li>
                     </ul>
 
-                    <p style="margin-top: 20px;">The Special Power of Attorney is being signed in the document on this _____ day of ________ 20___.</p>
+                    <p style="margin-top: 20px;">The Special Power of Attorney is being signed in the document on this
+                        _____ day of ________ 20___.</p>
                 </div>
-                </div>
+            </div>
 
-                <div class="doc-section" id="specialProvisionsSection" style="display: none;">
-                    <div class="doc-section-title">Special Provisions</div>
-                    <p><span class="field-value" id="prev_specialProvisions">___________</span></p>
-                </div>
+            <div class="doc-section" id="specialProvisionsSection" style="display: none;">
+                <div class="doc-section-title">Special Provisions</div>
+                <p><span class="field-value" id="prev_specialProvisions">___________</span></p>
+            </div>
 
-                <div class="doc-section">
-                    <div class="doc-section-title">Duration</div>
-                    <p>This Power of Attorney shall remain valid for a period of <span class="field-value" id="prev_validityDuration">___________</span>.</p>
-                </div>
+            <div class="doc-section">
+                <div class="doc-section-title">Duration</div>
+                <p>This Power of Attorney shall remain valid for a period of <span class="field-value"
+                        id="prev_validityDuration">___________</span>.</p>
+            </div>
 
-                <div class="doc-section">
-                    <div class="doc-section-title">Indemnity & Ratification</div>
-                    <p>We hereby agree to indemnify and keep indemnified the said Attorney from and against all claims, demands, proceedings, losses, damages, costs, and expenses which may be made or brought against him/her.</p>
-                    <p style="margin-top: 10px;">We hereby confirm and ratify all acts, deeds, and things lawfully done or caused to be done by our said Attorney pursuant to this Power of Attorney.</p>
-                </div>
+            <div class="doc-section">
+                <div class="doc-section-title">Indemnity & Ratification</div>
+                <p>We hereby agree to indemnify and keep indemnified the said Attorney from and against all claims,
+                    demands, proceedings, losses, damages, costs, and expenses which may be made or brought against
+                    him/her.</p>
+                <p style="margin-top: 10px;">We hereby confirm and ratify all acts, deeds, and things lawfully done or
+                    caused to be done by our said Attorney pursuant to this Power of Attorney.</p>
+            </div>
 
-                <div class="doc-section">
-                    <p><strong>IN WITNESS WHEREOF,</strong> the Principals have signed this document on this <span class="field-value" id="sign_executionDate">___________</span> day of <span class="field-value" id="sign_executionMonth">___________</span> 20<span class="field-value" id="sign_executionYear">___</span>.</p>
-                </div>
+            <div class="doc-section">
+                <p><strong>IN WITNESS WHEREOF,</strong> the Principals have signed this document on this <span
+                        class="field-value" id="sign_executionDate">___________</span> day of <span class="field-value"
+                        id="sign_executionMonth">___________</span> 20<span class="field-value"
+                        id="sign_executionYear">___</span>.</p>
+            </div>
 
-                <div class="signature-section">
-                    <div class="signature-box">
-                        <div class="signature-label">Executant 1</div>
-                        <p style="margin-top: 40px;">_____________________________</p>
-                        <p><span id="sign_principal1Name">___________</span></p>
-                        <p>Passport: <span id="sign_principal1Passport">___________</span></p>
-                    </div>
-                    <div class="signature-box">
-                        <div class="signature-label">Executant 2</div>
-                        <p style="margin-top: 40px;">_____________________________</p>
-                        <p><span id="sign_principal2Name">___________</span></p>
-                        <p>Passport: <span id="sign_principal2Passport">___________</span></p>
-                    </div>
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-label">Executant 1</div>
+                    <p style="margin-top: 40px;">_____________________________</p>
+                    <p><span id="sign_principal1Name">___________</span></p>
+                    <p>Passport: <span id="sign_principal1Passport">___________</span></p>
                 </div>
+                <div class="signature-box">
+                    <div class="signature-label">Executant 2</div>
+                    <p style="margin-top: 40px;">_____________________________</p>
+                    <p><span id="sign_principal2Name">___________</span></p>
+                    <p>Passport: <span id="sign_principal2Passport">___________</span></p>
+                </div>
+            </div>
 
- <!--               <div class="doc-section" style="margin-top: 40px;">
+            <!--               <div class="doc-section" style="margin-top: 40px;">
                     <div class="doc-section-title">Acceptance by Attorney</div>
                     <p>I, <span id="accept_attorneyName">___________</span> hereby accept the appointment as Attorney and undertake to perform the duties and exercise the powers conferred upon me by this Power of Attorney.</p>
                     <div class="signature-box" style="margin-top: 30px;">
@@ -1011,35 +1070,35 @@
                     </div>
                 </div> -->
 
-                <div class="doc-section" style="margin-top: 40px;">
-                    <div class="doc-section-title">Witnesses</div>
-                    <div class="signature-section">
-                        <div>
-                            <p><strong>1.</strong> Name: <span id="witness1_name">___________</span></p>
-                            <p>Address: <span id="witness1_address">___________</span></p>
-                            <p>ID Proof: <span id="witness1_id">___________</span></p>
-                            <p style="margin-top: 20px;">Signature: _____________________________</p>
-                        </div>
-                        <div>
-                            <p><strong>2.</strong> Name: <span id="witness2_name">___________</span></p>
-                            <p>Address: <span id="witness2_address">___________</span></p>
-                            <p>ID Proof: <span id="witness2_id">___________</span></p>
-                            <p style="margin-top: 20px;">Signature: _____________________________</p>
-                        </div>
+            <div class="doc-section" style="margin-top: 40px;">
+                <div class="doc-section-title">Witnesses</div>
+                <div class="signature-section">
+                    <div>
+                        <p><strong>1.</strong> Name: <span id="witness1_name">___________</span></p>
+                        <p>Address: <span id="witness1_address">___________</span></p>
+                        <p>ID Proof: <span id="witness1_id">___________</span></p>
+                        <p style="margin-top: 20px;">Signature: _____________________________</p>
                     </div>
-                </div>
-
-                <div class="doc-section" style="margin-top: 40px;">
-                    <div class="doc-section-title">Notarization/Attestation</div>
-              <!--      <p>(To be notarized at Indian Embassy/Consulate or by Notary Public)</p> -->
-                    <div style="margin-top: 40px; border: 2px solid #ccc; padding: 30px; text-align: center;">
-                        <p>Notary Seal and Signature</p>
-                        <p style="margin-top: 60px;">Date: ___________</p>
-                        <p>Place: ___________</p>
+                    <div>
+                        <p><strong>2.</strong> Name: <span id="witness2_name">___________</span></p>
+                        <p>Address: <span id="witness2_address">___________</span></p>
+                        <p>ID Proof: <span id="witness2_id">___________</span></p>
+                        <p style="margin-top: 20px;">Signature: _____________________________</p>
                     </div>
                 </div>
             </div>
+
+            <div class="doc-section" style="margin-top: 40px;">
+                <div class="doc-section-title">Notarization/Attestation</div>
+                <!--      <p>(To be notarized at Indian Embassy/Consulate or by Notary Public)</p> -->
+                <div style="margin-top: 40px; border: 2px solid #ccc; padding: 30px; text-align: center;">
+                    <p>Notary Seal and Signature</p>
+                    <p style="margin-top: 60px;">Date: ___________</p>
+                    <p>Place: ___________</p>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -1056,8 +1115,8 @@
                 'attorneyName', 'attorneyRelation', 'attorneyFather', 'attorneyAddress',
                 'attorneyCity', 'attorneyState', 'attorneyPIN', 'attorneyPAN', 'attorneyAadhaar',
                 'attorneyMobile', 'attorneyEmail',
-                'propertyAddress', 'propertyCity', 'mandal', 'propertyDistrict', 'revenueDivision', 
-                'propertyState', 'propertyPIN', 'plotNumber', 'khataNumber', 'propertyArea', 
+                'propertyAddress', 'propertyCity', 'mandal', 'propertyDistrict', 'revenueDivision',
+                'propertyState', 'propertyPIN', 'plotNumber', 'khataNumber', 'propertyArea',
                 'municipality', 'propertyTaxNumber', 'layoutName',
                 'boundaryNorth', 'boundarySouth', 'boundaryEast', 'boundaryWest',
                 'validityDuration', 'specialProvisions',
@@ -1075,7 +1134,7 @@
 
             // Show/hide special provisions section
             const specialProvisions = document.getElementById('specialProvisions').value;
-            document.getElementById('specialProvisionsSection').style.display = 
+            document.getElementById('specialProvisionsSection').style.display =
                 specialProvisions ? 'block' : 'none';
 
             // Update progress bar
@@ -1085,17 +1144,17 @@
         function calculateAge(principal) {
             const dobInput = document.getElementById(`${principal}DOB`);
             const ageInput = document.getElementById(`${principal}Age`);
-            
+
             if (dobInput.value) {
                 const dob = new Date(dobInput.value);
                 const today = new Date();
                 let age = today.getFullYear() - dob.getFullYear();
                 const monthDiff = today.getMonth() - dob.getMonth();
-                
+
                 if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
                     age--;
                 }
-                
+
                 ageInput.value = age;
             } else {
                 ageInput.value = '';
@@ -1114,7 +1173,7 @@
             previewVisible = !previewVisible;
             const preview = document.getElementById('documentPreview');
             const content = document.querySelector('.content form');
-            
+
             if (previewVisible) {
                 preview.classList.add('active');
                 content.style.display = 'none';
@@ -1129,7 +1188,7 @@
             // Sample data for demonstration
             document.getElementById('executionDate').value = '2026-02-01';
             document.getElementById('executionPlace').value = 'New York, USA';
-            
+
             document.getElementById('principal1Name').value = 'Rajesh Kumar Sharma';
             document.getElementById('principal1Relation').value = 'Son of';
             document.getElementById('principal1Father').value = 'Mohan Lal Sharma';
@@ -1208,4 +1267,5 @@
         updatePreview();
     </script>
 </body>
+
 </html>
