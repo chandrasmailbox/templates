@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form 32A</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a1a;--border:#555;--lb:#999;--bg:#f0ebe0;--paper:#fffdf7;--accent:#8b2222}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);padding:18px}
+
+/* controls */
+.ctrl{max-width:840px;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #ddd;border-radius:6px;padding:8px 14px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.ctrl h1{font-family:'Crimson Text',serif;font-size:1.05rem;color:var(--accent);flex:1;font-style:italic}
+.btn{padding:6px 16px;border:2px solid var(--accent);border-radius:4px;background:var(--accent);color:#fff;font-family:'Source Sans 3',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.btn:hover{background:#6b1a1a;border-color:#6b1a1a}
+.btn.sec{background:transparent;color:var(--accent)}
+.btn.sec:hover{background:var(--accent);color:#fff}
+.btn.grn{background:#1a6b2a;border-color:#1a6b2a}
+.btn.grn:hover{background:#145220;border-color:#145220}
+
+/* form paper */
+.pw{max-width:840px;margin:0 auto;background:var(--paper);border:1px solid #ccc;box-shadow:0 4px 24px rgba(0,0,0,.11);padding:7mm 11mm 9mm}
+.fh{text-align:center;margin-bottom:3px}
+.fh h2{font-family:'Crimson Text',serif;font-size:1rem;font-weight:600;font-style:italic;text-transform:uppercase;letter-spacing:.06em;line-height:1.4}
+hr.dv{border:none;border-top:2px solid var(--ink);margin:4px 0}
+hr.th{border:none;border-top:1px solid #bbb;margin:5px 0}
+
+/* table */
+.mt{width:100%;border-collapse:collapse;font-size:.72rem;table-layout:fixed}
+.mt th,.mt td{border:1.5px solid var(--border);text-align:center;vertical-align:middle;padding:3px 4px}
+.mt th{background:#e8e0cc;font-family:'Crimson Text',serif;font-size:.78rem;font-weight:600;font-style:italic;text-transform:uppercase;letter-spacing:.04em;padding:5px 4px;line-height:1.3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* photo */
+.ph-td{padding:3px!important;text-align:center;vertical-align:middle}
+.pb{width:45mm;height:55mm;border:1px dashed #999;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#bbb;text-transform:uppercase;letter-spacing:.04em;position:relative;overflow:hidden;cursor:pointer;background:#f9f9f5}
+.pb img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+.pb .uh{pointer-events:none;text-align:center;line-height:1.5;z-index:1}
+.pb input[type=file]{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;z-index:2}
+
+/* fingerprint */
+.fc{display:flex;align-items:center;justify-content:center;padding:4px 0}
+.fo{width:47mm;height:30mm;border:1.5px dashed #aaa;border-radius:50%;background:#f9f9f5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* addr */
+.ac{text-align:left;padding:3px 5px;vertical-align:top;height:100%}
+.ac-inner{display:flex;flex-direction:column;height:100%}
+.ac-ta-wrap{flex:1;display:flex;flex-direction:column}
+.fl{font-size:.52rem;color:#666;display:block;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:3px;margin-bottom:0}
+.fl:first-child{margin-top:0}
+.ac input{width:100%;border:1px solid #aaa;border-radius:2px;background:#fffef5;font-size:.72rem;font-family:'Source Sans 3',sans-serif;outline:none;padding:2px 4px;color:var(--ink);height:25px;line-height:25px}
+.ac input:focus{border-color:var(--accent);background:#fff}
+.ac textarea{width:100%;border:1px solid #aaa;border-radius:2px;background:#fffef5;font-size:.72rem;font-family:'Source Sans 3',sans-serif;outline:none;padding:2px 4px;resize:none;color:var(--ink)}
+.ac textarea:focus{border-color:var(--accent);background:#fff}
+.ac textarea{height:75px;line-height:1.4;overflow:hidden}
+.snc{font-weight:700;font-size:.85rem;width:20px}
+
+
+/* add row */
+.arb{margin-top:6px;font-size:.72rem;padding:4px 12px;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);cursor:pointer;border-radius:3px;font-family:'Source Sans 3',sans-serif}
+.arb:hover{background:#fdf0f0}
+
+/* sig rows */
+.sr{display:flex;justify-content:space-between;gap:20px;margin:5px 0}
+.sb{flex:1}
+.slbl{display:block;font-size:.78rem;font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.05em;color:#111;margin-bottom:4px}
+.sls{display:flex;flex-direction:column;gap:5px}
+.se{display:flex;align-items:flex-end;gap:4px}
+.sn{font-size:.78rem;font-weight:700;white-space:nowrap;padding-bottom:2px}
+.sl{border:none;border-bottom:1px solid var(--border);background:transparent;flex:1;font-size:.78rem;font-weight:600;padding:2px 0;outline:none;font-family:'Source Sans 3',sans-serif;color:var(--ink)}
+
+/* note */
+.nb{border:1px solid #aaa;padding:5px 9px;font-size:.8rem;font-weight:600;font-style:italic;margin:5px 0;line-height:1.6;background:#fafaf4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.nb strong{font-weight:700}
+.ri{border:none;border-bottom:1px solid var(--border);background:transparent;font-size:.7rem;width:210px;outline:none;font-family:'Source Sans 3',sans-serif;padding:1px 2px;color:var(--ink)}
+
+/* rep/buyer sig */
+.rsr{display:flex;justify-content:space-between;gap:24px;margin:5px 0 4px}
+.rsr>div{flex:1}
+.rsl{display:block;border:none;border-bottom:1px solid var(--border);background:transparent;width:100%;font-size:.78rem;font-weight:600;padding:3px 0;outline:none;margin-bottom:4px;font-family:'Source Sans 3',sans-serif;color:var(--ink)}
+.rlbl{display:block;font-size:.78rem;font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.05em;color:#111}
+
+/* ========== PREVIEW MODAL ========== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;overflow-y:auto;padding:20px}
+.modal-overlay.show{display:flex;flex-direction:column;align-items:center}
+.modal-bar{width:210mm;max-width:98%;background:#333;color:#fff;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:6px 6px 0 0;font-size:.82rem}
+.modal-bar span{flex:1;font-weight:600;letter-spacing:.03em}
+.modal-content{width:210mm;max-width:98%;background:white;padding:10mm 12mm;box-shadow:0 8px 40px rgba(0,0,0,.4);border-radius:0 0 4px 4px;min-height:270mm}
+
+/* ========== PRINT ========== */
+@media print{
+  @page{size:A4 portrait;margin:8mm 10mm 8mm 10mm}
+  body{background:white!important;padding:0!important;margin:0!important}
+  .ctrl,.arb,#removeRowBtn,.modal-overlay{display:none!important}
+  .pw{max-width:100%!important;width:100%!important;box-shadow:none!important;border:none!important;padding:0!important;margin:0!important}
+  input::placeholder,textarea::placeholder{color:transparent!important;opacity:0!important}
+  .fl{display:none!important}
+  .pb{width:45mm!important;height:55mm!important;border:1px solid #999!important;background:white!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .pb .uh{display:none!important}
+  .pb input[type=file]{display:none!important}
+  .fo{width:47mm!important;height:30mm!important;border:1.5px solid #aaa!important;background:white!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .mt th{background:#e8e0cc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .nb{background:#fafaf4!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .slbl,.rlbl,.rsr,.rsl{display:block!important}
+  *{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="ctrl">
+  <h1>Form 32A — Registration Act, 1908</h1>
+  <button class="btn sec" id="clearBtn">✕ Clear</button>
+  <button class="btn" id="previewBtn">👁 Preview</button>
+  <button class="btn grn" id="printBtn">🖨 Print</button>
+</div>
+
+<div class="pw" id="formPage">
+  <div class="fh">
+    <h2>Photograph and Fingerprints as per Section 32A<br>of Registration Act, 1908</h2>
+  </div>
+  <hr class="dv">
+
+  <table class="mt" id="mainTable">
+    <thead>
+      <tr>
+        <th style="width:20px">S.<br>No.</th>
+        <th style="width:52mm">Finger Print in Black Ink<br><span style="font-weight:400;font-size:.66rem;font-style:normal;text-transform:none">(Left Thumb)</span></th>
+        <th style="width:48mm">Passport Size Photograph<br><span style="font-weight:400;font-size:.66rem;font-style:normal;text-transform:none">(Black &amp; White) — 35×45 mm</span></th>
+        <th style="width:55mm">Name &amp; Permanent Postal Address of<br><span style="font-weight:400;font-size:.66rem;font-style:normal;text-transform:none">Seller / Buyer / Presentant</span></th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <button class="arb" id="addRowBtn">+ Add Row</button>
+  <button class="arb" id="removeRowBtn" style="border-color:#c00;color:#c00;margin-left:6px">− Remove Row</button>
+  <hr class="th" style="margin-top:8px">
+
+  <div class="sr">
+    <div class="sb">
+      <span class="slbl">Signature of Witness</span>
+      <div class="sls">
+        <div class="se"><span class="sn">1.</span><input class="sl" type="text"></div>
+        <div class="se"><span class="sn">2.</span><input class="sl" type="text"></div>
+      </div>
+    </div>
+    <div class="sb">
+      <span class="slbl">Signature of Executants</span>
+      <div class="sls">
+        <div class="se"><span class="sn">1.</span><input class="sl" type="text"></div>
+        <div class="se"><span class="sn">2.</span><input class="sl" type="text"></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="th">
+
+  <div class="nb">
+    <strong>Note:</strong> If the Buyer(s) is/are not present before the Sub Registrar, the following request should be signed. I/We send herewith my/our photograph(s) and the finger prints in the form prescribed, through my representative, Sri&nbsp;<input class="ri" type="text">&nbsp;as I/We cannot appear personally before the Registering Officer in the office of Sub-Registrar of Assurances.
+  </div>
+
+  <div class="rsr">
+    <div>
+      <input class="rsl" type="text">
+      <span class="rlbl">Signature of the Representative(s)</span>
+    </div>
+    <div>
+      <input class="rsl" type="text">
+      <span class="rlbl">Signature(s) of Buyer</span>
+    </div>
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal-bar">
+    <span>Print Preview — Form 32A (A4)</span>
+    <button class="btn grn" id="modalPrintBtn">🖨 Print this</button>
+    <button class="btn sec" style="border-color:#aaa;color:#fff" id="closePreviewBtn">✕ Close</button>
+  </div>
+  <div class="modal-content" id="previewContent"></div>
+</div>
+
+<script>
+let rowCount = 0;
+
+function addRow() {
+  rowCount++;
+  const tbody = document.getElementById('tableBody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="snc">${rowCount}</td>
+    <td><div class="fc"><div class="fo"></div></div></td>
+    <td class="ph-td">
+      <div class="pb" title="Click to upload photo">
+        <input type="file" accept="image/*">
+        <div class="uh">📷 Click<br>to upload<br><span style="font-size:.48rem;color:#ccc">35×45mm</span></div>
+      </div>
+    </td>
+    <td class="ac">
+      <div class="ac-inner">
+        <div>
+          <span class="fl">Full Name</span>
+          <input type="text">
+          <span class="fl">Party Type</span>
+          <input type="text">
+        </div>
+        <div class="ac-ta-wrap">
+          <span class="fl">Permanent Postal Address</span>
+          <textarea></textarea>
+        </div>
+      </div>
+    </td>
+  `;
+  tr.querySelector('input[type=file]').addEventListener('change', function(){ loadPhoto(this); });
+  tbody.appendChild(tr);
+}
+
+function loadPhoto(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const box = input.parentElement;
+    const existing = box.querySelector('img');
+    if (existing) existing.remove();
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    box.appendChild(img);
+    box.querySelector('.uh').style.display = 'none';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function clearForm() {
+  if (!confirm('Clear all form data?')) return;
+  document.querySelectorAll('input[type=text], textarea').forEach(el => el.value = '');
+  document.querySelectorAll('.pb img').forEach(img => img.remove());
+  document.querySelectorAll('.pb .uh').forEach(h => h.style.display = '');
+}
+
+// Build a clean HTML snapshot of the current form for preview/print
+function buildPrintHTML() {
+  // Clone the form
+  const clone = document.getElementById('formPage').cloneNode(true);
+
+  // Remove file inputs and upload hints inside photo boxes
+  clone.querySelectorAll('.pb input[type=file]').forEach(el => el.remove());
+  clone.querySelectorAll('.pb .uh').forEach(el => el.remove());
+
+  // Remove add/remove row buttons
+  clone.querySelectorAll('.arb').forEach(el => el.remove());
+
+  // Remove field labels
+  clone.querySelectorAll('.fl').forEach(el => el.remove());
+
+  // Clear placeholder attributes
+  clone.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(el => el.removeAttribute('placeholder'));
+
+  // Inline current input values as value attributes (already there for inputs)
+  // For textareas, put value as text content
+  const originalTextareas = document.getElementById('formPage').querySelectorAll('textarea');
+  const cloneTextareas = clone.querySelectorAll('textarea');
+  originalTextareas.forEach((ta, i) => {
+    cloneTextareas[i].textContent = ta.value;
+  });
+
+  const style = `
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap');
+    
+    @page{size:A4 portrait;margin:8mm 10mm}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Source Sans 3',sans-serif;color:#1a1a1a;background:white;padding:0}
+    .pw{padding:0;border:none;box-shadow:none;width:100%}
+    .fh{text-align:center;margin-bottom:4px}
+    .fh h2{font-family:'Crimson Text',serif;font-size:1rem;font-weight:600;font-style:italic;text-transform:uppercase;letter-spacing:.06em;line-height:1.4}
+    hr.dv{border:none;border-top:2px solid #1a1a1a;margin:4px 0}
+    hr.th{border:none;border-top:1px solid #bbb;margin:5px 0}
+    .mt{width:100%;border-collapse:collapse;font-size:.72rem;table-layout:fixed}
+    .mt th,.mt td{border:1.5px solid #555;text-align:center;vertical-align:middle;padding:3px 4px}
+    .mt th{background:#e8e0cc;font-family:'Crimson Text',serif;font-size:.78rem;font-weight:600;font-style:italic;text-transform:uppercase;letter-spacing:.04em;padding:5px 4px;line-height:1.3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .ph-td{padding:3px!important;text-align:center;vertical-align:middle}
+.pb{width:45mm;height:55mm;border:1px solid #999;margin:0 auto;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .pb img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+    .fc{display:flex;align-items:center;justify-content:center;padding:4px 0}
+    .fo{width:47mm;height:30mm;border:1.5px solid #aaa;border-radius:50%;background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .ac{text-align:left;padding:3px 5px;width:auto;vertical-align:middle}
+    .ac input{width:100%!important;min-width:0;border:1px solid #aaa!important;border-radius:2px;background:#fffef5!important;font-size:.72rem;font-family:'Source Sans 3',sans-serif;padding:2px 4px;color:#1a1a1a;display:block;box-sizing:border-box;height:25px;line-height:25px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .ac textarea{width:100%!important;min-width:0;border:1px solid #aaa!important;border-radius:2px;background:#fffef5!important;font-size:.72rem;font-family:'Source Sans 3',sans-serif;padding:2px 4px;color:#1a1a1a;display:block;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .ac textarea{height:100%;min-height:50px;line-height:1.4;resize:none;flex:1}
+    .snc{font-weight:700;font-size:.85rem;width:20px}
+
+    .sr{display:flex;justify-content:space-between;gap:20px;margin:5px 0}
+    .sb{flex:1}
+    .slbl{display:block;font-size:.78rem;font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.05em;color:#111;margin-bottom:4px}
+    .sls{display:flex;flex-direction:column;gap:5px}
+    .se{display:flex;align-items:flex-end;gap:4px}
+    .sn{font-size:.78rem;font-weight:700;white-space:nowrap;padding-bottom:2px}
+    .sl{border:none;border-bottom:1px solid #555;background:transparent;flex:1;font-size:.78rem;font-weight:600;padding:2px 0;font-family:'Source Sans 3',sans-serif;color:#1a1a1a}
+    .nb{border:1px solid #aaa;padding:5px 9px;font-size:.8rem;font-weight:600;font-style:italic;margin:5px 0;line-height:1.6;background:#fafaf4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .nb strong{font-weight:700;font-style:normal}
+    .ri{border:none;border-bottom:1px solid #555;background:transparent;font-size:.7rem;width:210px;font-family:'Source Sans 3',sans-serif;padding:1px 2px;color:#1a1a1a}
+    .rsr{display:flex;justify-content:space-between;gap:24px;margin:5px 0 4px}
+    .rsr>div{flex:1}
+    .rsl{display:block;border:none;border-bottom:1px solid #555;background:transparent;width:100%;font-size:.78rem;font-weight:600;padding:3px 0;margin-bottom:4px;font-family:'Source Sans 3',sans-serif;color:#1a1a1a}
+    .rlbl{display:block;font-size:.78rem;font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.05em;color:#111}
+    </style>
+  `;
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${clone.outerHTML}</body></html>`;
+}
+
+function showPreview() {
+  const html = buildPrintHTML();
+  const previewContent = document.getElementById('previewContent');
+  previewContent.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = 'width:100%;height:270mm;border:none;display:block';
+  iframe.srcdoc = html;
+  previewContent.appendChild(iframe);
+  document.getElementById('previewModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function doPrint() {
+  const html = buildPrintHTML();
+  const win = window.open('', '_blank', 'width=850,height=1100');
+  if (win) {
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(function() { win.print(); }, 1200);
+  } else {
+    // fallback: use window.print() directly
+    window.print();
+  }
+}
+
+
+function renumber() {
+  document.querySelectorAll('#tableBody tr').forEach(function(tr, i) {
+    var td = tr.querySelector('.snc');
+    // preserve the button, just update the text node
+    var btn = td.querySelector('.rmb');
+    td.textContent = (i + 1);
+    td.appendChild(btn);
+  });
+  rowCount = document.querySelectorAll('#tableBody tr').length;
+}
+document.getElementById('previewBtn').addEventListener('click', showPreview);
+document.getElementById('closePreviewBtn').addEventListener('click', closePreview);
+document.getElementById('printBtn').addEventListener('click', doPrint);
+document.getElementById('modalPrintBtn').addEventListener('click', doPrint);
+document.getElementById('clearBtn').addEventListener('click', clearForm);
+document.getElementById('addRowBtn').addEventListener('click', addRow);
+document.getElementById('removeRowBtn').addEventListener('click', function(){
+  const tbody = document.getElementById('tableBody');
+  if (tbody.rows.length > 0) { tbody.deleteRow(tbody.rows.length - 1); renumber(); }
+});
+
+// Close modal on overlay click
+document.getElementById('previewModal').addEventListener('click', function(e) {
+  if (e.target === this) closePreview();
+});
+
+addRow(); addRow();
+</script>
+</body>
+</html>
