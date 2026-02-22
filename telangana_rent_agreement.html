@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residential Rent Agreement – Telangana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --maroon: #7B1F2E;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --cream: #FDF8F0;
+    --warm-white: #FFFDF9;
+    --text-dark: #1A1208;
+    --text-mid: #3D2B1F;
+    --text-light: #7A6A5A;
+    --border: #D9C9A3;
+    --border-focus: #C9A84C;
+    --section-bg: #FAF5EA;
+    --input-bg: #FFFEF8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── TOOLBAR ─── */
+  #toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--maroon);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 24px;
+    box-shadow: 0 4px 20px rgba(123,31,46,0.35);
+  }
+
+  #toolbar .toolbar-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 16px;
+    white-space: nowrap;
+  }
+
+  #toolbar .sep {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 6px;
+  }
+
+  .tb-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 5px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tb-btn:hover { background: rgba(255,255,255,0.22); border-color: var(--gold-light); }
+  .tb-btn.active { background: var(--gold); color: var(--maroon); border-color: var(--gold); }
+
+  .tb-btn-icon {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .tb-btn-icon:hover { background: rgba(255,255,255,0.22); border-color: var(--gold-light); }
+  .tb-btn-icon.active { background: var(--gold); color: var(--maroon); border-color: var(--gold); }
+
+  .tb-select {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    outline: none;
+  }
+  .tb-select option { background: var(--maroon); color: #fff; }
+
+  #focus-indicator {
+    margin-left: auto;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  /* Action buttons */
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 18px;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.22s;
+    letter-spacing: 0.03em;
+  }
+  .btn-print {
+    background: var(--gold);
+    color: var(--maroon);
+  }
+  .btn-print:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,168,76,0.5); }
+  .btn-clear {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-clear:hover { background: rgba(239,68,68,0.25); border-color: #fca5a5; }
+
+  /* ─── DOCUMENT WRAPPER ─── */
+  #doc-outer {
+    max-width: 900px;
+    margin: 30px auto 60px;
+    padding: 0 20px;
+  }
+
+  #document {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 48px rgba(60,30,10,0.13), 0 2px 8px rgba(60,30,10,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  .doc-header {
+    background: var(--maroon);
+    padding: 36px 56px 28px;
+    text-align: center;
+    position: relative;
+  }
+  .doc-header::after {
+    content: '';
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-top: 24px;
+  }
+  .header-state {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(201,168,76,0.8);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.05em;
+  }
+  .header-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 15px;
+    margin-top: 6px;
+  }
+  .header-decor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .header-decor span { width: 40px; height: 1px; background: var(--gold); opacity: 0.6; }
+  .header-decor .diamond {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ─── BODY ─── */
+  .doc-body {
+    padding: 40px 56px 50px;
+  }
+
+  /* ─── DATE/PLACE ROW ─── */
+  .preamble-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: 'EB Garamond', serif;
+    font-size: 15.5px;
+    color: var(--text-mid);
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ─── INPUTS ─── */
+  .field {
+    display: inline-block;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    background: transparent;
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    padding: 1px 4px;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 60px;
+  }
+  .field:focus { border-bottom-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .field.sm { min-width: 50px; max-width: 80px; }
+  .field.md { min-width: 120px; }
+  .field.lg { min-width: 200px; }
+  .field.xl { min-width: 280px; }
+  .field.full { width: 100%; display: block; }
+
+  /* Rich-text editable areas */
+  .rte {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    min-height: 36px;
+    padding: 8px 12px;
+    background: var(--input-bg);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.6;
+  }
+  .rte:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .rte[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: var(--text-light);
+    font-style: italic;
+    pointer-events: none;
+  }
+
+  /* ─── PARTY BLOCK ─── */
+  .party-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 24px 0 28px;
+  }
+  @media (max-width: 640px) { .party-section { grid-template-columns: 1fr; } }
+
+  .party-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .party-card-header {
+    background: var(--section-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .party-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    background: rgba(123,31,46,0.08);
+    border: 1px solid rgba(123,31,46,0.18);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .party-card-body { padding: 14px 16px; }
+
+  .field-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .field-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 3px;
+    min-width: 90px;
+  }
+  .field-value { flex: 1; }
+
+  /* ─── PROPERTY BLOCK ─── */
+  .prop-block {
+    background: var(--section-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+  .prop-block-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 12px;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .whereas-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    text-align: center;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .whereas-title::before, .whereas-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border));
+  }
+  .whereas-title::after {
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .terms-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    text-align: center;
+    margin: 32px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ─── CLAUSES ─── */
+  .clause {
+    margin-bottom: 20px;
+  }
+  .clause-head {
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--maroon);
+    margin-bottom: 6px;
+  }
+  .clause-num {
+    display: inline-block;
+    background: var(--maroon);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .clause-body {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    padding-left: 30px;
+  }
+  .clause-body p { margin-bottom: 6px; }
+  .sub-clause {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+    align-items: flex-start;
+  }
+  .sub-alpha {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    min-width: 18px;
+  }
+
+  /* Inline field in clause text */
+  .ifield {
+    display: inline-block;
+    border: none;
+    border-bottom: 1.5px dashed var(--border);
+    background: rgba(201,168,76,0.05);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    padding: 0 4px;
+    outline: none;
+    transition: all 0.2s;
+    min-width: 60px;
+    text-align: center;
+  }
+  .ifield:focus { border-bottom-color: var(--gold); background: rgba(201,168,76,0.1); }
+  .ifield.sm { min-width: 50px; max-width: 90px; }
+  .ifield.md { min-width: 130px; }
+  .ifield.lg { min-width: 220px; }
+
+  /* ─── FURNISHINGS TABLE ─── */
+  .furnish-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .furnish-table th {
+    background: var(--section-bg);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-align: left;
+  }
+  .furnish-table td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+  }
+  .furnish-table td input {
+    border: none;
+    background: transparent;
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    color: var(--text-dark);
+  }
+  .furnish-table td input:focus { background: rgba(201,168,76,0.07); }
+  .add-row-btn {
+    margin-top: 8px;
+    background: none;
+    border: 1px dashed var(--border);
+    color: var(--text-light);
+    padding: 5px 14px;
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .add-row-btn:hover { border-color: var(--gold); color: var(--maroon); }
+
+  /* ─── SIGNATURE ─── */
+  .sig-section {
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+  }
+  .sig-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--maroon);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .sig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 580px) { .sig-grid { grid-template-columns: 1fr; } }
+
+  .sig-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .sig-box-header {
+    background: var(--section-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--maroon);
+  }
+  .sig-box-body { padding: 14px; }
+  .sig-line {
+    border-top: 1px solid var(--text-light);
+    margin: 32px 0 8px;
+    position: relative;
+  }
+  .sig-line-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .witness-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 580px) { .witness-grid { grid-template-columns: 1fr; } }
+
+  .witness-box {
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    padding: 14px;
+  }
+  .witness-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* ─── FOOTER ─── */
+  .doc-footer {
+    border-top: 1px solid var(--border);
+    background: var(--section-bg);
+    padding: 14px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+  .footer-seal {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: var(--maroon);
+    opacity: 0.5;
+  }
+
+  /* ─── HELPERS ─── */
+  .label-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+  }
+  .notice-box {
+    background: rgba(123,31,46,0.04);
+    border: 1px solid rgba(123,31,46,0.15);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-mid);
+    margin: 16px 0;
+    font-style: italic;
+  }
+
+  /* ─── PRINT STYLES ─── */
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: #fff; font-size: 13px; }
+    #toolbar { display: none !important; }
+    #doc-outer { margin: 0; padding: 0; max-width: 100%; }
+    #document { box-shadow: none; border: none; }
+    .doc-body { padding: 24px 48px 36px; }
+    .rte { border: none; padding: 0; background: transparent; }
+    .ifield, .field { border-bottom-color: #aaa !important; border-bottom-style: solid !important; }
+    .add-row-btn { display: none; }
+    .clause { page-break-inside: avoid; }
+    .sig-section { page-break-before: always; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  #document { animation: fadeUp 0.5s ease; }
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <div class="toolbar-brand">📜 TS Rent Agreement</div>
+  <div class="sep"></div>
+
+  <!-- Text style buttons -->
+  <button class="tb-btn-icon" id="btn-bold" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+  <button class="tb-btn-icon" id="btn-italic" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+  <button class="tb-btn-icon" id="btn-underline" onclick="fmt('underline')" title="Underline" style="text-decoration:underline">U</button>
+
+  <div class="sep"></div>
+
+  <!-- Font size -->
+  <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);">Size:</span>
+  <select class="tb-select" onchange="setFontSize(this.value)" title="Font Size">
+    <option value="">—</option>
+    <option value="1">8pt</option>
+    <option value="2">10pt</option>
+    <option value="3">12pt</option>
+    <option value="4">14pt</option>
+    <option value="5">18pt</option>
+    <option value="6">24pt</option>
+  </select>
+
+  <!-- Font family -->
+  <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);">Font:</span>
+  <select class="tb-select" onchange="setFont(this.value)" title="Font Family">
+    <option value="">—</option>
+    <option value="EB Garamond, serif">Garamond</option>
+    <option value="'Times New Roman', serif">Times New Roman</option>
+    <option value="Arial, sans-serif">Arial</option>
+    <option value="'DM Sans', sans-serif">DM Sans</option>
+    <option value="'Courier New', monospace">Courier New</option>
+  </select>
+
+  <div class="sep"></div>
+
+  <!-- Alignment -->
+  <button class="tb-btn-icon" onclick="fmt('justifyLeft')" title="Align Left">≡</button>
+  <button class="tb-btn-icon" onclick="fmt('justifyCenter')" title="Center">☰</button>
+  <button class="tb-btn-icon" onclick="fmt('justifyRight')" title="Align Right" style="text-align:right">≡</button>
+
+  <div class="sep"></div>
+
+  <button class="action-btn btn-clear" onclick="clearAllFields()">✕ Clear All</button>
+  <button class="action-btn btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+
+  <div id="focus-indicator">Click on any editable field to begin formatting</div>
+</div>
+
+<!-- DOCUMENT -->
+<div id="doc-outer">
+<div id="document">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="header-state">State of Telangana — Registration Act, 1908</div>
+    <div class="header-title">RESIDENTIAL RENT AGREEMENT</div>
+    <div class="header-sub">Governed under the Telangana Rent Control Act, 1960</div>
+    <div class="header-decor"><span></span><div class="diamond"></div><span></span></div>
+  </div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+
+    <!-- Preamble date/place -->
+    <div class="preamble-row">
+      This Rent Agreement ("Agreement") is made on the
+      <input class="field sm" id="day" type="text" placeholder="DD" maxlength="2">
+      day of
+      <input class="field md" id="month" type="text" placeholder="Month">
+      <input class="field sm" id="year" type="text" placeholder="YYYY" maxlength="4">
+      , executed at
+      <input class="field lg" id="place" type="text" placeholder="Hyderabad / Secunderabad…">
+      , Telangana.
+    </div>
+
+    <!-- PARTIES -->
+    <div class="whereas-title">Parties to the Agreement</div>
+
+    <div class="party-section">
+      <!-- Landlord -->
+      <div class="party-card">
+        <div class="party-card-header">
+          <span class="party-badge">Landlord</span>
+          <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--text-light);">First Party</span>
+        </div>
+        <div class="party-card-body">
+          <div class="field-row"><div class="field-label">Full Name</div><div class="field-value"><input class="field full" id="ll-name" type="text" placeholder="Full legal name"></div></div>
+          <div class="field-row"><div class="field-label">S/o · D/o · W/o</div><div class="field-value"><input class="field full" id="ll-relation" type="text" placeholder="Relation name"></div></div>
+          <div class="field-row"><div class="field-label">Aadhaar No.</div><div class="field-value"><input class="field full" id="ll-aadhaar" type="text" placeholder="XXXX XXXX XXXX" maxlength="14"></div></div>
+          <div class="field-row"><div class="field-label">PAN</div><div class="field-value"><input class="field full" id="ll-pan" type="text" placeholder="ABCDE1234F" maxlength="10"></div></div>
+          <div class="field-row"><div class="field-label">Mobile</div><div class="field-value"><input class="field full" id="ll-mobile" type="text" placeholder="+91 XXXXX XXXXX"></div></div>
+          <div class="field-row"><div class="field-label">Address</div><div class="field-value">
+            <div class="rte" id="ll-address" contenteditable="true" placeholder="Permanent address of landlord…"></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Tenant -->
+      <div class="party-card">
+        <div class="party-card-header">
+          <span class="party-badge">Tenant</span>
+          <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--text-light);">Second Party</span>
+        </div>
+        <div class="party-card-body">
+          <div class="field-row"><div class="field-label">Full Name</div><div class="field-value"><input class="field full" id="tn-name" type="text" placeholder="Full legal name"></div></div>
+          <div class="field-row"><div class="field-label">S/o · D/o · W/o</div><div class="field-value"><input class="field full" id="tn-relation" type="text" placeholder="Relation name"></div></div>
+          <div class="field-row"><div class="field-label">Aadhaar No.</div><div class="field-value"><input class="field full" id="tn-aadhaar" type="text" placeholder="XXXX XXXX XXXX" maxlength="14"></div></div>
+          <div class="field-row"><div class="field-label">PAN</div><div class="field-value"><input class="field full" id="tn-pan" type="text" placeholder="ABCDE1234F" maxlength="10"></div></div>
+          <div class="field-row"><div class="field-label">Mobile</div><div class="field-value"><input class="field full" id="tn-mobile" type="text" placeholder="+91 XXXXX XXXXX"></div></div>
+          <div class="field-row"><div class="field-label">Occupation</div><div class="field-value"><input class="field full" id="tn-occ" type="text" placeholder="e.g., Software Engineer / Business"></div></div>
+          <div class="field-row"><div class="field-label">Permanent Address</div><div class="field-value">
+            <div class="rte" id="tn-address" contenteditable="true" placeholder="Permanent / native address of tenant…"></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROPERTY -->
+    <div class="prop-block">
+      <div class="prop-block-title">🏠 Property Details (Schedule of Property)</div>
+      <div class="field-row" style="margin-bottom:10px">
+        <div class="field-label">Door / Flat No.</div>
+        <div class="field-value"><input class="field full" id="prop-door" type="text" placeholder="e.g., Flat No. 3B, 2nd Floor"></div>
+      </div>
+      <div class="field-row" style="margin-bottom:10px">
+        <div class="field-label">Building / Apt.</div>
+        <div class="field-value"><input class="field full" id="prop-apt" type="text" placeholder="Name of building / apartment complex"></div>
+      </div>
+      <div class="field-row" style="margin-bottom:10px">
+        <div class="field-label">Street / Area</div>
+        <div class="field-value"><input class="field full" id="prop-street" type="text" placeholder="Street, Colony, Locality name"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex-wrap:wrap;">
+        <div>
+          <div class="label-text">Mandal / Area</div>
+          <input class="field full" id="prop-mandal" type="text" placeholder="e.g., Madhapur">
+        </div>
+        <div>
+          <div class="label-text">District</div>
+          <input class="field full" id="prop-dist" type="text" placeholder="Hyderabad / Rangareddy">
+        </div>
+        <div>
+          <div class="label-text">PIN Code</div>
+          <input class="field full" id="prop-pin" type="text" placeholder="500 XXX" maxlength="7">
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:12px">
+        <div class="field-label">Survey / Plot No.</div>
+        <div class="field-value"><input class="field full" id="prop-survey" type="text" placeholder="Survey / Plot number (if applicable)"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">Configuration</div>
+        <div class="field-value"><input class="field full" id="prop-config" type="text" placeholder="e.g., 2BHK / 3BHK / Independent House"></div>
+      </div>
+    </div>
+
+    <!-- WHEREAS -->
+    <div class="whereas-title">Recitals</div>
+    <div class="notice-box">
+      WHEREAS the LANDLORD is the absolute and lawful owner of the above-described Property situated at Hyderabad, Telangana, and the TENANT has requested the LANDLORD to let out the said Property on a monthly tenancy basis, and the LANDLORD has agreed to do so on the terms and conditions hereinafter mentioned.
+    </div>
+
+    <div class="whereas-title">Terms &amp; Conditions</div>
+
+    <!-- CLAUSE 1 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">1</span>Term of Tenancy</div>
+      <div class="clause-body">
+        <p>The tenancy shall be for a period of
+          <input class="ifield sm" id="c1-months" type="text" placeholder="11"> months,
+          commencing from <input class="ifield sm" id="c1-start-d" placeholder="DD"> /
+          <input class="ifield sm" id="c1-start-m" placeholder="MM"> /
+          <input class="ifield sm" id="c1-start-y" placeholder="YYYY">
+          and ending on <input class="ifield sm" id="c1-end-d" placeholder="DD"> /
+          <input class="ifield sm" id="c1-end-m" placeholder="MM"> /
+          <input class="ifield sm" id="c1-end-y" placeholder="YYYY">.
+        </p>
+        <p style="margin-top:6px;">This Agreement is governed by the <strong>Telangana Rent Control Act, 1960</strong> and the <strong>Registration Act, 1908</strong>. Agreements exceeding 11 months must be mandatorily registered before the Sub-Registrar, Hyderabad.</p>
+      </div>
+    </div>
+
+    <!-- CLAUSE 2 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">2</span>Rent &amp; Security Deposit</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>The monthly rent agreed upon is ₹ <input class="ifield md" id="c2-rent" placeholder="Amount in figures"> (Rupees <input class="ifield lg" id="c2-rent-words" placeholder="Amount in words"> only), payable on or before the <input class="ifield sm" id="c2-due-day" placeholder="1st / 5th"> day of each English calendar month.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>A refundable security deposit of ₹ <input class="ifield md" id="c2-dep" placeholder="Amount in figures"> (Rupees <input class="ifield lg" id="c2-dep-words" placeholder="Amount in words"> only) has been received by the LANDLORD from the TENANT. This deposit shall carry <strong>no interest</strong> and shall be refunded within <input class="ifield sm" id="c2-refund-days" placeholder="30"> days of vacating the premises, after deducting any outstanding dues or damages.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>Mode of rent payment: <input class="ifield lg" id="c2-pay-mode" placeholder="e.g., NEFT / UPI / Cash"> to Account No. <input class="ifield md" id="c2-acc" placeholder="Bank account / UPI ID">.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">d.</div><div>Annual rent increment (if any) shall be <input class="ifield sm" id="c2-hike" placeholder="e.g., 5">% effective from the second year of tenancy, mutually agreed in writing.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 3 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">3</span>Utilities, Maintenance &amp; GHMC/HMWSSB Charges</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>The TENANT shall be solely responsible for payment of electricity charges (TSSPDCL / TSNPDCL), water charges (HMWSSB), gas, and internet bills during the tenancy period.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>Monthly society / apartment maintenance charges, if applicable, shall be borne by: <input class="ifield lg" id="c3-maint" placeholder="Landlord / Tenant / As per society norms">.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>GHMC property tax shall be borne by the LANDLORD.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">d.</div><div>The TENANT shall maintain the property in good condition and shall be liable for damages beyond normal wear and tear.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">e.</div><div>The LANDLORD shall be responsible for structural repairs, plumbing leakages, and major electrical defects notified in writing by the TENANT.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 4 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">4</span>Use of Premises</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>The property shall be used <strong>strictly for residential purposes</strong> only. No commercial, industrial, or illegal activity shall be carried out from the premises.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>Number of occupants authorised: <input class="ifield sm" id="c4-occ" placeholder="e.g., 4"> persons. No additional occupants shall reside without prior written consent of the LANDLORD.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>Sub-letting, assigning, or parting with possession of the Property or any part thereof to any third party without prior written consent of the LANDLORD is strictly prohibited.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">d.</div><div>Pets: <input class="ifield md" id="c4-pets" placeholder="Allowed / Not Allowed">. Smoking inside the premises: <input class="ifield md" id="c4-smoke" placeholder="Permitted / Prohibited">.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 5 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">5</span>Termination &amp; Notice Period</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>Either party may terminate this agreement by giving <input class="ifield sm" id="c5-notice" placeholder="30/60"> days' advance written notice to the other party.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>Upon termination, the TENANT shall hand over vacant possession of the Property in the same condition as received, subject to normal wear and tear, along with all keys, access cards, and parking stickers.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>In the event of early termination by the TENANT within the lock-in period of <input class="ifield sm" id="c5-lockin" placeholder="0"> months, <input class="ifield lg" id="c5-penalty" placeholder="describe penalty / NIL"> months' rent shall be forfeited as penalty.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 6 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">6</span>Repairs, Alterations &amp; Entry</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>The TENANT shall promptly inform the LANDLORD of necessary repairs. The TENANT shall not make any structural alterations or modifications without the written consent of the LANDLORD.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>The LANDLORD shall provide a minimum of <input class="ifield sm" id="c6-notice" placeholder="24"> hours' prior notice before entering the property for inspection or repairs, except in emergencies.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>Minor repairs up to ₹ <input class="ifield sm" id="c6-minor" placeholder="500"> shall be borne by the TENANT. Repairs above this threshold shall be the LANDLORD's responsibility.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 7 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">7</span>Police Verification &amp; Tenant Identification</div>
+      <div class="clause-body">
+        <p>As mandated by the <strong>Telangana Police Commissionerate</strong> and GHMC norms, the LANDLORD shall submit the TENANT's details (name, Aadhaar, photograph, and tenancy details) to the concerned local police station / Mee-Seva / online portal within <input class="ifield sm" id="c7-days" placeholder="15"> days of commencement of tenancy. The TENANT shall co-operate fully in this process and provide all necessary documents.</p>
+      </div>
+    </div>
+
+    <!-- CLAUSE 8 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">8</span>Default &amp; Eviction</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>Failure to pay rent for <input class="ifield sm" id="c8-months" placeholder="2"> consecutive months, or violation of any material term of this Agreement, shall entitle the LANDLORD to initiate eviction proceedings.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>The LANDLORD may invoke remedies available under the Telangana Rent Control Act, 1960 and/or approach the Rent Controller / Civil Court having jurisdiction in Hyderabad.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 9 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">9</span>Use of Premises &amp; Nuisance</div>
+      <div class="clause-body">
+        <p>The TENANT shall not use the premises for any illegal, immoral, or anti-social purpose. The TENANT shall comply with all applicable laws, GHMC regulations, apartment bye-laws, and shall ensure that no nuisance, disturbance, or harassment is caused to neighbours or the general public.</p>
+      </div>
+    </div>
+
+    <!-- CLAUSE 10 — Furnishings -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">10</span>Inventory of Furnishings &amp; Appliances</div>
+      <div class="clause-body">
+        <p style="margin-bottom:10px;">The LANDLORD has provided the property in a <input class="ifield md" id="c10-type" placeholder="Furnished / Semi-Furnished / Unfurnished"> condition. The following items are provided:</p>
+        <table class="furnish-table" id="furnish-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item Description</th>
+              <th>Quantity</th>
+              <th>Condition</th>
+            </tr>
+          </thead>
+          <tbody id="furnish-tbody">
+            <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">1</td><td><input type="text" placeholder="e.g., Ceiling Fan"></td><td><input type="text" placeholder="2"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+            <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">2</td><td><input type="text" placeholder="e.g., Refrigerator"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+            <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">3</td><td><input type="text" placeholder="e.g., Washing Machine"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+            <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">4</td><td><input type="text" placeholder="e.g., Geyser / Water Heater"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+            <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">5</td><td><input type="text" placeholder="Add item…"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="add-row-btn" onclick="addFurnishRow()" style="margin-top:0;">+ Add Row</button>
+          <button class="add-row-btn" onclick="removeFurnishRow()" style="margin-top:0;color:#7B1F2E;border-color:#D9C9A3;" id="remove-row-btn">− Remove Row</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 11 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">11</span>Renewal of Agreement</div>
+      <div class="clause-body">
+        <p>If both parties mutually agree, this Agreement may be renewed for a further term, subject to revised rent and updated terms agreed in writing. Any renewal of this Agreement beyond 11 months shall be compulsorily registered under the Registration Act, 1908, with applicable stamp duty payable under the Indian Stamp Act as applicable in Telangana.</p>
+      </div>
+    </div>
+
+    <!-- CLAUSE 12 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">12</span>Governing Law &amp; Dispute Resolution</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div>This Agreement shall be governed by and construed in accordance with the laws of India and the State of Telangana.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div>Any dispute arising out of or in connection with this Agreement shall be subject to the exclusive jurisdiction of the Courts at <strong>Hyderabad, Telangana</strong>.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div>The parties shall first attempt to resolve disputes amicably through negotiation. Failing that, mediation / arbitration may be pursued before approaching a Court of Law.</div></div>
+      </div>
+    </div>
+
+    <!-- CLAUSE 13 -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">13</span>Miscellaneous Provisions</div>
+      <div class="clause-body">
+        <div class="sub-clause"><div class="sub-alpha">a.</div><div><strong>Force Majeure:</strong> Neither party shall be held liable for failure to fulfil obligations due to circumstances beyond their control (natural calamities, government orders, pandemic lockdowns, etc.).</div></div>
+        <div class="sub-clause"><div class="sub-alpha">b.</div><div><strong>Indemnity:</strong> The TENANT shall indemnify the LANDLORD against any claims, penalties, or liabilities arising from the TENANT's use of the premises.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">c.</div><div><strong>Notices:</strong> All notices shall be in writing and delivered via registered post, courier, email, or WhatsApp to the addresses/numbers specified herein.</div></div>
+        <div class="sub-clause"><div class="sub-alpha">d.</div><div><strong>Entire Agreement:</strong> This Agreement constitutes the entire understanding between the parties and supersedes all prior negotiations, representations, or understandings.</div></div>
+      </div>
+    </div>
+
+    <!-- Additional clauses free-form -->
+    <div class="clause">
+      <div class="clause-head"><span class="clause-num">14</span>Special Conditions / Additional Terms</div>
+      <div class="clause-body">
+        <div class="rte" id="special-terms" contenteditable="true" placeholder="Enter any special conditions, parking, water tanker charges, generator charges, etc. specific to this property…" style="min-height:70px;"></div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="sig-section">
+      <div class="sig-section-title">Execution &amp; Signatures</div>
+
+      <div class="notice-box" style="margin-bottom:24px;">
+        IN WITNESS WHEREOF, the parties hereto have set their hands to this Agreement on the day, month, and year first written above, after having read and understood all the terms and conditions.
+      </div>
+
+      <div class="sig-grid">
+        <div class="sig-box">
+          <div class="sig-box-header">LANDLORD(S)</div>
+          <div class="sig-box-body">
+            <div class="sig-line"></div>
+            <div class="sig-line-label">Signature</div>
+            <div class="field-row"><div class="field-label">Name</div><div class="field-value"><input class="field full" id="sig-ll-name" type="text" placeholder="As per Aadhaar"></div></div>
+            <div class="field-row"><div class="field-label">Date</div><div class="field-value"><input class="field full" id="sig-ll-date" type="text" placeholder="DD / MM / YYYY"></div></div>
+            <div class="field-row"><div class="field-label">Place</div><div class="field-value"><input class="field full" id="sig-ll-place" type="text" placeholder="Hyderabad"></div></div>
+          </div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-box-header">TENANT(S)</div>
+          <div class="sig-box-body">
+            <div class="sig-line"></div>
+            <div class="sig-line-label">Signature</div>
+            <div class="field-row"><div class="field-label">Name</div><div class="field-value"><input class="field full" id="sig-tn-name" type="text" placeholder="As per Aadhaar"></div></div>
+            <div class="field-row"><div class="field-label">Date</div><div class="field-value"><input class="field full" id="sig-tn-date" type="text" placeholder="DD / MM / YYYY"></div></div>
+            <div class="field-row"><div class="field-label">Place</div><div class="field-value"><input class="field full" id="sig-tn-place" type="text" placeholder="Hyderabad"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Witnesses -->
+      <div style="margin-bottom:16px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);">Witnesses (Optional but Recommended)</div>
+      <div class="witness-grid">
+        <div class="witness-box">
+          <div class="witness-title">Witness 1</div>
+          <div class="sig-line"></div>
+          <div class="sig-line-label">Signature</div>
+          <div class="field-row"><div class="field-label">Name</div><div class="field-value"><input class="field full" id="w1-name" type="text" placeholder="Full name"></div></div>
+          <div class="field-row"><div class="field-label">Address</div><div class="field-value"><input class="field full" id="w1-addr" type="text" placeholder="Address"></div></div>
+          <div class="field-row"><div class="field-label">Mobile</div><div class="field-value"><input class="field full" id="w1-mob" type="text" placeholder="Mobile number"></div></div>
+        </div>
+        <div class="witness-box">
+          <div class="witness-title">Witness 2</div>
+          <div class="sig-line"></div>
+          <div class="sig-line-label">Signature</div>
+          <div class="field-row"><div class="field-label">Name</div><div class="field-value"><input class="field full" id="w2-name" type="text" placeholder="Full name"></div></div>
+          <div class="field-row"><div class="field-label">Address</div><div class="field-value"><input class="field full" id="w2-addr" type="text" placeholder="Address"></div></div>
+          <div class="field-row"><div class="field-label">Mobile</div><div class="field-value"><input class="field full" id="w2-mob" type="text" placeholder="Mobile number"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-note">This Agreement is prepared for Hyderabad / Telangana. For agreements exceeding 11 months, mandatory registration at the Sub-Registrar's Office is required.</div>
+    <div class="footer-seal">Telangana · TS</div>
+  </div>
+
+</div><!-- /document -->
+</div><!-- /doc-outer -->
+
+<script>
+  // ─── Formatting (rich-text focus tracking) ───
+  let lastFocusedRte = null;
+
+  document.querySelectorAll('.rte').forEach(el => {
+    el.addEventListener('focus', () => {
+      lastFocusedRte = el;
+      document.getElementById('focus-indicator').textContent = 'Editing: ' + (el.id || 'text field');
+    });
+    el.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (!document.activeElement.closest('.rte')) {
+          document.getElementById('focus-indicator').textContent = 'Click on a text area to format it';
+        }
+      }, 200);
+    });
+  });
+
+  function fmt(cmd) {
+    // Focus the last active RTE if we have one
+    if (lastFocusedRte) lastFocusedRte.focus();
+    document.execCommand(cmd, false, null);
+    updateToolbarState();
+  }
+
+  function setFontSize(size) {
+    if (!size) return;
+    if (lastFocusedRte) lastFocusedRte.focus();
+    document.execCommand('fontSize', false, size);
+  }
+
+  function setFont(font) {
+    if (!font) return;
+    if (lastFocusedRte) lastFocusedRte.focus();
+    document.execCommand('fontName', false, font);
+  }
+
+  function updateToolbarState() {
+    document.getElementById('btn-bold').classList.toggle('active', document.queryCommandState('bold'));
+    document.getElementById('btn-italic').classList.toggle('active', document.queryCommandState('italic'));
+    document.getElementById('btn-underline').classList.toggle('active', document.queryCommandState('underline'));
+  }
+
+  document.addEventListener('selectionchange', updateToolbarState);
+
+  // ─── Add / Remove furnishing rows ───
+  let rowCount = 5;
+  const MIN_ROWS = 1;
+
+  function addFurnishRow() {
+    rowCount++;
+    const tbody = document.getElementById('furnish-tbody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">${rowCount}</td>
+      <td><input type="text" placeholder="Add item…"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>`;
+    tbody.appendChild(tr);
+    updateRemoveBtn();
+  }
+
+  function removeFurnishRow() {
+    const tbody = document.getElementById('furnish-tbody');
+    if (tbody.rows.length <= MIN_ROWS) return;
+    tbody.removeChild(tbody.lastElementChild);
+    rowCount--;
+    // Re-number all rows
+    Array.from(tbody.rows).forEach((row, i) => {
+      row.cells[0].textContent = i + 1;
+    });
+    updateRemoveBtn();
+  }
+
+  function updateRemoveBtn() {
+    const tbody = document.getElementById('furnish-tbody');
+    const btn = document.getElementById('remove-row-btn');
+    btn.disabled = tbody.rows.length <= MIN_ROWS;
+    btn.style.opacity = tbody.rows.length <= MIN_ROWS ? '0.4' : '1';
+    btn.style.cursor = tbody.rows.length <= MIN_ROWS ? 'not-allowed' : 'pointer';
+  }
+
+  updateRemoveBtn();
+
+  // ─── Clear all fields ───
+  function clearAllFields() {
+    if (!confirm('Clear all filled data? This cannot be undone.')) return;
+    document.querySelectorAll('input[type="text"]').forEach(el => el.value = '');
+    document.querySelectorAll('.rte').forEach(el => el.innerHTML = '');
+    // Reset furnishings to default 5 rows
+    const tbody = document.getElementById('furnish-tbody');
+    tbody.innerHTML = `
+      <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">1</td><td><input type="text" placeholder="e.g., Ceiling Fan"></td><td><input type="text" placeholder="2"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+      <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">2</td><td><input type="text" placeholder="e.g., Refrigerator"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+      <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">3</td><td><input type="text" placeholder="e.g., Washing Machine"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+      <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">4</td><td><input type="text" placeholder="e.g., Geyser / Water Heater"></td><td><input type="text" placeholder="1"></td><td><input type="text" placeholder="Good / Working"></td></tr>
+      <tr><td style="text-align:center;color:var(--text-light);font-size:12px;padding:6px;">5</td><td><input type="text" placeholder="Add item…"></td><td><input type="text"></td><td><input type="text"></td></tr>`;
+    rowCount = 5;
+    updateRemoveBtn();
+  }
+
+  // ─── Auto-format Aadhaar with spaces ───
+  ['ll-aadhaar','tn-aadhaar'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', function() {
+        let v = this.value.replace(/\D/g,'').slice(0,12);
+        this.value = v.replace(/(\d{4})(?=\d)/g,'$1 ').trim();
+      });
+    }
+  });
+</script>
+</body>
+</html>
