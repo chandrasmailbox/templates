@@ -3,26 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NRO Account Conversion Request Letter</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>NRO Account Conversion Request</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #0F2D4A;
-    --navy-mid: #1A4068;
     --gold: #B8943E;
     --gold-light: #D4AD5C;
-    --gold-pale: #FAF3E0;
     --cream: #F7F4EF;
-    --white: #FDFCFA;
-    --text: #0D1E2C;
-    --text-mid: #2C4155;
-    --text-muted: #6B85A0;
-    --border: #C8D8E8;
-    --border-light: #DDE8F2;
-    --section-bg: #F2F7FB;
+    --white: #FFFFFF;
+    --text: #111111;
+    --text-muted: #666;
+    --border: #999;
+    --border-light: #CCC;
+    --focus: #B8943E;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
 
   /* ── TOP BAR ── */
   #toolbar {
@@ -30,22 +34,27 @@
     background: var(--navy);
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     padding: 9px 24px;
-    box-shadow: 0 3px 18px rgba(15,45,74,0.4);
+    box-shadow: 0 3px 16px rgba(15,45,74,0.4);
   }
-  .tb-brand { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; color: var(--gold-light); letter-spacing: 0.05em; margin-right: 6px; white-space: nowrap; }
-  .tb-hint  { font-size: 11px; color: rgba(255,255,255,0.35); font-style: italic; }
+  .tb-brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.04em; margin-right: 6px; white-space: nowrap;
+  }
+  .tb-hint { font-family: 'Inter', sans-serif; font-size: 11px; color: rgba(255,255,255,0.35); font-style: italic; }
   .tb-btn {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 6px 16px; border-radius: 4px;
     font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
-    cursor: pointer; border: none; transition: all 0.2s; letter-spacing: 0.02em;
+    cursor: pointer; border: none; transition: all 0.2s;
   }
   .tb-print { background: var(--gold); color: var(--navy); margin-left: auto; }
-  .tb-print:hover { background: var(--gold-light); box-shadow: 0 3px 10px rgba(184,148,62,0.5); transform: translateY(-1px); }
+  .tb-print:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(184,148,62,0.45); }
   .tb-clear { background: rgba(255,255,255,0.09); color: #fff; border: 1px solid rgba(255,255,255,0.18); }
   .tb-clear:hover { background: rgba(176,59,46,0.22); border-color: #f99; }
 
-  /* ── FLOATING STYLE TOOLBAR ── */
+  /* ── FLOATING STYLE BAR ── */
   #float-bar {
     position: fixed; z-index: 9999;
     background: #07182A;
@@ -57,221 +66,160 @@
   #float-bar.visible { display: flex; }
   #float-bar::after { content:''; position:absolute; top:100%; left:16px; border:6px solid transparent; border-top-color:#07182A; }
   #float-bar.flip::after { top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#07182A; }
-  .fb-btn { background:transparent; border:1px solid transparent; color:rgba(255,255,255,0.72); width:28px; height:28px; border-radius:4px; cursor:pointer; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; font-family:Georgia,serif; }
-  .fb-btn:hover { background:rgba(184,148,62,0.2); border-color:rgba(184,148,62,0.4); color:#fff; }
-  .fb-btn.on { background:var(--gold); color:#07182A; border-color:var(--gold); }
-  .fb-sep { width:1px; height:20px; background:rgba(255,255,255,0.12); margin:0 3px; }
-  .fb-lbl { font-size:10px; color:rgba(255,255,255,0.3); padding:0 2px; font-family:'Inter',sans-serif; }
-  .fb-sel { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.82); padding:3px 4px; border-radius:3px; font-size:11px; cursor:pointer; outline:none; font-family:'Inter',sans-serif; }
-  .fb-sel option { background:#07182A; color:#fff; }
+  .fb-btn {
+    background: transparent; border: 1px solid transparent;
+    color: rgba(255,255,255,0.72);
+    width: 28px; height: 28px; border-radius: 4px;
+    cursor: pointer; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0; font-family: Georgia, serif;
+  }
+  .fb-btn:hover { background: rgba(184,148,62,0.2); border-color: rgba(184,148,62,0.4); color: #fff; }
+  .fb-btn.on { background: var(--gold); color: #07182A; border-color: var(--gold); }
+  .fb-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); margin: 0 3px; }
+  .fb-lbl { font-size: 10px; color: rgba(255,255,255,0.3); padding: 0 2px; font-family: 'Inter', sans-serif; }
+  .fb-sel {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.82); padding: 3px 4px; border-radius: 3px;
+    font-size: 11px; cursor: pointer; outline: none; font-family: 'Inter', sans-serif;
+  }
+  .fb-sel option { background: #07182A; color: #fff; }
 
-  /* ── PAGE & DOC ── */
-  #page { max-width: 800px; margin: 28px auto 70px; padding: 0 18px; }
+  /* ── PAGE WRAP ── */
+  #page { max-width: 760px; margin: 28px auto 60px; padding: 0 18px; }
+
+  /* ── DOCUMENT SHEET ── */
   #doc {
     background: var(--white);
-    border: 1px solid var(--border);
-    border-top: 5px solid var(--navy);
-    box-shadow: 0 6px 40px rgba(15,45,74,0.1);
-    animation: rise 0.4s ease;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+    padding: 56px 64px 64px;
+    animation: rise 0.35s ease;
   }
   @keyframes rise { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-  /* ── LETTERHEAD TOP STRIP ── */
-  .lh-strip {
-    background: var(--section-bg);
-    border-bottom: 1px solid var(--border-light);
-    padding: 18px 48px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  /* ── DATE LINE ── */
+  .date-line {
+    text-align: right;
+    margin-bottom: 28px;
+    font-size: 14px;
   }
-  .lh-form-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px; font-weight: 700;
-    color: var(--navy); letter-spacing: 0.02em;
-  }
-  .lh-form-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-  .lh-date-box { text-align: right; }
-  .lh-date-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
-  .lh-date-field { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
-
-  /* ── LETTER BODY ── */
-  .letter { padding: 36px 56px 44px; font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.9; color: var(--text); }
-
-  /* ── EDITABLE FIELDS ── */
-  .f {
-    display: inline-block;
-    border: none; border-bottom: 1.5px solid var(--border);
-    background: transparent;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px; color: var(--text);
-    padding: 0 5px 1px; outline: none;
-    transition: border-color 0.18s, background 0.15s;
-    min-width: 60px; vertical-align: baseline;
-    cursor: text;
-  }
-  .f:focus { border-bottom-color: var(--gold); background: rgba(184,148,62,0.06); border-radius: 2px 2px 0 0; }
-  .f.sm  { min-width: 60px; max-width: 110px; }
-  .f.md  { min-width: 140px; }
-  .f.lg  { min-width: 220px; }
-  .f.xl  { min-width: 300px; }
-  .f.full { width: 100%; display: block; }
-  [data-ph]:empty::before { content: attr(data-ph); color: #b0c0d0; font-style: italic; pointer-events: none; font-family: 'Inter', sans-serif; font-size: 13px; }
 
   /* ── TO BLOCK ── */
-  .to-block { margin-bottom: 28px; }
-  .to-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-  .to-line { margin-bottom: 3px; }
+  .to-label { margin-bottom: 4px; }
+  .to-block { margin-bottom: 24px; }
+  .to-row { display: flex; align-items: baseline; gap: 0; margin-bottom: 4px; }
+  .to-key { min-width: 110px; flex-shrink: 0; font-size: 14px; }
 
   /* ── SUBJECT ── */
-  .subject-block {
-    background: var(--gold-pale);
-    border-left: 3px solid var(--gold);
-    padding: 11px 18px;
-    margin-bottom: 26px;
-    border-radius: 0 3px 3px 0;
-    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  .subject-line {
+    margin-bottom: 22px;
+    font-size: 14px;
   }
-  .subj-tag { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); white-space: nowrap; }
-  .subj-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--text); }
+  .subject-line strong { font-weight: bold; }
 
   /* ── SALUTATION ── */
-  .salutation { margin-bottom: 18px; }
+  .salutation { margin-bottom: 16px; }
 
   /* ── BODY PARA ── */
-  .para { margin-bottom: 18px; }
+  .para { margin-bottom: 16px; font-size: 14px; line-height: 1.75; }
 
-  /* ── DETAILS TABLE ── */
-  .details-block {
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 20px 0 24px;
-  }
-  .details-head {
-    background: var(--navy);
-    padding: 9px 18px;
-    font-family: 'Inter', sans-serif;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-  }
-  .detail-row {
+  /* ── BULLET ROWS ── */
+  .bullet-list { margin: 4px 0 18px 0; }
+  .bullet-row {
     display: flex; align-items: baseline;
-    border-bottom: 1px solid var(--border-light);
-    padding: 10px 18px; gap: 0;
+    margin-bottom: 8px; gap: 0;
   }
-  .detail-row:last-child { border-bottom: none; }
-  .detail-row:nth-child(even) { background: var(--section-bg); }
-  .detail-bullet {
-    color: var(--gold);
-    font-size: 18px; line-height: 1;
-    margin-right: 12px; flex-shrink: 0; margin-top: 2px;
-  }
-  .detail-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px; font-weight: 600;
-    color: var(--text-mid);
-    min-width: 250px; flex-shrink: 0;
-  }
-  .detail-sep { color: var(--text-muted); margin-right: 10px; }
+  .bullet-dash { margin-right: 8px; flex-shrink: 0; font-size: 14px; }
+  .bullet-label { font-size: 14px; flex-shrink: 0; }
 
-  /* ── DOCUMENTS LIST ── */
-  .docs-block {
-    border: 1px solid var(--border-light);
-    border-radius: 4px; overflow: hidden;
-    margin: 20px 0 24px;
+  /* ── INLINE EDITABLE FIELD ── */
+  .f {
+    display: inline-block;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: var(--text);
+    padding: 0 4px 1px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    min-width: 60px;
+    vertical-align: baseline;
+    cursor: text;
+    line-height: 1.5;
   }
-  .docs-head {
-    background: var(--section-bg);
-    padding: 9px 18px; border-bottom: 1px solid var(--border-light);
+  .f:focus {
+    border-bottom-color: var(--focus);
+    background: rgba(184,148,62,0.06);
+    border-radius: 2px 2px 0 0;
+  }
+  .f.sm  { min-width: 50px;  max-width: 90px;  }
+  .f.md  { min-width: 120px; }
+  .f.lg  { min-width: 200px; }
+  .f.xl  { min-width: 280px; }
+  .f.xxl { min-width: 340px; }
+  .f.full { width: 100%; display: block; margin-top: 2px; }
+
+  /* placeholder */
+  [data-ph]:empty::before {
+    content: attr(data-ph);
+    color: #b8bfc8;
+    font-style: italic;
+    pointer-events: none;
     font-family: 'Inter', sans-serif;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--text-muted);
+    font-size: 12px;
   }
-  .doc-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 18px; border-bottom: 1px solid var(--border-light);
-    cursor: pointer; transition: background 0.15s; user-select: none;
-  }
-  .doc-item:last-child { border-bottom: none; }
-  .doc-item:hover { background: rgba(184,148,62,0.05); }
-  .doc-item.ticked { background: rgba(42,107,69,0.04); }
-  .doc-cb {
-    width: 18px; height: 18px; border-radius: 3px; flex-shrink: 0;
-    border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; transition: all 0.15s; background: #fff;
-    color: transparent;
-  }
-  .doc-item.ticked .doc-cb { background: #2A6B45; border-color: #2A6B45; color: #fff; }
-  .doc-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-mid); }
-  .doc-item.ticked .doc-text { color: var(--text); }
-  /* Extra doc row input */
-  .doc-extra {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 18px; border-top: 1px dashed var(--border-light);
-    background: rgba(184,148,62,0.03);
-  }
-  .doc-extra-input {
-    flex: 1; border: none; border-bottom: 1px dashed var(--border);
-    background: transparent; font-family: 'Cormorant Garamond', serif;
-    font-size: 15px; color: var(--text); outline: none; padding: 2px 4px;
-  }
-  .doc-extra-input:focus { border-bottom-color: var(--gold); }
-  .doc-extra-input::placeholder { color: #b0c0d0; font-style: italic; }
 
   /* ── CLOSING ── */
-  .closing { margin-top: 24px; }
-  .valediction { margin-top: 28px; margin-bottom: 6px; }
-
-  /* ── SIGN OFF GRID ── */
-  .signoff {
-    margin-top: 30px;
-    border-top: 1px solid var(--border-light);
-    padding-top: 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+  .closing-block { margin-top: 28px; }
+  .sign-grid {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  @media (max-width: 540px) { .signoff { grid-template-columns: 1fr; } }
-  .signoff-left, .signoff-right { }
-  .sig-area {
-    border-top: 1px solid #aaa;
-    margin: 40px 0 6px;
-  }
-  .sig-hint { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-muted); font-style: italic; }
-  .signoff-detail { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-  .signoff-row { display: flex; align-items: baseline; gap: 8px; }
-  .signoff-key { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; min-width: 60px; }
+  .sign-row { display: flex; align-items: baseline; gap: 0; }
+  .sign-key { min-width: 210px; flex-shrink: 0; font-size: 14px; }
 
-  /* ── DATE BOX (top right) ── */
-  .date-field { font-family: 'Cormorant Garamond', serif; font-size: 16px; }
 
-  /* ── FOOTER ── */
-  .doc-footer {
-    border-top: 1px solid var(--border-light);
-    background: var(--section-bg);
-    padding: 11px 56px;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-  }
-  .foot-note { font-family: 'Inter', sans-serif; font-size: 10.5px; color: var(--text-muted); font-style: italic; }
-  .foot-tag  { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; }
 
   /* ── PRINT ── */
   @page { margin: 0mm; }
   @media print {
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    body { background: #fff; padding: 12mm 15mm; }
+    body { background: #fff; padding: 12mm 0; font-size: 12pt; }
     #toolbar, #float-bar { display: none !important; }
     #page { margin: 0; padding: 0; max-width: 100%; }
-    #doc { box-shadow: none; border: 1px solid #ccc; }
-    .letter { padding: 24px 40px 36px; }
-    .lh-strip { padding: 14px 40px; }
-    .doc-footer { padding: 10px 40px; }
-    .doc-item { cursor: default; }
+    #doc { box-shadow: none; border: none; padding: 0 48pt; }
+    .date-line { text-align: right !important; width: 100%; display: block; }
+    .page-num { display: none; }
+
+    /* Sign-off rows: collapse gap between label and field */
+    .sign-row { display: block; margin-bottom: 8px; }
+    .sign-key { min-width: 0; display: inline; }
+    .sign-row .f { display: inline; border-bottom: 1px solid #555; min-width: 40px; padding: 0 2px; }
+
+    /* Bullet rows: same treatment */
+    .bullet-label { display: inline; }
+    .bullet-row .f { display: inline; border-bottom: 1px solid #555; min-width: 40px; padding: 0 2px; }
+
+    /* To rows */
+    .to-key { min-width: 0; display: inline; }
+    .to-row { display: block; }
+    .to-row .f { display: inline; border-bottom: 1px solid #555; min-width: 40px; padding: 0 2px; }
     [data-ph]:empty::before { content: none !important; }
-    [data-ph]:empty { border-bottom: 1px solid #999 !important; min-width: 60px; display: inline-block; }
-    .f.full[data-ph]:empty { display: block; }
+    [data-ph]:empty {
+      border-bottom: 1px solid #555 !important;
+      min-width: 200px;
+      display: inline-block;
+    }
+    .f.full[data-ph]:empty {
+      display: block;
+      min-width: 100%;
+      border-bottom: 1px solid #555 !important;
+    }
   }
 </style>
 </head>
@@ -280,8 +228,8 @@
 <!-- TOP ACTION BAR -->
 <div id="toolbar">
   <div class="tb-brand">🏦 NRO Conversion Request</div>
-  <span class="tb-hint">Click any field — style toolbar appears above it</span>
-  <button class="tb-btn tb-clear" onclick="clearAll()">✕ Clear</button>
+  <span class="tb-hint">Click any field — a style toolbar will appear above it</span>
+  <button class="tb-btn tb-clear" onclick="clearAll()">✕ Clear All</button>
   <button class="tb-btn tb-print" onclick="window.print()">🖨️ Print / Save PDF</button>
 </div>
 
@@ -294,199 +242,163 @@
   <span class="fb-lbl">Size</span>
   <select class="fb-sel" onmousedown="pb(event)" onchange="fmtSize(this.value)">
     <option value="">—</option>
+    <option value="11px">11</option>
     <option value="12px">12</option>
     <option value="14px">14</option>
     <option value="16px">16</option>
     <option value="18px">18</option>
     <option value="20px">20</option>
-    <option value="24px">24</option>
   </select>
   <div class="fb-sep"></div>
   <span class="fb-lbl">Font</span>
-  <select class="fb-sel" onmousedown="pb(event)" onchange="fmtFont(this.value)" style="max-width:120px">
+  <select class="fb-sel" onmousedown="pb(event)" onchange="fmtFont(this.value)" style="max-width:126px">
     <option value="">—</option>
-    <option value="'Cormorant Garamond',serif">Cormorant</option>
-    <option value="'Times New Roman',serif">Times NR</option>
-    <option value="'Inter',sans-serif">Inter</option>
+    <option value="'Times New Roman',serif">Times New Roman</option>
     <option value="Arial,sans-serif">Arial</option>
-    <option value="'Courier New',monospace">Courier</option>
+    <option value="'Inter',sans-serif">Inter</option>
+    <option value="Georgia,serif">Georgia</option>
+    <option value="'Courier New',monospace">Courier New</option>
   </select>
   <div class="fb-sep"></div>
-  <button class="fb-btn" onmousedown="pb(event)" onclick="fmt('justifyLeft')"   title="Left">&#8676;</button>
+  <button class="fb-btn" onmousedown="pb(event)" onclick="fmt('justifyLeft')"   title="Align Left">&#8676;</button>
   <button class="fb-btn" onmousedown="pb(event)" onclick="fmt('justifyCenter')" title="Centre">&#8652;</button>
-  <button class="fb-btn" onmousedown="pb(event)" onclick="fmt('justifyRight')"  title="Right">&#8677;</button>
+  <button class="fb-btn" onmousedown="pb(event)" onclick="fmt('justifyRight')"  title="Align Right">&#8677;</button>
 </div>
 
 <!-- ══ DOCUMENT ══ -->
 <div id="page"><div id="doc">
 
-  <!-- LETTERHEAD STRIP -->
-  <div class="lh-strip">
-    <div>
-      <div class="lh-form-title">NRO Account Conversion &amp; Mobile Number Update</div>
-      <div class="lh-form-sub">Non-Resident Ordinary Account Request · FEMA, 1999 · RBI Guidelines</div>
+  <!-- TO -->
+  <div class="to-block">
+    <div class="to-label">To</div>
+    <div class="to-row">
+      <span class="to-key">The Branch Manager</span>
     </div>
-    <div class="lh-date-box">
-      <div class="lh-date-label">Date</div>
-      <div class="lh-date-field">
-        <span class="f date-field sm" contenteditable="true" data-ph="DD"></span> /
-        <span class="f date-field sm" contenteditable="true" data-ph="MM"></span> /
-        <span class="f date-field sm" contenteditable="true" data-ph="YYYY"></span>
+    <div class="to-row">
+      <span class="to-key">Bank Name:</span>
+      <span class="f xxl" contenteditable="true" data-ph="Bank Name"></span>
+    </div>
+    <div class="to-row">
+      <span class="to-key">Branch Name:</span>
+      <span class="f xxl" contenteditable="true" data-ph="Branch Name"></span>
+    </div>
+    <div class="to-row">
+      <span class="to-key">City, State:</span>
+      <span class="f xxl" contenteditable="true" data-ph="City, State"></span>
+    </div>
+  </div>
+
+  <!-- SUBJECT -->
+  <div class="subject-line">
+    <strong>Subject:</strong> Request to Convert Savings Account to NRO Account and Update Registered Mobile Number
+  </div>
+
+  <!-- SALUTATION -->
+  <div class="salutation">Dear Sir/Madam,</div>
+
+  <!-- PARA 1 -->
+  <div class="para">
+    I am writing to request the conversion of my existing resident savings account to a <strong>Non-Resident Ordinary (NRO) Account</strong>, as I have recently acquired NRI status. I also request an update of my registered mobile number in your records.
+  </div>
+
+  <!-- DETAILS -->
+  <div class="para" style="margin-bottom:8px">Below are my details:</div>
+
+  <div class="bullet-list">
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Account Holder Name:&nbsp;</span>
+      <span class="f xxl" contenteditable="true" data-ph="Your Full Name"></span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Customer ID (if applicable):&nbsp;</span>
+      <span class="f xl" contenteditable="true" data-ph="Your Customer ID"></span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Savings Account Number:&nbsp;</span>
+      <span class="f xl" contenteditable="true" data-ph="Your Account Number"></span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Current Registered Mobile Number:&nbsp;</span>
+      <span class="f lg" contenteditable="true" data-ph="Old Number"></span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">New Mobile Number to be Updated:&nbsp;</span>
+      <span class="f lg" contenteditable="true" data-ph="New Number"></span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Registered Email ID:&nbsp;</span>
+      <span class="f xl" contenteditable="true" data-ph="Your Email"></span>
+    </div>
+  </div>
+
+  <!-- PARA 2 -->
+  <div class="para">
+    I request you to kindly update my residential status to NRI and convert my savings account into an NRO account as per RBI guidelines. Additionally, please update my mobile number in your records for future communication and OTP authentication.
+  </div>
+
+  <!-- ── PAGE 2 ── -->
+
+  <!-- PARA 3 -->
+  <div class="para" style="margin-bottom:8px">
+    I am enclosing the following documents for verification:
+  </div>
+
+  <div class="bullet-list">
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Self-attested Passport copy</span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Valid Visa / Work Permit copy</span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">Overseas Address Proof</span>
+    </div>
+    <div class="bullet-row">
+      <span class="bullet-dash">-</span>
+      <span class="bullet-label">PAN Card copy</span>
+    </div>
+  </div>
+
+  <!-- PARA 4 -->
+  <div class="para">
+    I request you to process these updates at the earliest and confirm once completed. Please let me know if any additional documents or formalities are required.
+  </div>
+
+  <!-- PARA 5 -->
+  <div class="para">Thank you for your assistance.</div>
+
+  <!-- SIGN OFF -->
+  <div class="closing-block">
+    <div class="para" style="margin-bottom:16px">Warm regards,</div>
+    <div class="sign-grid">
+      <div class="sign-row">
+        <span class="sign-key">Full Name:</span>
+        <span class="f xxl" contenteditable="true" data-ph="Your Full Name"></span>
+      </div>
+      <div class="sign-row">
+        <span class="sign-key">Current Overseas Address:</span>
+        <span class="f xxl" contenteditable="true" data-ph="Your Current Overseas Address"></span>
+      </div>
+      <div class="sign-row">
+        <span class="sign-key">Contact Number:</span>
+        <span class="f xl" contenteditable="true" data-ph="Your Phone Number"></span>
+      </div>
+      <div class="sign-row">
+        <span class="sign-key">Email:</span>
+        <span class="f xl" contenteditable="true" data-ph="Your Email"></span>
       </div>
     </div>
   </div>
 
-  <!-- LETTER BODY -->
-  <div class="letter">
-
-    <!-- TO -->
-    <div class="to-block">
-      <div class="to-label">To</div>
-      <div class="to-line">The Branch Manager</div>
-      <div class="to-line"><span class="f xl" contenteditable="true" data-ph="Bank Name (e.g., State Bank of India / HDFC Bank…)"></span></div>
-      <div class="to-line"><span class="f xl" contenteditable="true" data-ph="Branch Name"></span></div>
-      <div class="to-line"><span class="f xl" contenteditable="true" data-ph="City, State"></span></div>
-    </div>
-
-    <!-- SUBJECT -->
-    <div class="subject-block">
-      <span class="subj-tag">Subject:</span>
-      <span class="subj-text">Request to Convert Savings Account to NRO Account and Update Registered Mobile Number</span>
-    </div>
-
-    <!-- SALUTATION -->
-    <div class="salutation">Dear Sir / Madam,</div>
-
-    <!-- PARA 1 -->
-    <div class="para">
-      I am writing to request the conversion of my existing resident savings account to a <strong>Non-Resident Ordinary (NRO) Account</strong>, as I have recently acquired NRI status. I also request an update of my registered mobile number in your records.
-    </div>
-
-    <!-- DETAILS TABLE -->
-    <div class="para" style="margin-bottom:4px">Below are my details:</div>
-    <div class="details-block">
-      <div class="details-head">Account &amp; Personal Details</div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">Account Holder Name</div>
-        <div class="detail-sep">:</div>
-        <span class="f lg" contenteditable="true" data-ph="Your Full Name"></span>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">Customer ID <span style="font-weight:400;color:var(--text-muted)">(if applicable)</span></div>
-        <div class="detail-sep">:</div>
-        <span class="f lg" contenteditable="true" data-ph="Your Customer / CIF ID"></span>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">Savings Account Number</div>
-        <div class="detail-sep">:</div>
-        <span class="f lg" contenteditable="true" data-ph="Your Account Number"></span>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">Current Registered Mobile Number</div>
-        <div class="detail-sep">:</div>
-        <span class="f md" contenteditable="true" data-ph="+91 XXXXX XXXXX (Old Number)"></span>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">New Mobile Number to be Updated</div>
-        <div class="detail-sep">:</div>
-        <span class="f md" contenteditable="true" data-ph="+Country Code  New Number"></span>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-bullet">›</div>
-        <div class="detail-label">Registered Email ID</div>
-        <div class="detail-sep">:</div>
-        <span class="f lg" contenteditable="true" data-ph="your.email@example.com"></span>
-      </div>
-
-    </div>
-
-    <!-- PARA 2 -->
-    <div class="para">
-      I request you to kindly update my residential status to NRI and convert my savings account into an NRO account as per RBI guidelines. Additionally, please update my mobile number in your records for future communication and OTP authentication.
-    </div>
-
-    <!-- PARA 3 -->
-    <div class="para" style="margin-bottom:6px">I am enclosing the following documents for verification:</div>
-
-    <!-- DOCUMENTS -->
-    <div class="docs-block">
-      <div class="docs-head">Documents Enclosed — Click to Mark as Included</div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Passport copy</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Valid Visa / Work Permit copy</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Overseas Address Proof</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">PAN Card copy</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Recent Passport-size Photograph</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Filled NRI KYC / Account Conversion Form</div></div>
-      <div class="doc-item ticked" onclick="toggleDoc(this)"><div class="doc-cb">✓</div><div class="doc-text">Mobile Number Update Form <span style="color:var(--text-muted);font-size:14px">(if required)</span></div></div>
-      <!-- Extra rows for custom documents -->
-      <div class="doc-extra">
-        <span style="color:var(--gold);font-size:16px">+</span>
-        <input class="doc-extra-input" type="text" placeholder="Add additional document (if any)…">
-      </div>
-      <div class="doc-extra">
-        <span style="color:var(--gold);font-size:16px">+</span>
-        <input class="doc-extra-input" type="text" placeholder="Add additional document (if any)…">
-      </div>
-    </div>
-
-    <!-- CLOSING PARAS -->
-    <div class="para">
-      I request you to process these updates at the earliest and confirm once completed. Please let me know if any additional documents or formalities are required.
-    </div>
-
-    <div class="para">Thank you for your assistance.</div>
-
-    <!-- SIGN OFF -->
-    <div class="signoff">
-
-      <!-- LEFT: Signature -->
-      <div class="signoff-left">
-        <div class="valediction">Warm regards,</div>
-        <div class="sig-area"></div>
-        <div class="sig-hint">Signature</div>
-        <div style="margin-top:10px">
-          <span class="f full" contenteditable="true" data-ph="Your Full Name"></span>
-        </div>
-      </div>
-
-      <!-- RIGHT: Contact details -->
-      <div class="signoff-right">
-        <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Contact Details</div>
-        <div class="signoff-detail">
-          <div class="signoff-row">
-            <div class="signoff-key">Address</div>
-            <span class="f xl" contenteditable="true" data-ph="Current Overseas Address"></span>
-          </div>
-          <div class="signoff-row">
-            <div class="signoff-key">Phone</div>
-            <span class="f lg" contenteditable="true" data-ph="+Country Code  Phone Number"></span>
-          </div>
-          <div class="signoff-row">
-            <div class="signoff-key">Email</div>
-            <span class="f lg" contenteditable="true" data-ph="your.email@example.com"></span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /signoff -->
-
-  </div><!-- /letter -->
-
-  <div class="doc-footer">
-    <div class="foot-note">Submit in person at your branch or by registered post / courier with self-attested document copies. Retain a copy for your records.</div>
-    <div class="foot-tag">FEMA 1999 · RBI Master Direction · Income Tax Act 1961</div>
-  </div>
 
 </div></div><!-- /doc /page -->
 
@@ -511,27 +423,33 @@ document.querySelectorAll('[contenteditable="true"]').forEach(attach);
 
 function posBar(el) {
   const r = el.getBoundingClientRect();
-  const bh = fb.offsetHeight || 42, bw = fb.offsetWidth || 400, G = 9;
+  const bh = fb.offsetHeight || 40, bw = fb.offsetWidth || 380, G = 9;
   let top, flip;
   if (r.top - bh - G > 55) { top = r.top + window.scrollY - bh - G; flip = false; }
-  else                       { top = r.bottom + window.scrollY + G;  flip = true;  }
+  else                       { top = r.bottom + window.scrollY + G;  flip = true; }
   let left = r.left + window.scrollX;
   if (left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
   if (left < 6) left = 6;
   fb.style.top = top + 'px'; fb.style.left = left + 'px';
   fb.classList.toggle('flip', flip);
 }
-window.addEventListener('scroll', () => { if (activeEl && fb.classList.contains('visible')) posBar(activeEl); }, { passive: true });
+window.addEventListener('scroll', () => {
+  if (activeEl && fb.classList.contains('visible')) posBar(activeEl);
+}, { passive: true });
 
 function pb(e) { e.preventDefault(); }
+
 function fmt(cmd) { if (!activeEl) return; activeEl.focus(); document.execCommand(cmd, false, null); sync(); }
+
 function fmtSize(v) {
   if (!activeEl || !v) return; activeEl.focus();
-  const m = {'12px':'2','14px':'3','16px':'4','18px':'5','20px':'6','24px':'7'};
-  document.execCommand('fontSize', false, m[v] || '4');
+  const m = {'11px':'1','12px':'2','14px':'3','16px':'4','18px':'5','20px':'6'};
+  document.execCommand('fontSize', false, m[v] || '3');
   activeEl.querySelectorAll('font[size]').forEach(f => { f.style.fontSize = v; f.removeAttribute('size'); });
 }
+
 function fmtFont(v) { if (!activeEl || !v) return; activeEl.focus(); document.execCommand('fontName', false, v); }
+
 function sync() {
   document.getElementById('fb-bold').classList.toggle('on',      document.queryCommandState('bold'));
   document.getElementById('fb-italic').classList.toggle('on',    document.queryCommandState('italic'));
@@ -539,22 +457,10 @@ function sync() {
 }
 document.addEventListener('selectionchange', () => { if (activeEl) sync(); });
 
-// ── DOCUMENT CHECKBOXES ──
-function toggleDoc(el) {
-  el.classList.toggle('ticked');
-  el.querySelector('.doc-cb').textContent = el.classList.contains('ticked') ? '✓' : '';
-}
-
 // ── CLEAR ALL ──
 function clearAll() {
   if (!confirm('Clear all filled data? This cannot be undone.')) return;
   document.querySelectorAll('[contenteditable="true"]').forEach(el => el.innerHTML = '');
-  document.querySelectorAll('.doc-extra-input').forEach(el => el.value = '');
-  // Reset docs to all ticked (default)
-  document.querySelectorAll('.doc-item').forEach(el => {
-    el.classList.add('ticked');
-    el.querySelector('.doc-cb').textContent = '✓';
-  });
 }
 </script>
 </body>
