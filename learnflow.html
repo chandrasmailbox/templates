@@ -758,7 +758,7 @@
             if (!container) return;
             
             container.innerHTML = section.options.map(option => `
-                <button onclick="checkQuiz('${option.id}', ${option.correct})"
+                <button id="quiz-opt-${option.id}" onclick="checkQuiz('${option.id}', ${option.correct})"
                         class="quiz-option w-full text-left p-4 border-2 border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition">
                     <span class="font-bold text-blue-600">${option.id.toUpperCase()}.</span>
                     <span class="ml-3 text-gray-800">${option.text}</span>
@@ -771,10 +771,15 @@
             const section = currentLesson.sections[currentSectionIndex];
             const feedback = document.getElementById('quizFeedback');
             const options = document.querySelectorAll('.quiz-option');
-            
+
             options.forEach(opt => opt.disabled = true);
-            
+
+            const clickedOption = document.getElementById(`quiz-opt-${optionId}`);
+
             if (isCorrect) {
+                clickedOption.classList.remove('border-gray-300');
+                clickedOption.classList.add('border-green-500', 'bg-green-50');
+
                 feedback.innerHTML = `<div class="pulse-success bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-lg">
                     <p class="font-bold">✅ Correct!</p>
                     <p class="mt-2">${section.explanation}</p>
@@ -784,20 +789,29 @@
                     showSuccessModal("Great job! You got it right!");
                 }, 1500);
             } else {
-                const clickedOption = Array.from(options).find(opt => 
-                    opt.textContent.includes(optionId.toUpperCase())
-                );
+                // Mark the chosen (wrong) option in red
+                clickedOption.classList.remove('border-gray-300');
+                clickedOption.classList.add('border-red-500', 'bg-red-50');
                 clickedOption.classList.add('shake');
                 setTimeout(() => clickedOption.classList.remove('shake'), 500);
-                
+
+                // Reveal and highlight the correct option so the student can see it
+                const correctOptionData = section.options.find(o => o.correct);
+                if (correctOptionData) {
+                    const correctEl = document.getElementById(`quiz-opt-${correctOptionData.id}`);
+                    if (correctEl) {
+                        correctEl.classList.remove('border-gray-300');
+                        correctEl.classList.add('border-green-500', 'bg-green-50');
+                    }
+                }
+
                 feedback.innerHTML = `<div class="bg-red-100 border-2 border-red-500 text-red-800 p-4 rounded-lg">
-                    <p class="font-bold">❌ Not quite. Try again!</p>
+                    <p class="font-bold">❌ Not quite — you chose "${clickedOption.textContent.trim()}", but that's not right.</p>
+                    <p class="mt-2">✅ The correct answer is <strong>${correctOptionData ? correctOptionData.text : ''}</strong>.</p>
+                    <p class="mt-2">${section.explanation}</p>
                 </div>`;
-                
-                setTimeout(() => {
-                    options.forEach(opt => opt.disabled = false);
-                    feedback.innerHTML = '';
-                }, 2000);
+                // Options stay disabled and the correct answer stays highlighted
+                // so the student can read the reasoning before moving on.
             }
         };
 
