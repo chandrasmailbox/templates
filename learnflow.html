@@ -653,44 +653,58 @@
         }
 
         // Animate apples example
+        // Reads the real counts/item type from each div's data-count / data-item
+        // attributes so the icons always match the lesson content (e.g. "4 stars"
+        // renders 4 star emoji), instead of the old hardcoded 3 / 2 / 5 apples.
+        const EMOJI_BY_ITEM = {
+            star: '⭐',
+            heart: '❤️',
+            cookie: '🍪',
+            apple: ['🍎', '🍏'] // alternate red/green like the original design
+        };
+
+        function getEmojiFor(itemType, index) {
+            const choice = EMOJI_BY_ITEM[itemType] || EMOJI_BY_ITEM.apple;
+            if (Array.isArray(choice)) {
+                return choice[index % choice.length];
+            }
+            return choice;
+        }
+
+        function fillGroup(el, delayStart, stepDelay) {
+            if (!el) return;
+            const count = parseInt(el.dataset.count, 10);
+            const itemType = el.dataset.item || 'apple';
+            // Fallback to the old hardcoded behavior if a lesson doesn't
+            // provide data-count (keeps older lesson files working).
+            const safeCount = Number.isFinite(count) ? count : 3;
+
+            for (let i = 0; i < safeCount; i++) {
+                setTimeout(() => {
+                    const icon = document.createElement('span');
+                    icon.className = 'apple';
+                    icon.textContent = getEmojiFor(itemType, i);
+                    el.appendChild(icon);
+                }, delayStart + i * stepDelay);
+            }
+            return safeCount;
+        }
+
         function animateApples() {
             const apples1 = document.getElementById('apples1');
             const apples2 = document.getElementById('apples2');
             const applesTotal = document.getElementById('applesTotal');
-            
+
             if (!apples1) return;
-            
-            // First group
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    const apple = document.createElement('span');
-                    apple.className = 'apple';
-                    apple.textContent = '🍎';
-                    apples1.appendChild(apple);
-                }, i * 200);
-            }
-            
-            // Second group
-            for (let i = 0; i < 2; i++) {
-                setTimeout(() => {
-                    const apple = document.createElement('span');
-                    apple.className = 'apple';
-                    apple.textContent = '🍏';
-                    apples2.appendChild(apple);
-                }, (i + 3) * 200);
-            }
-            
-            // Total
+
+            const count1 = fillGroup(apples1, 0, 200);
+            const count2 = fillGroup(apples2, (count1 || 3) * 200, 200);
+
+            // Total group renders after the first two finish
+            const totalDelay = ((count1 || 3) + (count2 || 2)) * 200 + 400;
             setTimeout(() => {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        const apple = document.createElement('span');
-                        apple.className = 'apple';
-                        apple.textContent = i < 3 ? '🍎' : '🍏';
-                        applesTotal.appendChild(apple);
-                    }, i * 150);
-                }
-            }, 1200);
+                fillGroup(applesTotal, 0, 150);
+            }, totalDelay);
         }
 
         // Setup number line
